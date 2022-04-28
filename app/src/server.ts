@@ -31,7 +31,7 @@ app.get("/room/:roomId", (req, res) => {
 
 
 
-var PORT = process.env.PORT || 5000
+var PORT = process.env.SERVER_PORT || 5000
 server.listen(PORT, async () => {
     console.log(`listening to http://localhost:${PORT}`)
     console.log("_____________________")
