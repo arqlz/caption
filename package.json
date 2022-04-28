@@ -9,7 +9,7 @@
   "author": "Jesus Leonardo Zorrilla",
   "license": "ISC",
   "dependencies": {
-    "@discordjs": "x.x.x",
+    "@discordjs": "0.4.2",
     "@discordjs/opus": "^0.7.0",
     "bent": "^7.3.12",
     "decibels": "^2.0.0",
