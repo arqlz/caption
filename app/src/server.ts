@@ -54,6 +54,7 @@ function onError(error) {
   }
 server.on('error', onError);
 
+
 if (process.env.PORT) {
     var debug = require('debug')('myexpressapp:server');
     server.on('listening', onListening);
