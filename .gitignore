@@ -2,3 +2,4 @@ node_modules/
 public/chunks/
 public/data/
 subscription.json
+package-lock.json
