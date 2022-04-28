@@ -1,0 +1,1 @@
+{"contents":"module.exports = function () {\n  throw new Error('Readable.from is not available in the browser');\n};\n"}

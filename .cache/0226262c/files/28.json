@@ -1,0 +1,1 @@
+{"contents":"exports = module.exports = function (a, b) {\n  if (a && b) {\n    for (var key in b) {\n      a[key] = b[key];\n    }\n  }\n  return a;\n};\n"}

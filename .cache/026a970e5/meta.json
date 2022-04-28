@@ -1,0 +1,36 @@
+{
+  "currentId": 2,
+  "modules": {
+    "1": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\emiterClient.ts",
+      "dependencies": [
+        2
+      ],
+      "id": 1,
+      "mtime": 1651068077201,
+      "packageId": "default",
+      "publicPath": "public/src/emiterClient.ts"
+    },
+    "2": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\components\\utils.ts",
+      "dependencies": [],
+      "id": 2,
+      "mtime": 1650639262328,
+      "packageId": "default",
+      "publicPath": "public/src/components/utils.ts"
+    }
+  },
+  "packages": {
+    "default": {
+      "type": 0,
+      "publicName": "default",
+      "isUserPackage": true,
+      "isExternalPackage": false
+    }
+  },
+  "ctx": {
+    "linkedReferences": {},
+    "systemDependencies": {},
+    "tsConfigAtPaths": []
+  }
+}

@@ -1,0 +1,2838 @@
+{
+  "currentId": 148,
+  "modules": {
+    "1": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\test.ts",
+      "dependencies": [
+        2
+      ],
+      "id": 1,
+      "mtime": 1650639470805,
+      "packageId": "default",
+      "publicPath": "public/src/test.ts"
+    },
+    "2": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\components\\utils.ts",
+      "dependencies": [],
+      "id": 2,
+      "mtime": 1650639262328,
+      "packageId": "default",
+      "publicPath": "public/src/components/utils.ts"
+    },
+    "3": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\index.js",
+      "dependencies": [
+        4
+      ],
+      "id": 3,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/index.js"
+    },
+    "4": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\express.js",
+      "dependencies": [
+        5,
+        6,
+        7,
+        14,
+        11,
+        9,
+        12,
+        13,
+        10,
+        8
+      ],
+      "id": 4,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/express.js"
+    },
+    "5": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\index.js",
+      "dependencies": [
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "id": 5,
+      "mtime": 499162500000,
+      "packageId": "body-parser@1.19.2",
+      "publicPath": "node_modules/body-parser/index.js"
+    },
+    "6": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\events\\index.js",
+      "dependencies": [],
+      "id": 6,
+      "mtime": 499162500000,
+      "packageId": "events@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/events/index.js"
+    },
+    "7": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\merge-descriptors\\index.js",
+      "dependencies": [],
+      "id": 7,
+      "mtime": 1453073965000,
+      "packageId": "merge-descriptors@1.0.1",
+      "publicPath": "node_modules/merge-descriptors/index.js"
+    },
+    "8": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\application.js",
+      "dependencies": [
+        20,
+        10,
+        21,
+        13,
+        23,
+        25,
+        26,
+        15,
+        27,
+        28,
+        29,
+        30,
+        22,
+        148
+      ],
+      "id": 8,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/application.js"
+    },
+    "9": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\router\\route.js",
+      "dependencies": [
+        23,
+        27,
+        31,
+        21
+      ],
+      "id": 9,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/router/route.js"
+    },
+    "10": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\router\\index.js",
+      "dependencies": [
+        9,
+        21,
+        28,
+        23,
+        15,
+        27,
+        37,
+        30,
+        31
+      ],
+      "id": 10,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/router/index.js"
+    },
+    "11": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\request.js",
+      "dependencies": [
+        32,
+        15,
+        33,
+        34,
+        25,
+        35,
+        36,
+        37,
+        38
+      ],
+      "id": 11,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/request.js"
+    },
+    "12": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\response.js",
+      "dependencies": [
+        39,
+        40,
+        15,
+        41,
+        42,
+        25,
+        26,
+        43,
+        29,
+        44,
+        28,
+        45,
+        46,
+        47,
+        48
+      ],
+      "id": 12,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/response.js"
+    },
+    "13": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\middleware\\query.js",
+      "dependencies": [
+        28,
+        37,
+        49
+      ],
+      "id": 13,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/middleware/query.js"
+    },
+    "14": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\serve-static\\index.js",
+      "dependencies": [
+        41,
+        42,
+        37,
+        29,
+        47,
+        50,
+        51
+      ],
+      "id": 14,
+      "mtime": 499162500000,
+      "packageId": "serve-static@1.14.2",
+      "publicPath": "node_modules/serve-static/index.js"
+    },
+    "15": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\depd\\lib\\browser\\index.js",
+      "dependencies": [],
+      "id": 15,
+      "mtime": 1501124489000,
+      "packageId": "depd@1.1.2",
+      "publicPath": "node_modules/depd/lib/browser/index.js"
+    },
+    "16": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\lib\\types\\json.js",
+      "dependencies": [
+        23,
+        34,
+        52,
+        53,
+        54,
+        55
+      ],
+      "id": 16,
+      "mtime": 499162500000,
+      "packageId": "body-parser@1.19.2",
+      "publicPath": "node_modules/body-parser/lib/types/json.js"
+    },
+    "17": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\lib\\types\\raw.js",
+      "dependencies": [
+        52,
+        23,
+        55,
+        34
+      ],
+      "id": 17,
+      "mtime": 499162500000,
+      "packageId": "body-parser@1.19.2",
+      "publicPath": "node_modules/body-parser/lib/types/raw.js"
+    },
+    "18": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\lib\\types\\text.js",
+      "dependencies": [
+        52,
+        53,
+        23,
+        55,
+        34
+      ],
+      "id": 18,
+      "mtime": 499162500000,
+      "packageId": "body-parser@1.19.2",
+      "publicPath": "node_modules/body-parser/lib/types/text.js"
+    },
+    "19": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\lib\\types\\urlencoded.js",
+      "dependencies": [
+        52,
+        53,
+        54,
+        23,
+        15,
+        55,
+        34,
+        49,
+        56
+      ],
+      "id": 19,
+      "mtime": 499162500000,
+      "packageId": "body-parser@1.19.2",
+      "publicPath": "node_modules/body-parser/lib/types/urlencoded.js"
+    },
+    "20": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\finalhandler\\index.js",
+      "dependencies": [
+        23,
+        41,
+        42,
+        43,
+        37,
+        44,
+        58,
+        59,
+        51
+      ],
+      "id": 20,
+      "mtime": 499162500000,
+      "packageId": "finalhandler@1.1.2",
+      "publicPath": "node_modules/finalhandler/index.js"
+    },
+    "21": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\methods\\index.js",
+      "dependencies": [
+        57
+      ],
+      "id": 21,
+      "mtime": 1453078936000,
+      "packageId": "methods@1.1.2",
+      "publicPath": "node_modules/methods/index.js"
+    },
+    "22": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\middleware\\init.js",
+      "dependencies": [
+        30
+      ],
+      "id": 22,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/middleware/init.js"
+    },
+    "23": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\debug\\src\\browser.js",
+      "dependencies": [
+        59,
+        70
+      ],
+      "id": 23,
+      "mtime": 1506086966000,
+      "packageId": "debug@2.6.9",
+      "publicPath": "node_modules/debug/src/browser.js"
+    },
+    "25": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\http\\index.js",
+      "dependencies": [],
+      "id": 25,
+      "mtime": 499162500000,
+      "packageId": "http@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/http/index.js"
+    },
+    "26": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\utils.js",
+      "dependencies": [
+        39,
+        40,
+        53,
+        15,
+        27,
+        47,
+        61,
+        38,
+        49,
+        56
+      ],
+      "id": 26,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/utils.js"
+    },
+    "27": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\array-flatten\\array-flatten.js",
+      "dependencies": [],
+      "id": 27,
+      "mtime": 1436478077000,
+      "packageId": "array-flatten@1.1.1",
+      "publicPath": "node_modules/array-flatten/array-flatten.js"
+    },
+    "28": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\utils-merge\\index.js",
+      "dependencies": [],
+      "id": 28,
+      "mtime": 1505865626000,
+      "packageId": "utils-merge@1.0.1",
+      "publicPath": "node_modules/utils-merge/index.js"
+    },
+    "29": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\path\\index.js",
+      "dependencies": [],
+      "id": 29,
+      "mtime": 499162500000,
+      "packageId": "path@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/path/index.js"
+    },
+    "30": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\setprototypeof\\index.js",
+      "dependencies": [],
+      "id": 30,
+      "mtime": 499162500000,
+      "packageId": "setprototypeof@1.2.0",
+      "publicPath": "node_modules/setprototypeof/index.js"
+    },
+    "31": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\lib\\router\\layer.js",
+      "dependencies": [
+        62,
+        23
+      ],
+      "id": 31,
+      "mtime": 499162500000,
+      "packageId": "express@4.17.3",
+      "publicPath": "node_modules/express/lib/router/layer.js"
+    },
+    "32": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\accepts\\index.js",
+      "dependencies": [
+        63,
+        64
+      ],
+      "id": 32,
+      "mtime": 499162500000,
+      "packageId": "accepts@1.3.8",
+      "publicPath": "node_modules/accepts/index.js"
+    },
+    "33": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\net\\index.js",
+      "dependencies": [],
+      "id": 33,
+      "mtime": 499162500000,
+      "packageId": "net@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/net/index.js"
+    },
+    "34": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\type-is\\index.js",
+      "dependencies": [
+        64,
+        65
+      ],
+      "id": 34,
+      "mtime": 499162500000,
+      "packageId": "type-is@1.6.18",
+      "publicPath": "node_modules/type-is/index.js"
+    },
+    "35": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fresh\\index.js",
+      "dependencies": [],
+      "id": 35,
+      "mtime": 1505363028000,
+      "packageId": "fresh@0.5.2",
+      "publicPath": "node_modules/fresh/index.js"
+    },
+    "36": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\range-parser\\index.js",
+      "dependencies": [],
+      "id": 36,
+      "mtime": 499162500000,
+      "packageId": "range-parser@1.2.1",
+      "publicPath": "node_modules/range-parser/index.js"
+    },
+    "37": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\parseurl\\index.js",
+      "dependencies": [
+        50
+      ],
+      "id": 37,
+      "mtime": 499162500000,
+      "packageId": "parseurl@1.3.3",
+      "publicPath": "node_modules/parseurl/index.js"
+    },
+    "38": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\proxy-addr\\index.js",
+      "dependencies": [
+        66,
+        67
+      ],
+      "id": 38,
+      "mtime": 499162500000,
+      "packageId": "proxy-addr@2.0.7",
+      "publicPath": "node_modules/proxy-addr/index.js"
+    },
+    "39": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safe-buffer\\index.js",
+      "dependencies": [
+        51
+      ],
+      "id": 39,
+      "mtime": 499162500000,
+      "packageId": "safe-buffer@5.2.1",
+      "publicPath": "node_modules/safe-buffer/index.js"
+    },
+    "40": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-disposition\\index.js",
+      "dependencies": [
+        29,
+        39
+      ],
+      "id": 40,
+      "mtime": 499162500000,
+      "packageId": "content-disposition@0.5.4",
+      "publicPath": "node_modules/content-disposition/index.js"
+    },
+    "41": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\encodeurl\\index.js",
+      "dependencies": [],
+      "id": 41,
+      "mtime": 1516590249000,
+      "packageId": "encodeurl@1.0.2",
+      "publicPath": "node_modules/encodeurl/index.js"
+    },
+    "42": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\escape-html\\index.js",
+      "dependencies": [],
+      "id": 42,
+      "mtime": 1441075749000,
+      "packageId": "escape-html@1.0.3",
+      "publicPath": "node_modules/escape-html/index.js"
+    },
+    "43": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\on-finished\\index.js",
+      "dependencies": [
+        59,
+        68
+      ],
+      "id": 43,
+      "mtime": 1432606366000,
+      "packageId": "on-finished@2.3.0",
+      "publicPath": "node_modules/on-finished/index.js"
+    },
+    "44": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\statuses\\index.js",
+      "dependencies": [
+        69
+      ],
+      "id": 44,
+      "mtime": 1508523688000,
+      "packageId": "statuses@1.5.0",
+      "publicPath": "node_modules/statuses/index.js"
+    },
+    "45": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie-signature\\index.js",
+      "dependencies": [
+        71
+      ],
+      "id": 45,
+      "mtime": 1423000938000,
+      "packageId": "cookie-signature@1.0.6",
+      "publicPath": "node_modules/cookie-signature/index.js"
+    },
+    "46": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie\\index.js",
+      "dependencies": [],
+      "id": 46,
+      "mtime": 499162500000,
+      "packageId": "cookie@0.4.2",
+      "publicPath": "node_modules/cookie/index.js"
+    },
+    "47": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\index.js",
+      "dependencies": [
+        54,
+        23,
+        15,
+        41,
+        42,
+        61,
+        35,
+        60,
+        43,
+        36,
+        29,
+        44,
+        51,
+        75,
+        77,
+        76,
+        79,
+        78
+      ],
+      "id": 47,
+      "mtime": 499162500000,
+      "packageId": "send@0.17.2",
+      "publicPath": "node_modules/send/index.js"
+    },
+    "48": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\vary\\index.js",
+      "dependencies": [],
+      "id": 48,
+      "mtime": 1506132014000,
+      "packageId": "vary@1.1.2",
+      "publicPath": "node_modules/vary/index.js"
+    },
+    "49": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\lib\\index.js",
+      "dependencies": [
+        74,
+        73,
+        72
+      ],
+      "id": 49,
+      "mtime": 499162500000,
+      "packageId": "qs@6.9.7",
+      "publicPath": "node_modules/qs/lib/index.js"
+    },
+    "50": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\url\\index.js",
+      "dependencies": [
+        56,
+        82
+      ],
+      "id": 50,
+      "mtime": 499162500000,
+      "packageId": "url@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/url/index.js"
+    },
+    "51": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer\\index.js",
+      "dependencies": [
+        80,
+        81
+      ],
+      "id": 51,
+      "mtime": 499162500000,
+      "packageId": "buffer@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/buffer/index.js"
+    },
+    "52": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\bytes\\index.js",
+      "dependencies": [],
+      "id": 52,
+      "mtime": 499162500000,
+      "packageId": "bytes@3.1.2",
+      "publicPath": "node_modules/bytes/index.js"
+    },
+    "53": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-type\\index.js",
+      "dependencies": [],
+      "id": 53,
+      "mtime": 1505165506000,
+      "packageId": "content-type@1.0.4",
+      "publicPath": "node_modules/content-type/index.js"
+    },
+    "54": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\http-errors\\index.js",
+      "dependencies": [
+        15,
+        30,
+        44,
+        84,
+        83
+      ],
+      "id": 54,
+      "mtime": 499162500000,
+      "packageId": "http-errors@1.8.1",
+      "publicPath": "node_modules/http-errors/index.js"
+    },
+    "55": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\lib\\read.js",
+      "dependencies": [
+        54,
+        43,
+        85,
+        87,
+        86
+      ],
+      "id": 55,
+      "mtime": 499162500000,
+      "packageId": "body-parser@1.19.2",
+      "publicPath": "node_modules/body-parser/lib/read.js"
+    },
+    "56": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\querystring\\index.js",
+      "dependencies": [],
+      "id": 56,
+      "mtime": 499162500000,
+      "packageId": "querystring@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/querystring/index.js"
+    },
+    "57": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fuse-empty-package\\index.js",
+      "dependencies": [],
+      "id": 57,
+      "mtime": 499162500000,
+      "packageId": "fuse-empty-package@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/fuse-empty-package/index.js"
+    },
+    "58": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\unpipe\\index.js",
+      "dependencies": [],
+      "id": 58,
+      "mtime": 1434313782000,
+      "packageId": "unpipe@1.0.0",
+      "publicPath": "node_modules/unpipe/index.js"
+    },
+    "59": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\process\\index.js",
+      "dependencies": [],
+      "id": 59,
+      "mtime": 499162500000,
+      "packageId": "process@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/process/index.js"
+    },
+    "60": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fs\\index.js",
+      "dependencies": [],
+      "id": 60,
+      "mtime": 499162500000,
+      "packageId": "fs@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/fs/index.js"
+    },
+    "61": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\etag\\index.js",
+      "dependencies": [
+        71,
+        60,
+        51
+      ],
+      "id": 61,
+      "mtime": 1505267993000,
+      "packageId": "etag@1.8.1",
+      "publicPath": "node_modules/etag/index.js"
+    },
+    "62": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\path-to-regexp\\index.js",
+      "dependencies": [],
+      "id": 62,
+      "mtime": 1438052586000,
+      "packageId": "path-to-regexp@0.1.7",
+      "publicPath": "node_modules/path-to-regexp/index.js"
+    },
+    "63": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\index.js",
+      "dependencies": [
+        88,
+        89,
+        90,
+        91
+      ],
+      "id": 63,
+      "mtime": 499162500000,
+      "packageId": "negotiator@0.6.3",
+      "publicPath": "node_modules/negotiator/index.js"
+    },
+    "64": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-types\\index.js",
+      "dependencies": [
+        29,
+        92
+      ],
+      "id": 64,
+      "mtime": 499162500000,
+      "packageId": "mime-types@2.1.35",
+      "publicPath": "node_modules/mime-types/index.js"
+    },
+    "65": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\media-typer\\index.js",
+      "dependencies": [],
+      "id": 65,
+      "mtime": 1410150327000,
+      "packageId": "media-typer@0.3.0",
+      "publicPath": "node_modules/media-typer/index.js"
+    },
+    "66": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\forwarded\\index.js",
+      "dependencies": [],
+      "id": 66,
+      "mtime": 499162500000,
+      "packageId": "forwarded@0.2.0",
+      "publicPath": "node_modules/forwarded/index.js"
+    },
+    "67": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ipaddr.js\\lib\\ipaddr.js",
+      "dependencies": [],
+      "id": 67,
+      "mtime": 499162500000,
+      "packageId": "ipaddr.js@1.9.1",
+      "publicPath": "node_modules/ipaddr.js/lib/ipaddr.js"
+    },
+    "68": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ee-first\\index.js",
+      "dependencies": [],
+      "id": 68,
+      "mtime": 1432581047000,
+      "packageId": "ee-first@1.1.1",
+      "publicPath": "node_modules/ee-first/index.js"
+    },
+    "69": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\statuses\\codes.json",
+      "dependencies": [],
+      "id": 69,
+      "mtime": 1522198649000,
+      "packageId": "statuses@1.5.0",
+      "publicPath": "node_modules/statuses/codes.json"
+    },
+    "70": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\debug\\src\\debug.js",
+      "dependencies": [
+        93
+      ],
+      "id": 70,
+      "mtime": 1506086966000,
+      "packageId": "debug@2.6.9",
+      "publicPath": "node_modules/debug/src/debug.js"
+    },
+    "71": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\crypto\\index.js",
+      "dependencies": [],
+      "id": 71,
+      "mtime": 499162500000,
+      "packageId": "crypto@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/crypto/index.js"
+    },
+    "72": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\lib\\stringify.js",
+      "dependencies": [
+        74,
+        94
+      ],
+      "id": 72,
+      "mtime": 499162500000,
+      "packageId": "qs@6.9.7",
+      "publicPath": "node_modules/qs/lib/stringify.js"
+    },
+    "73": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\lib\\parse.js",
+      "dependencies": [
+        94
+      ],
+      "id": 73,
+      "mtime": 499162500000,
+      "packageId": "qs@6.9.7",
+      "publicPath": "node_modules/qs/lib/parse.js"
+    },
+    "74": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\lib\\formats.js",
+      "dependencies": [],
+      "id": 74,
+      "mtime": 499162500000,
+      "packageId": "qs@6.9.7",
+      "publicPath": "node_modules/qs/lib/formats.js"
+    },
+    "75": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\destroy\\index.js",
+      "dependencies": [
+        60,
+        78
+      ],
+      "id": 75,
+      "mtime": 1452701592000,
+      "packageId": "destroy@1.0.4",
+      "publicPath": "node_modules/destroy/index.js"
+    },
+    "76": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime\\mime.js",
+      "dependencies": [
+        29,
+        60,
+        95
+      ],
+      "id": 76,
+      "mtime": 1511569060000,
+      "packageId": "mime@1.6.0",
+      "publicPath": "node_modules/mime/mime.js"
+    },
+    "77": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\node_modules\\ms\\index.js",
+      "dependencies": [],
+      "id": 77,
+      "mtime": 499162500000,
+      "packageId": "ms@2.1.3",
+      "publicPath": "node_modules/send/node_modules/ms/index.js"
+    },
+    "78": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\stream\\index.js",
+      "dependencies": [
+        96
+      ],
+      "id": 78,
+      "mtime": 499162500000,
+      "packageId": "stream@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/stream/index.js"
+    },
+    "79": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\util\\index.js",
+      "dependencies": [
+        59,
+        97
+      ],
+      "id": 79,
+      "mtime": 499162500000,
+      "packageId": "util@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/util/index.js"
+    },
+    "80": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js\\index.js",
+      "dependencies": [],
+      "id": 80,
+      "mtime": 499162500000,
+      "packageId": "base64-js@1.5.1",
+      "publicPath": "node_modules/base64-js/index.js"
+    },
+    "81": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754\\index.js",
+      "dependencies": [],
+      "id": 81,
+      "mtime": 499162500000,
+      "packageId": "ieee754@1.2.1",
+      "publicPath": "node_modules/ieee754/index.js"
+    },
+    "82": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\url\\toAscii.js",
+      "dependencies": [],
+      "id": 82,
+      "mtime": 499162500000,
+      "packageId": "url@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/url/toAscii.js"
+    },
+    "83": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\inherits\\inherits_browser.js",
+      "dependencies": [],
+      "id": 83,
+      "mtime": 499162500000,
+      "packageId": "inherits@2.0.4",
+      "publicPath": "node_modules/inherits/inherits_browser.js"
+    },
+    "84": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\toidentifier\\index.js",
+      "dependencies": [],
+      "id": 84,
+      "mtime": 499162500000,
+      "packageId": "toidentifier@1.0.1",
+      "publicPath": "node_modules/toidentifier/index.js"
+    },
+    "85": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\raw-body\\index.js",
+      "dependencies": [
+        52,
+        54,
+        86,
+        58,
+        59,
+        51
+      ],
+      "id": 85,
+      "mtime": 499162500000,
+      "packageId": "raw-body@2.4.3",
+      "publicPath": "node_modules/raw-body/index.js"
+    },
+    "86": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\lib\\index.js",
+      "dependencies": [
+        59,
+        98,
+        99,
+        102,
+        101,
+        100
+      ],
+      "id": 86,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/lib/index.js"
+    },
+    "87": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\zlib\\index.js",
+      "dependencies": [],
+      "id": 87,
+      "mtime": 499162500000,
+      "packageId": "zlib@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/zlib/index.js"
+    },
+    "88": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\lib\\charset.js",
+      "dependencies": [],
+      "id": 88,
+      "mtime": 499162500000,
+      "packageId": "negotiator@0.6.3",
+      "publicPath": "node_modules/negotiator/lib/charset.js"
+    },
+    "89": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\lib\\encoding.js",
+      "dependencies": [],
+      "id": 89,
+      "mtime": 499162500000,
+      "packageId": "negotiator@0.6.3",
+      "publicPath": "node_modules/negotiator/lib/encoding.js"
+    },
+    "90": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\lib\\language.js",
+      "dependencies": [],
+      "id": 90,
+      "mtime": 499162500000,
+      "packageId": "negotiator@0.6.3",
+      "publicPath": "node_modules/negotiator/lib/language.js"
+    },
+    "91": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\lib\\mediaType.js",
+      "dependencies": [],
+      "id": 91,
+      "mtime": 499162500000,
+      "packageId": "negotiator@0.6.3",
+      "publicPath": "node_modules/negotiator/lib/mediaType.js"
+    },
+    "92": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-db\\index.js",
+      "dependencies": [
+        103
+      ],
+      "id": 92,
+      "mtime": 499162500000,
+      "packageId": "mime-db@1.52.0",
+      "publicPath": "node_modules/mime-db/index.js"
+    },
+    "93": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ms\\index.js",
+      "dependencies": [],
+      "id": 93,
+      "mtime": 1494937320000,
+      "packageId": "ms@2.0.0",
+      "publicPath": "node_modules/ms/index.js"
+    },
+    "94": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\lib\\utils.js",
+      "dependencies": [
+        74
+      ],
+      "id": 94,
+      "mtime": 499162500000,
+      "packageId": "qs@6.9.7",
+      "publicPath": "node_modules/qs/lib/utils.js"
+    },
+    "95": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime\\types.json",
+      "dependencies": [],
+      "id": 95,
+      "mtime": 1511571197000,
+      "packageId": "mime@1.6.0",
+      "publicPath": "node_modules/mime/types.json"
+    },
+    "96": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\stream-browserify\\index.js",
+      "dependencies": [
+        6,
+        83,
+        106,
+        107,
+        109,
+        110,
+        108,
+        104,
+        105
+      ],
+      "id": 96,
+      "mtime": 499162500000,
+      "packageId": "stream-browserify@3.0.0",
+      "publicPath": "node_modules/stream-browserify/index.js"
+    },
+    "97": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\util\\isBuffer.js",
+      "dependencies": [
+        51
+      ],
+      "id": 97,
+      "mtime": 499162500000,
+      "packageId": "util@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/util/isBuffer.js"
+    },
+    "98": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safer-buffer\\safer.js",
+      "dependencies": [
+        51,
+        59
+      ],
+      "id": 98,
+      "mtime": 499162500000,
+      "packageId": "safer-buffer@2.1.2",
+      "publicPath": "node_modules/safer-buffer/safer.js"
+    },
+    "99": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\lib\\bom-handling.js",
+      "dependencies": [],
+      "id": 99,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/lib/bom-handling.js"
+    },
+    "100": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\index.js",
+      "dependencies": [
+        111,
+        113,
+        112,
+        115,
+        114,
+        117,
+        116,
+        118
+      ],
+      "id": 100,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/index.js"
+    },
+    "101": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\lib\\streams.js",
+      "dependencies": [
+        51,
+        78
+      ],
+      "id": 101,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/lib/streams.js"
+    },
+    "102": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\lib\\extend-node.js",
+      "dependencies": [
+        51,
+        78
+      ],
+      "id": 102,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/lib/extend-node.js"
+    },
+    "103": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-db\\db.json",
+      "dependencies": [],
+      "id": 103,
+      "mtime": 499162500000,
+      "packageId": "mime-db@1.52.0",
+      "publicPath": "node_modules/mime-db/db.json"
+    },
+    "104": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\_stream_readable.js",
+      "dependencies": [
+        6,
+        51,
+        57,
+        83,
+        106,
+        124,
+        59,
+        119,
+        121,
+        122,
+        123,
+        120,
+        126,
+        125
+      ],
+      "id": 104,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/_stream_readable.js"
+    },
+    "105": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\_stream_writable.js",
+      "dependencies": [
+        119,
+        51,
+        121,
+        122,
+        123,
+        83,
+        106,
+        59,
+        127
+      ],
+      "id": 105,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/_stream_writable.js"
+    },
+    "106": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\_stream_duplex.js",
+      "dependencies": [
+        104,
+        105,
+        83,
+        59
+      ],
+      "id": 106,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/_stream_duplex.js"
+    },
+    "107": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\_stream_transform.js",
+      "dependencies": [
+        123,
+        106,
+        83
+      ],
+      "id": 107,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/_stream_transform.js"
+    },
+    "108": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\_stream_passthrough.js",
+      "dependencies": [
+        107,
+        83
+      ],
+      "id": 108,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/_stream_passthrough.js"
+    },
+    "109": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\end-of-stream.js",
+      "dependencies": [
+        123
+      ],
+      "id": 109,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/end-of-stream.js"
+    },
+    "110": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\pipeline.js",
+      "dependencies": [
+        123,
+        109
+      ],
+      "id": 110,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/pipeline.js"
+    },
+    "111": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\internal.js",
+      "dependencies": [
+        98,
+        124
+      ],
+      "id": 111,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/internal.js"
+    },
+    "112": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\utf16.js",
+      "dependencies": [
+        98
+      ],
+      "id": 112,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/utf16.js"
+    },
+    "113": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\utf7.js",
+      "dependencies": [
+        98
+      ],
+      "id": 113,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/utf7.js"
+    },
+    "114": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\sbcs-codec.js",
+      "dependencies": [
+        98
+      ],
+      "id": 114,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/sbcs-codec.js"
+    },
+    "115": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\sbcs-data.js",
+      "dependencies": [],
+      "id": 115,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/sbcs-data.js"
+    },
+    "116": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\sbcs-data-generated.js",
+      "dependencies": [],
+      "id": 116,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/sbcs-data-generated.js"
+    },
+    "117": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\dbcs-codec.js",
+      "dependencies": [
+        98
+      ],
+      "id": 117,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/dbcs-codec.js"
+    },
+    "118": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\dbcs-data.js",
+      "dependencies": [
+        130,
+        131,
+        134,
+        128,
+        132,
+        133,
+        129,
+        135
+      ],
+      "id": 118,
+      "mtime": 1534968059000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/dbcs-data.js"
+    },
+    "119": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\stream-browser.js",
+      "dependencies": [
+        6
+      ],
+      "id": 119,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/stream-browser.js"
+    },
+    "120": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\buffer_list.js",
+      "dependencies": [
+        51,
+        57
+      ],
+      "id": 120,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/buffer_list.js"
+    },
+    "121": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\destroy.js",
+      "dependencies": [
+        59
+      ],
+      "id": 121,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/destroy.js"
+    },
+    "122": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\state.js",
+      "dependencies": [
+        123
+      ],
+      "id": 122,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/state.js"
+    },
+    "123": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\errors.js",
+      "dependencies": [],
+      "id": 123,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/errors.js"
+    },
+    "124": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\string_decoder\\lib\\string_decoder.js",
+      "dependencies": [
+        39
+      ],
+      "id": 124,
+      "mtime": 499162500000,
+      "packageId": "string_decoder@1.3.0",
+      "publicPath": "node_modules/string_decoder/lib/string_decoder.js"
+    },
+    "125": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\async_iterator.js",
+      "dependencies": [
+        109,
+        59
+      ],
+      "id": 125,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/async_iterator.js"
+    },
+    "126": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\lib\\internal\\streams\\from-browser.js",
+      "dependencies": [],
+      "id": 126,
+      "mtime": 499162500000,
+      "packageId": "readable-stream@3.6.0",
+      "publicPath": "node_modules/readable-stream/lib/internal/streams/from-browser.js"
+    },
+    "127": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\util-deprecate\\browser.js",
+      "dependencies": [],
+      "id": 127,
+      "mtime": 1444242970000,
+      "packageId": "util-deprecate@1.0.2",
+      "publicPath": "node_modules/util-deprecate/browser.js"
+    },
+    "128": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\shiftjis.json",
+      "dependencies": [],
+      "id": 128,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/shiftjis.json"
+    },
+    "129": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\eucjp.json",
+      "dependencies": [],
+      "id": 129,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/eucjp.json"
+    },
+    "130": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\cp936.json",
+      "dependencies": [],
+      "id": 130,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/cp936.json"
+    },
+    "131": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\gbk-added.json",
+      "dependencies": [],
+      "id": 131,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/gbk-added.json"
+    },
+    "132": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\gb18030-ranges.json",
+      "dependencies": [],
+      "id": 132,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/gb18030-ranges.json"
+    },
+    "133": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\cp949.json",
+      "dependencies": [],
+      "id": 133,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/cp949.json"
+    },
+    "134": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\cp950.json",
+      "dependencies": [],
+      "id": 134,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/cp950.json"
+    },
+    "135": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\encodings\\tables\\big5-added.json",
+      "dependencies": [],
+      "id": 135,
+      "mtime": 1453159331000,
+      "packageId": "iconv-lite@0.4.24",
+      "publicPath": "node_modules/iconv-lite/encodings/tables/big5-added.json"
+    }
+  },
+  "packages": {
+    "default": {
+      "type": 0,
+      "publicName": "default",
+      "isUserPackage": true,
+      "isExternalPackage": false
+    },
+    "express@4.17.3": {
+      "type": 1,
+      "meta": {
+        "name": "express",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express",
+        "version": "4.17.3",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\express\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "express@4.17.3",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        3,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        22,
+        26,
+        31
+      ],
+      "mtime": 1650311792209
+    },
+    "body-parser@1.19.2": {
+      "type": 1,
+      "meta": {
+        "name": "body-parser",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser",
+        "version": "1.19.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\body-parser\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "body-parser@1.19.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        5,
+        16,
+        17,
+        18,
+        19,
+        55
+      ],
+      "mtime": 1650311792192
+    },
+    "events@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "events",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\events\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\events",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\events\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "events@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        6
+      ],
+      "mtime": 499162500000
+    },
+    "merge-descriptors@1.0.1": {
+      "type": 1,
+      "meta": {
+        "name": "merge-descriptors",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\merge-descriptors\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\merge-descriptors",
+        "version": "1.0.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\merge-descriptors\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "merge-descriptors@1.0.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        7
+      ],
+      "mtime": 1650311792192
+    },
+    "serve-static@1.14.2": {
+      "type": 1,
+      "meta": {
+        "name": "serve-static",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\serve-static\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\serve-static",
+        "version": "1.14.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\serve-static\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "serve-static@1.14.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        14
+      ],
+      "mtime": 1650311792210
+    },
+    "depd@1.1.2": {
+      "type": 1,
+      "meta": {
+        "browser": "lib/browser/index.js",
+        "name": "depd",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\depd\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\depd",
+        "version": "1.1.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\depd\\lib\\browser\\index.js",
+        "entryFuseBoxPath": "lib/browser/index.js"
+      },
+      "publicName": "depd@1.1.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        15
+      ],
+      "mtime": 1650311792190
+    },
+    "finalhandler@1.1.2": {
+      "type": 1,
+      "meta": {
+        "name": "finalhandler",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\finalhandler\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\finalhandler",
+        "version": "1.1.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\finalhandler\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "finalhandler@1.1.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        20
+      ],
+      "mtime": 1650311792192
+    },
+    "methods@1.1.2": {
+      "type": 1,
+      "meta": {
+        "browser": {
+          "http": false
+        },
+        "name": "methods",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\methods\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\methods",
+        "version": "1.1.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\methods\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "methods@1.1.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        21
+      ],
+      "mtime": 1650311792192
+    },
+    "debug@2.6.9": {
+      "type": 1,
+      "meta": {
+        "browser": "./src/browser.js",
+        "name": "debug",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\debug\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\debug",
+        "version": "2.6.9",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\debug\\src\\browser.js",
+        "entryFuseBoxPath": "src/browser.js"
+      },
+      "publicName": "debug@2.6.9",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        23,
+        70
+      ],
+      "mtime": 1650311792191
+    },
+    "http@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "http",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\http\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\http",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\http\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "http@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        25
+      ],
+      "mtime": 499162500000
+    },
+    "array-flatten@1.1.1": {
+      "type": 1,
+      "meta": {
+        "name": "array-flatten",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\array-flatten\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\array-flatten",
+        "version": "1.1.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\array-flatten\\array-flatten.js",
+        "entryFuseBoxPath": "array-flatten.js"
+      },
+      "publicName": "array-flatten@1.1.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        27
+      ],
+      "mtime": 1650311792192
+    },
+    "utils-merge@1.0.1": {
+      "type": 1,
+      "meta": {
+        "name": "utils-merge",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\utils-merge\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\utils-merge",
+        "version": "1.0.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\utils-merge\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "utils-merge@1.0.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        28
+      ],
+      "mtime": 1650311792192
+    },
+    "path@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "path",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\path\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\path",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\path\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "path@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        29
+      ],
+      "mtime": 499162500000
+    },
+    "setprototypeof@1.2.0": {
+      "type": 1,
+      "meta": {
+        "name": "setprototypeof",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\setprototypeof\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\setprototypeof",
+        "version": "1.2.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\setprototypeof\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "setprototypeof@1.2.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        30
+      ],
+      "mtime": 1650311792191
+    },
+    "accepts@1.3.8": {
+      "type": 1,
+      "meta": {
+        "name": "accepts",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\accepts\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\accepts",
+        "version": "1.3.8",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\accepts\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "accepts@1.3.8",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        32
+      ],
+      "mtime": 1650311792192
+    },
+    "net@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "net",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\net\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\net",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\net\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "net@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        33
+      ],
+      "mtime": 499162500000
+    },
+    "type-is@1.6.18": {
+      "type": 1,
+      "meta": {
+        "name": "type-is",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\type-is\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\type-is",
+        "version": "1.6.18",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\type-is\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "type-is@1.6.18",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        34
+      ],
+      "mtime": 1650311792191
+    },
+    "fresh@0.5.2": {
+      "type": 1,
+      "meta": {
+        "name": "fresh",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fresh\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fresh",
+        "version": "0.5.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fresh\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "fresh@0.5.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        35
+      ],
+      "mtime": 1650311792190
+    },
+    "range-parser@1.2.1": {
+      "type": 1,
+      "meta": {
+        "name": "range-parser",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\range-parser\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\range-parser",
+        "version": "1.2.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\range-parser\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "range-parser@1.2.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        36
+      ],
+      "mtime": 1650311792191
+    },
+    "parseurl@1.3.3": {
+      "type": 1,
+      "meta": {
+        "name": "parseurl",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\parseurl\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\parseurl",
+        "version": "1.3.3",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\parseurl\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "parseurl@1.3.3",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        37
+      ],
+      "mtime": 1650311792191
+    },
+    "proxy-addr@2.0.7": {
+      "type": 1,
+      "meta": {
+        "name": "proxy-addr",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\proxy-addr\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\proxy-addr",
+        "version": "2.0.7",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\proxy-addr\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "proxy-addr@2.0.7",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        38
+      ],
+      "mtime": 1650311792192
+    },
+    "safe-buffer@5.2.1": {
+      "type": 1,
+      "meta": {
+        "name": "safe-buffer",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safe-buffer\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safe-buffer",
+        "version": "5.2.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safe-buffer\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "safe-buffer@5.2.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        39
+      ],
+      "mtime": 1650311792191
+    },
+    "content-disposition@0.5.4": {
+      "type": 1,
+      "meta": {
+        "name": "content-disposition",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-disposition\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-disposition",
+        "version": "0.5.4",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-disposition\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "content-disposition@0.5.4",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        40
+      ],
+      "mtime": 1650311792192
+    },
+    "encodeurl@1.0.2": {
+      "type": 1,
+      "meta": {
+        "name": "encodeurl",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\encodeurl\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\encodeurl",
+        "version": "1.0.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\encodeurl\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "encodeurl@1.0.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        41
+      ],
+      "mtime": 1650311792190
+    },
+    "escape-html@1.0.3": {
+      "type": 1,
+      "meta": {
+        "name": "escape-html",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\escape-html\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\escape-html",
+        "version": "1.0.3",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\escape-html\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "escape-html@1.0.3",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        42
+      ],
+      "mtime": 1650311792191
+    },
+    "on-finished@2.3.0": {
+      "type": 1,
+      "meta": {
+        "name": "on-finished",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\on-finished\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\on-finished",
+        "version": "2.3.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\on-finished\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "on-finished@2.3.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        43
+      ],
+      "mtime": 1650311792191
+    },
+    "statuses@1.5.0": {
+      "type": 1,
+      "meta": {
+        "name": "statuses",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\statuses\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\statuses",
+        "version": "1.5.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\statuses\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "statuses@1.5.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        44,
+        69
+      ],
+      "mtime": 1650311792191
+    },
+    "cookie-signature@1.0.6": {
+      "type": 1,
+      "meta": {
+        "name": "cookie-signature",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie-signature\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie-signature",
+        "version": "1.0.6",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie-signature\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "cookie-signature@1.0.6",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        45
+      ],
+      "mtime": 1650311792192
+    },
+    "cookie@0.4.2": {
+      "type": 1,
+      "meta": {
+        "name": "cookie",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie",
+        "version": "0.4.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\cookie\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "cookie@0.4.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        46
+      ],
+      "mtime": 1650311792192
+    },
+    "send@0.17.2": {
+      "type": 1,
+      "meta": {
+        "name": "send",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send",
+        "version": "0.17.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "send@0.17.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        47
+      ],
+      "mtime": 1650311792191
+    },
+    "vary@1.1.2": {
+      "type": 1,
+      "meta": {
+        "name": "vary",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\vary\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\vary",
+        "version": "1.1.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\vary\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "vary@1.1.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        48
+      ],
+      "mtime": 1650311792219
+    },
+    "qs@6.9.7": {
+      "type": 1,
+      "meta": {
+        "name": "qs",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs",
+        "version": "6.9.7",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\qs\\lib\\index.js",
+        "entryFuseBoxPath": "lib/index.js"
+      },
+      "publicName": "qs@6.9.7",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        49,
+        72,
+        73,
+        74,
+        94
+      ],
+      "mtime": 1650311792191
+    },
+    "url@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "url",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\url\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\url",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\url\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "url@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        50,
+        82
+      ],
+      "mtime": 499162500000
+    },
+    "buffer@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "buffer",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "buffer@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        51
+      ],
+      "mtime": 499162500000
+    },
+    "bytes@3.1.2": {
+      "type": 1,
+      "meta": {
+        "name": "bytes",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\bytes\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\bytes",
+        "version": "3.1.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\bytes\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "bytes@3.1.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        52
+      ],
+      "mtime": 1650311792190
+    },
+    "content-type@1.0.4": {
+      "type": 1,
+      "meta": {
+        "name": "content-type",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-type\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-type",
+        "version": "1.0.4",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\content-type\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "content-type@1.0.4",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        53
+      ],
+      "mtime": 1650311792190
+    },
+    "http-errors@1.8.1": {
+      "type": 1,
+      "meta": {
+        "name": "http-errors",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\http-errors\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\http-errors",
+        "version": "1.8.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\http-errors\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "http-errors@1.8.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        54
+      ],
+      "mtime": 1650311792191
+    },
+    "querystring@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "querystring",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\querystring\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\querystring",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\querystring\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "querystring@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        56
+      ],
+      "mtime": 499162500000
+    },
+    "fuse-empty-package@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "system": true
+        },
+        "name": "fuse-empty-package",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fuse-empty-package\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fuse-empty-package",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fuse-empty-package\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "fuse-empty-package@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        57
+      ],
+      "mtime": 499162500000
+    },
+    "unpipe@1.0.0": {
+      "type": 1,
+      "meta": {
+        "name": "unpipe",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\unpipe\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\unpipe",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\unpipe\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "unpipe@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        58
+      ],
+      "mtime": 1650311792191
+    },
+    "process@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "process",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\process\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\process",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\process\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "process@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        59
+      ],
+      "mtime": 499162500000
+    },
+    "fs@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "fs",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fs\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fs",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\fs\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "fs@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        60
+      ],
+      "mtime": 499162500000
+    },
+    "etag@1.8.1": {
+      "type": 1,
+      "meta": {
+        "name": "etag",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\etag\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\etag",
+        "version": "1.8.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\etag\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "etag@1.8.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        61
+      ],
+      "mtime": 1650311792190
+    },
+    "path-to-regexp@0.1.7": {
+      "type": 1,
+      "meta": {
+        "name": "path-to-regexp",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\path-to-regexp\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\path-to-regexp",
+        "version": "0.1.7",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\path-to-regexp\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "path-to-regexp@0.1.7",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        62
+      ],
+      "mtime": 1650311792192
+    },
+    "negotiator@0.6.3": {
+      "type": 1,
+      "meta": {
+        "name": "negotiator",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator",
+        "version": "0.6.3",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\negotiator\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "negotiator@0.6.3",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        63,
+        88,
+        89,
+        90,
+        91
+      ],
+      "mtime": 1650311792191
+    },
+    "mime-types@2.1.35": {
+      "type": 1,
+      "meta": {
+        "name": "mime-types",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-types\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-types",
+        "version": "2.1.35",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-types\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "mime-types@2.1.35",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        64
+      ],
+      "mtime": 1650311792191
+    },
+    "media-typer@0.3.0": {
+      "type": 1,
+      "meta": {
+        "name": "media-typer",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\media-typer\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\media-typer",
+        "version": "0.3.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\media-typer\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "media-typer@0.3.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        65
+      ],
+      "mtime": 1650311792191
+    },
+    "forwarded@0.2.0": {
+      "type": 1,
+      "meta": {
+        "name": "forwarded",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\forwarded\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\forwarded",
+        "version": "0.2.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\forwarded\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "forwarded@0.2.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        66
+      ],
+      "mtime": 1650311792191
+    },
+    "ipaddr.js@1.9.1": {
+      "type": 1,
+      "meta": {
+        "name": "ipaddr.js",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ipaddr.js\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ipaddr.js",
+        "version": "1.9.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ipaddr.js\\lib\\ipaddr.js",
+        "entryFuseBoxPath": "lib/ipaddr.js"
+      },
+      "publicName": "ipaddr.js@1.9.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        67
+      ],
+      "mtime": 1650311792191
+    },
+    "ee-first@1.1.1": {
+      "type": 1,
+      "meta": {
+        "name": "ee-first",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ee-first\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ee-first",
+        "version": "1.1.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ee-first\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "ee-first@1.1.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        68
+      ],
+      "mtime": 1650311792190
+    },
+    "crypto@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "crypto",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\crypto\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\crypto",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\crypto\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "crypto@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        71
+      ],
+      "mtime": 499162500000
+    },
+    "destroy@1.0.4": {
+      "type": 1,
+      "meta": {
+        "name": "destroy",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\destroy\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\destroy",
+        "version": "1.0.4",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\destroy\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "destroy@1.0.4",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        75
+      ],
+      "mtime": 1650311792191
+    },
+    "mime@1.6.0": {
+      "type": 1,
+      "meta": {
+        "name": "mime",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime",
+        "version": "1.6.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime\\mime.js",
+        "entryFuseBoxPath": "mime.js"
+      },
+      "publicName": "mime@1.6.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        76,
+        95
+      ],
+      "mtime": 1650311792226
+    },
+    "ms@2.1.3": {
+      "type": 1,
+      "meta": {
+        "name": "ms",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\node_modules\\ms\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\node_modules\\ms",
+        "version": "2.1.3",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\send\\node_modules\\ms\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "ms@2.1.3",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        77
+      ],
+      "mtime": 1650311792293
+    },
+    "stream@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "stream",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\stream\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\stream",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\stream\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "stream@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        78
+      ],
+      "mtime": 499162500000
+    },
+    "util@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "util",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\util\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\util",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\util\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "util@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        79,
+        97
+      ],
+      "mtime": 499162500000
+    },
+    "base64-js@1.5.1": {
+      "type": 1,
+      "meta": {
+        "name": "base64-js",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js",
+        "version": "1.5.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "base64-js@1.5.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        80
+      ],
+      "mtime": 1650312616790
+    },
+    "ieee754@1.2.1": {
+      "type": 1,
+      "meta": {
+        "name": "ieee754",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754",
+        "version": "1.2.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "ieee754@1.2.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        81
+      ],
+      "mtime": 1650312616789
+    },
+    "inherits@2.0.4": {
+      "type": 1,
+      "meta": {
+        "browser": "./inherits_browser.js",
+        "name": "inherits",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\inherits\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\inherits",
+        "version": "2.0.4",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\inherits\\inherits_browser.js",
+        "entryFuseBoxPath": "inherits_browser.js"
+      },
+      "publicName": "inherits@2.0.4",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        83
+      ],
+      "mtime": 1650311792190
+    },
+    "toidentifier@1.0.1": {
+      "type": 1,
+      "meta": {
+        "name": "toidentifier",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\toidentifier\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\toidentifier",
+        "version": "1.0.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\toidentifier\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "toidentifier@1.0.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        84
+      ],
+      "mtime": 1650311792191
+    },
+    "raw-body@2.4.3": {
+      "type": 1,
+      "meta": {
+        "name": "raw-body",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\raw-body\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\raw-body",
+        "version": "2.4.3",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\raw-body\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "raw-body@2.4.3",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        85
+      ],
+      "mtime": 1650311792192
+    },
+    "iconv-lite@0.4.24": {
+      "type": 1,
+      "meta": {
+        "browser": {
+          "./lib/extend-node": false,
+          "./lib/streams": false
+        },
+        "name": "iconv-lite",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite",
+        "version": "0.4.24",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\iconv-lite\\lib\\index.js",
+        "entryFuseBoxPath": "lib/index.js"
+      },
+      "publicName": "iconv-lite@0.4.24",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        86,
+        99,
+        100,
+        101,
+        102,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135
+      ],
+      "mtime": 1650311792191
+    },
+    "zlib@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "zlib",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\zlib\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\zlib",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\zlib\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "zlib@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        87
+      ],
+      "mtime": 499162500000
+    },
+    "mime-db@1.52.0": {
+      "type": 1,
+      "meta": {
+        "name": "mime-db",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-db\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-db",
+        "version": "1.52.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\mime-db\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "mime-db@1.52.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        92,
+        103
+      ],
+      "mtime": 1650311792191
+    },
+    "ms@2.0.0": {
+      "type": 1,
+      "meta": {
+        "name": "ms",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ms\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ms",
+        "version": "2.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ms\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "ms@2.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        93
+      ],
+      "mtime": 1650311792191
+    },
+    "stream-browserify@3.0.0": {
+      "type": 1,
+      "meta": {
+        "name": "stream-browserify",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\stream-browserify\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\stream-browserify",
+        "version": "3.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\stream-browserify\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "stream-browserify@3.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        96
+      ],
+      "mtime": 1650312616789
+    },
+    "safer-buffer@2.1.2": {
+      "type": 1,
+      "meta": {
+        "name": "safer-buffer",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safer-buffer\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safer-buffer",
+        "version": "2.1.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\safer-buffer\\safer.js",
+        "entryFuseBoxPath": "safer.js"
+      },
+      "publicName": "safer-buffer@2.1.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        98
+      ],
+      "mtime": 1650311792191
+    },
+    "readable-stream@3.6.0": {
+      "type": 1,
+      "meta": {
+        "browser": {
+          "util": false,
+          "worker_threads": false,
+          "./errors": "./errors-browser.js",
+          "./readable.js": "./readable-browser.js",
+          "./lib/internal/streams/from.js": "./lib/internal/streams/from-browser.js",
+          "./lib/internal/streams/stream.js": "./lib/internal/streams/stream-browser.js"
+        },
+        "name": "readable-stream",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\readable-stream",
+        "version": "3.6.0"
+      },
+      "publicName": "readable-stream@3.6.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        119,
+        120,
+        121,
+        122,
+        123,
+        125,
+        126
+      ],
+      "mtime": 1650312616791
+    },
+    "string_decoder@1.3.0": {
+      "type": 1,
+      "meta": {
+        "name": "string_decoder",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\string_decoder\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\string_decoder",
+        "version": "1.3.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\string_decoder\\lib\\string_decoder.js",
+        "entryFuseBoxPath": "lib/string_decoder.js"
+      },
+      "publicName": "string_decoder@1.3.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        124
+      ],
+      "mtime": 1650312616870
+    },
+    "util-deprecate@1.0.2": {
+      "type": 1,
+      "meta": {
+        "browser": "browser.js",
+        "name": "util-deprecate",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\util-deprecate\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\util-deprecate",
+        "version": "1.0.2",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\util-deprecate\\browser.js",
+        "entryFuseBoxPath": "browser.js"
+      },
+      "publicName": "util-deprecate@1.0.2",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        127
+      ],
+      "mtime": 1650312616791
+    }
+  },
+  "ctx": {
+    "linkedReferences": {},
+    "systemDependencies": {},
+    "tsConfigAtPaths": []
+  }
+}

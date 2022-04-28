@@ -1,0 +1,1 @@
+require("./app/dist/server")

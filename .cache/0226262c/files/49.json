@@ -1,0 +1,1 @@
+{"contents":"'use strict';\nvar stringify = __fusereq(72);\nvar parse = __fusereq(73);\nvar formats = __fusereq(74);\nmodule.exports = {\n  formats: formats,\n  parse: parse,\n  stringify: stringify\n};\n"}
