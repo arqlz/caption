@@ -7,6 +7,7 @@ const ejs = require("ejs");
 const opus_1 = require("./decoders/opus");
 const azure_1 = require("./speech_recognition/azure");
 const room_1 = require("./rooms/room");
+var PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 app.use(express.json());
@@ -22,7 +23,39 @@ app.get("/", (req, res) => {
 app.get("/room/:roomId", (req, res) => {
     res.render("room.html", { roomId: req.params.roomId });
 });
-var PORT = process.env.PORT || 5000;
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+    var bind = typeof PORT === 'string'
+        ? 'Pipe ' + PORT
+        : 'Port ' + PORT;
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+server.on('error', onError);
+if (process.env.PORT) {
+    var debug = require('debug')('myexpressapp:server');
+    server.on('listening', onListening);
+    function onListening() {
+        var addr = server.address();
+        var bind = typeof addr === 'string'
+            ? 'pipe ' + addr
+            : 'port ' + addr.port;
+        debug('Listening on ' + bind);
+    }
+}
 server.listen(PORT, async () => {
     console.log(`listening to http://localhost:${PORT}`);
     console.log("_____________________");
