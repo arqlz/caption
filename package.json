@@ -32,6 +32,6 @@
     "wave-resampler": "^1.0.0",
     "wavefile": "^11.0.0",
     "xxhashjs": "^0.2.2",
-    "debug": "~2.6.9",
+    "debug": "~2.6.9"
   }
 }
