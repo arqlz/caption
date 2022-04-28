@@ -9,10 +9,10 @@
   "author": "Jesus Leonardo Zorrilla",
   "license": "ISC",
   "dependencies": {
-    "@discordjs": "0.4.2",
     "@discordjs/opus": "^0.7.0",
     "bent": "^7.3.12",
     "decibels": "^2.0.0",
+    "discord.js": "^13.6.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "fourier-transform": "^1.1.2",
