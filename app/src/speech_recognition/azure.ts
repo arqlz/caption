@@ -1,7 +1,5 @@
 import sdk = require("microsoft-cognitiveservices-speech-sdk");
-import { AudioProcessorSession } from "../decoders/opus";
 import * as fs from "fs"
-import * as path from "path"
 import { uid } from "../uid";
 
 

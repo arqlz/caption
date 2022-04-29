@@ -1,14 +1,9 @@
-import  { OpusStreamDecoder }  from "opus-stream-decoder"
-const { OpusEncoder } = require('@discordjs/opus');
 import * as fs from "fs"
 import * as path from "path"
 import prism = require('prism-media');
 import {Writable, Readable} from "stream"
-
+const WaveFile = require('wavefile').WaveFile;
 import * as wavConverter from 'wav-converter'
-
-const DATADIR = path.resolve(__dirname+"/../../../public/data/")
-const CHUNKSDIR = path.resolve(__dirname+"/../../../public/chunks/")
 
 export async function guardarRealtime(filename: string, buffer: Buffer) {
     var file_path = path.resolve(__dirname+"/../../../public/data/", filename)
@@ -23,8 +18,6 @@ export async function guardarRealtime(filename: string, buffer: Buffer) {
 
 }
 
-
-const WaveFile = require('wavefile').WaveFile;
 var index = 0
 export class AudioProcessorSession {
     stream: Readable 
@@ -192,4 +185,4 @@ export function easyDecode(buffer: Buffer) {
     })
 }
 
-//emular() 
+

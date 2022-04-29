@@ -1,4 +1,3 @@
-import * as fs from "fs"
 import * as sharp from "sharp"
 import ft = require('fourier-transform');
 var db = require('decibels')

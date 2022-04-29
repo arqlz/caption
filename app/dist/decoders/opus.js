@@ -1,14 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easyDecode = exports.AudioProcessorSession = exports.guardarRealtime = void 0;
-const { OpusEncoder } = require('@discordjs/opus');
 const fs = require("fs");
 const path = require("path");
 const prism = require("prism-media");
 const stream_1 = require("stream");
+const WaveFile = require('wavefile').WaveFile;
 const wavConverter = require("wav-converter");
-const DATADIR = path.resolve(__dirname + "/../../../public/data/");
-const CHUNKSDIR = path.resolve(__dirname + "/../../../public/chunks/");
 async function guardarRealtime(filename, buffer) {
     var file_path = path.resolve(__dirname + "/../../../public/data/", filename);
     var existe = await fs.promises.stat(file_path).catch(e => false);
@@ -22,7 +20,6 @@ async function guardarRealtime(filename, buffer) {
     }
 }
 exports.guardarRealtime = guardarRealtime;
-const WaveFile = require('wavefile').WaveFile;
 var index = 0;
 class AudioProcessorSession {
     constructor() {
@@ -183,4 +180,3 @@ function easyDecode(buffer) {
     });
 }
 exports.easyDecode = easyDecode;
-//emular() 
