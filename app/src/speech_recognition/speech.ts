@@ -3,6 +3,7 @@ import * as fs from "fs"
 var { Tensor, InferenceSession } = ONNX
 import * as PATH from "path"
 import bent from "bent"
+import * as wav from 'node-wav';
 
 var session: ONNX.InferenceSession
 var labels: string[]
@@ -33,7 +34,6 @@ export async function descargarONNXModel() {
     console.log("ONNX ready")
 }
 
-import * as wav from 'node-wav';
 function argmax(arr: Float32Array, shape: number[]) {
     var r: number[] = [];
     var row_size = shape[0]
@@ -109,4 +109,4 @@ export async function audioATexto(wavBuffer: Buffer) {
     return result
 }
 
-descargarONNXModel()
+//descargarONNXModel()

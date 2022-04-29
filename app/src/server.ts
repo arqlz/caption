@@ -76,7 +76,7 @@ server.listen(PORT, async () => {
     console.log("_____________________")
 
     require("./speech_recognition/azure")
-    require("./ia/speech")
+    //require("./speech_recognition/speech")
     const io = new Server(server);
     io.on("connection", (socket) => {
         var decoder : AudioProcessorSession 

@@ -6,6 +6,7 @@ const fs = require("fs");
 var { Tensor, InferenceSession } = ONNX;
 const PATH = require("path");
 const bent_1 = require("bent");
+const wav = require("node-wav");
 var session;
 var labels;
 var blank_idx;
@@ -33,7 +34,6 @@ async function descargarONNXModel() {
     console.log("ONNX ready");
 }
 exports.descargarONNXModel = descargarONNXModel;
-const wav = require("node-wav");
 function argmax(arr, shape) {
     var r = [];
     var row_size = shape[0];
@@ -105,4 +105,4 @@ async function audioATexto(wavBuffer) {
     return result;
 }
 exports.audioATexto = audioATexto;
-descargarONNXModel();
+//descargarONNXModel()
