@@ -90,14 +90,12 @@ server.listen(PORT, async () => {
         })
 
         var room: Room;
-
         socket.on("broadcast",  ({roomKey}: {roomKey: string}) => {
             if (room) return;
             console.log(`Session de transcripcion iniciada en ${roomKey}`)            
             var waiting_list = 0;
             var chunks: Buffer[] = []
-            room = new Room(roomKey);
-         
+            room = new Room(roomKey);         
          
             decoder = new AudioProcessorSession()   
             decoder.start()
