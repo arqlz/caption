@@ -27,91 +27,6 @@ f.modules = modules;
 })();
 __fuse.bundle({
 
-// public/src/emiterClient.ts @1
-1: function(__fusereq, exports, module){
-exports.__esModule = true;
-var presenter_1 = __fusereq(2);
-class Recorder {
-  constructor() {
-    this.isAvailable = false;
-    this.onData = blob => null;
-  }
-  start(time = 3000) {
-    navigator.mediaDevices.getUserMedia({
-      audio: true
-    }).then(stream => {
-      var recorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus'
-      });
-      recorder.ondataavailable = e => {
-        this.onData(e.data);
-      };
-      this.recorder = recorder;
-      recorder.start(time);
-      this.isAvailable = true;
-    });
-  }
-  stop() {
-    if (this.isAvailable) {
-      this.isAvailable = false;
-      this.recorder.stop();
-    }
-  }
-}
-function sendBlob(blob) {
-  var form = new FormData();
-  form.append("blob", blob);
-  return new Promise(() => {
-    socket.emit("blob", blob);
-  });
-}
-var socket = io();
-var rec;
-socket.once("ready", () => {
-  console.log("Starting recorder");
-  if (rec) {
-    rec.stop();
-    rec = new Recorder();
-  } else {
-    rec = new Recorder();
-  }
-  var presenter = new presenter_1.Presenter(rec);
-  rec.onData = blob => {
-    sendBlob(blob);
-  };
-  rec.start();
-  socket.on("mensaje", data => {
-    presenter.append(data);
-  });
-});
-socket.on("disconnect", () => {
-  console.log("disconected");
-  if (rec) {
-    rec.stop();
-    rec = null;
-  }
-});
-socket.on("connect", () => {
-  console.log("connected");
-});
-socket.on("hello", () => {
-  var roomkey = location.pathname || "";
-  if (roomkey.length < 2) {
-    throw new Error("sala invalida");
-    return;
-  }
-  roomkey = roomkey.split("/").slice(2)[0];
-  socket.emit("broadcast", {
-    roomKey: roomkey
-  });
-});
-socket.on("joined", roomId => {
-  console.log("Joined to room");
-});
-socket.connect();
-
-},
-
 // public/src/components/utils.ts @3
 3: function(__fusereq, exports, module){
 exports.__esModule = true;
@@ -198,8 +113,45 @@ class Presenter {
 }
 exports.Presenter = Presenter;
 
+},
+
+// public/src/receptorClient.ts @1
+1: function(__fusereq, exports, module){
+exports.__esModule = true;
+var presenter_1 = __fusereq(2);
+var presenter = new presenter_1.Presenter();
+var socket = io();
+socket.on("ready", () => {
+  console.log("Starting recorder");
+  var presenter = new presenter_1.Presenter();
+  socket.on("mensaje", data => {
+    presenter.append(data);
+  });
+});
+socket.on("disconnect", () => {
+  console.log("disconected");
+});
+socket.on("connect", () => {
+  console.log("connected");
+});
+socket.on("hello", () => {
+  var roomId = location.pathname || "";
+  if (roomId.length < 2) {
+    throw new Error("sala invalida");
+    return;
+  }
+  roomId = roomId.split("/").slice(2)[0];
+  socket.emit("join", {
+    roomId: roomId
+  });
+});
+socket.on("joined", roomId => {
+  console.log("Joined to room");
+});
+socket.connect();
+
 }
 }, function(){
 __fuse.r(1)
 })
-//# sourceMappingURL=audio.js.map
+//# sourceMappingURL=receptor.js.map

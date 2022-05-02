@@ -1,7 +1,7 @@
-import { createDiv, createElement } from "./components/utils"
-
+import { Presenter } from "./presenter"
 declare const io : typeof import("socket.io-client").default
 class Recorder {
+    private isAvailable = false
     onData = (blob: Blob) => null
     recorder: MediaRecorder
     start(time = 3000) {
@@ -12,28 +12,17 @@ class Recorder {
             }
             this.recorder = recorder
             recorder.start(time)
+            this.isAvailable = true;
         })
     }
     stop() {
-        this.recorder.stop()
+        if (this.isAvailable) {
+            this.isAvailable = false;
+            this.recorder.stop()
+        }  
     }
 }
-/*
-function Ui(recorder: Recorder) {
-    var div = document.createElement("div")
-    var button = document.createElement("button")
-    button.innerHTML = "Stop"
-    button.onclick = () => recorder.stop()
-    div.append(button)
-    var textarea = document.createElement("div")
-    div.append(textarea)
-    document.body.appendChild(div)
-    function append(text: string) {
-        textarea.innerHTML += " "+text
-    }
-    return {append}
-}
-*/
+
 function sendBlob(blob: Blob): Promise<string> {
     var form = new FormData()
     form.append("blob", blob)
@@ -42,60 +31,10 @@ function sendBlob(blob: Blob): Promise<string> {
     })
 }
 
-
-class Presenter {
-    textContainner: HTMLDivElement;
-    control: HTMLDivElement;
-    lines: {[id: string]: HTMLDivElement} = {}
-    queue: {result: string, id: string}[] = []
-    constructor() {
-        var div = createDiv({width: "100%", height: "100%", background: "#111111"})
-
-        this.control = createDiv()
-        var stopButton = createElement("button")
-        stopButton.innerHTML = "STOP"
-        stopButton.onclick = () => {
-            stopButton.disabled = true
-            rec.stop()
-        }
-        this.control.append(stopButton)
-        div.append(this.control)
-
-
-        var show = createDiv({width: 350, textAlign: "center", margin: "auto auto", color: "#ffffff", fontSize: 20})
-        this.textContainner = show
-        div.append(show)
-
-        document.body.append(div)
-        setInterval(() => {
-            this.appendWord()
-        }, 100)
-    }
-    appendWord() {    
-        if (this.queue.length) {
-            var w = this.queue.splice(0, 1)[0]
-            if (!this.lines[w.id]) {
-                var div = createDiv()
-                this.textContainner.append(div)
-                this.lines[w.id] = div;
-            }
-            this.lines[w.id].innerHTML = w.result
-
-        }
-    }
-
-    append(data: {result: string, id: string}) {
-        this.queue.push(data)
-   
-    }
-}
-
-
-
 var socket = io()
 
 var rec: Recorder 
-socket.on("ready", () => {
+socket.once("ready", () => {
     console.log("Starting recorder")
     if (rec) {
         rec.stop()
@@ -104,19 +43,15 @@ socket.on("ready", () => {
         rec = new Recorder()
     }
 
-    var presenter = new Presenter()
+    var presenter = new Presenter(rec)
     rec.onData = blob => {
-        sendBlob(blob).then(text => {
-            //ui.append(text)
-        })    
+        sendBlob(blob)   
     }
     rec.start()
 
     socket.on("mensaje", data => {
-        //ui.append(data.result)
         presenter.append(data)
     })
-    //var ui = Ui(rec)
 })
 socket.on("disconnect", () => {
     console.log("disconected")
@@ -129,7 +64,15 @@ socket.on("connect", () => {
     console.log("connected")
 })
 socket.on("hello", () => {
-    socket.emit("broadcast", {roomKey: "1JY76G7"})
-  
+    var roomkey = location.pathname || ""
+    if (roomkey.length < 2) {
+        throw new Error("sala invalida")
+        return
+    }
+    roomkey = roomkey.split("/").slice(2)[0];
+    socket.emit("broadcast", {roomKey: roomkey});  
 })
+socket.on("joined",  (roomId) => {
+    console.log("Joined to room")
+});  
 socket.connect()

@@ -1,6 +1,151 @@
 <html>
     <head>
         <title>Front page</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
+        <style>
+            body {
+                background-color: #000114;
+                color: #ffffff; 
+                font-family: 'Mulish', sans-serif;              
+            }
+            #core {
+                max-width: 720px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .row {
+                display: flex;
+                flex-direction: row;
+            }
+            button {
+                padding: 10px;
+                border: none;  
+                cursor: pointer;  
+            }
+            .page {
+                padding: 10px;
+            }
+            .margin {
+                margin: 5px;
+            }
+            .hide {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+                color: #ffffff;
+                font-weight: 600;
+            }
+        </style>
     </head>
-    <body></body>
+    <body>  
+        <div id="core">
+            <div class="page margin" id="root">
+                <h2>
+                    Anadir transcripciones deberia ser tan facil como decir, SI
+                </h2>
+                <div class="margin">
+                    Hola, Caption es un servicio que te permite anadir transcripciones en vivo a conferencias y reuniones tradicionales.
+                </div>
+                <button onclick="crearSala(event)">Crear una sala</button>
+            </div>
+      
+            <div class="row page hide margin" id="start">
+                <button>Deseo iniciar a transmitir ahora</button>
+                <button>Quiero reservar una sala</button>
+            </div>
+    
+            <div class="page hide"  id="info">
+                <div>el codigo de tu sala es: <div><%= roomId %></div></div>
+                <div>para inidicar la transmision dirigete a: <div>
+                    <a href="http://localhost:5000/transmision/<%= roomKey %>">
+                        <div>http://localhost:5000/transmision/<%= roomKey %></div>
+                    </a>         
+                    </div>
+                </div>
+    
+                <div>Puedes compartir esta direccion: 
+                    <a href="http://localhost:5000/r/<%= roomId %>">
+                        <div>http://localhost:5000/r/<%= roomId %></div>
+                    </a>                
+                </div>
+                <div>o imprimir y compartir este codigo QR</div>
+                <div><img title="codigo qr de la sala" src="<%= qr %>" /></div>
+            </div>
+        </div>   
+    </body>
 </html>
+
+<script>
+    function button(text, callback) {
+        var div = document.createElement("button")
+        div.innerHTML = text;
+        if (callback) {           
+            div.onclick = callback;
+        }
+        return div
+    }
+    function label(text, classes = "") {
+        var div = document.createElement("div")
+        div.classList.add(classes)
+        div.innerHTML = text;
+        return div
+    }
+    async function crearSala() {
+        var div = document.createElement("div")
+        div.className = "page"
+
+        var h1 = document.createElement("div")
+        h1.innerHTML = "Cuando planeas iniciar a transmitir?"
+
+        let b1 = button("Empezar ahora", function () {
+            fetch("/api/reservar").then(r => r.json()).then(json => {
+                let room = json.result.room;
+                location.href = `${location.href}transmision/${room.roomKey}`
+            })
+        })
+        b1.style.marginRight = "5px"
+        div.append(b1)
+        div.append(button("Quiero reservar una sala", function () {
+            console.log("reservala")
+            fetch("/api/reservar").then(r => r.json()).then(json => {
+                reservarSala(json.result)
+            })
+        }))
+
+        let core = document.getElementById("core")
+        core.innerHTML = "";
+        core.append(div)
+    }
+
+    async function reservarSala(result) {
+        let room = result.room;
+        var div = document.createElement("div")
+        div.className = "page"
+
+
+        div.append(label(`Este es el codigo de la la sala para tu evento: <a href="${location.href}r/${room.roomId}">${room.roomId}</a>`, "margin"))
+        div.append(label(`Este es tu codigo de acceso para transmitir: <a href="${location.href}transmision/${room.roomKey}">${room.roomKey}</a>`, "margin"))
+        var imgdiv = document.createElement("div")
+        var img = document.createElement("img")
+        img.classList.add("margin")
+        img.src = result.qr;
+        imgdiv.append(img)
+        div.append(imgdiv)
+   
+
+        let core = document.getElementById("core")
+        core.innerHTML = "";
+        core.append(div)
+    }
+    function start(e) {
+        var els = document.getElementsByClassName("page");
+        for(var el of els) {
+            el.classList.add("hide")
+        }
+        document.getElementById("info").classList.remove("hide")
+
+    }
+</script>

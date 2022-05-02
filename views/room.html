@@ -1,8 +1,49 @@
 <html>
     <head>
         <title>Listen room</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
+        <style>
+            body {
+                background-color: #000114;
+                color: #ffffff; 
+                font-family: 'Mulish', sans-serif;              
+            }
+            #core {
+                max-width: 720px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .row {
+                display: flex;
+                flex-direction: row;
+            }
+            button {
+                padding: 10px;
+                border: none;  
+                cursor: pointer;  
+            }
+            .page {
+                padding: 10px;
+            }
+            .margin {
+                margin: 5px;
+            }
+            .hide {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+                color: #ffffff;
+                font-weight: 600;
+            }
+        </style>
     </head>
     <body>
         <div>Room ID <%=roomId %></div>
     </body>
 </html>
+
+<script src="/js/receptor.js"></script>
