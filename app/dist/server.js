@@ -116,27 +116,42 @@ server.listen(PORT, async () => {
             room = new room_1.Room(roomKey);
             var last_query = false;
             var last_flush = Date.now();
+            let time_interval = 2000;
             decoder = new opus_1.AudioProcessorSession();
             decoder.start();
             var azureSession = new azure_1.AzureSession();
             azureSession.onData = (data) => {
                 waiting_list--;
                 last_query = false;
+                console.log(data.text);
                 io.sockets.emit("mensaje", { result: data.text, id: data.offset, speakerId: data.speakerId + "" });
             };
-            decoder.onData = (buffer) => {
-                let min_save_interval = 20;
-                let time_interval = 5000;
-                chunks.push(buffer);
-                if ((Date.now() - last_flush) > time_interval && !last_query) {
-                    console.log("Time", (Date.now() - last_flush), ">", time_interval, last_query);
-                    waiting_list++;
-                    console.log("paquete enviado a azure");
-                    last_query = true;
+            var timer = setInterval(() => {
+                if (chunks.length) {
+                    console.log("SEND");
                     azureSession.push(Buffer.concat(chunks));
                     chunks = [];
-                    last_flush = Date.now();
                 }
+            }, time_interval);
+            decoder.onData = (buffer) => {
+                let min_save_interval = 20;
+                chunks.push(buffer);
+                /*
+                if ( (Date.now() - last_flush) > time_interval  ) {
+                    console.log("Time", (Date.now() - last_flush), ">", time_interval, last_query)
+                    waiting_list++;
+                    console.log("paquete enviado a azure");
+                    
+                    last_query = true;
+                    let to_concat = chunks;
+                    chunks = [];
+
+                    azureSession.push(Buffer.concat(to_concat))
+                
+               
+                    last_flush = Date.now()
+                }
+                */
                 /*if ( (chunks.length >= min_save_interval && waiting_list < 5) || chunks.length > min_save_interval+5 || (Date.now() - last_flush) > 3000  ) {
                     waiting_list++;
                     console.log("paquete enviado a azure");
@@ -150,6 +165,9 @@ server.listen(PORT, async () => {
                 decoder.next(blob);
             });
             socket.emit("ready");
+            socket.on("disconnect", () => {
+                clearInterval(timer);
+            });
             socket.join(room.roomId);
         });
         socket.on("join", ({ roomId }) => {
