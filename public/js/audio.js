@@ -36,7 +36,7 @@ class Recorder {
     this.isAvailable = false;
     this.onData = blob => null;
   }
-  start(time = 3000) {
+  start(time = 4000) {
     navigator.mediaDevices.getUserMedia({
       audio: true
     }).then(stream => {

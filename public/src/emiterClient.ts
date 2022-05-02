@@ -4,7 +4,7 @@ class Recorder {
     private isAvailable = false
     onData = (blob: Blob) => null
     recorder: MediaRecorder
-    start(time = 3000) {
+    start(time = 4000) {
         navigator.mediaDevices.getUserMedia({audio: true}).then(stream => {
             var recorder = new MediaRecorder(stream, {mimeType: 'audio/webm;codecs=opus'})
             recorder.ondataavailable = (e) => {                
