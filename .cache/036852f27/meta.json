@@ -2,24 +2,25 @@
   "currentId": 3,
   "modules": {
     "1": {
-      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\receptorClient.ts",
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\editor.ts",
       "dependencies": [
-        2
+        2,
+        3
       ],
       "id": 1,
-      "mtime": 1651864895421,
+      "mtime": 1651890252044,
       "packageId": "default",
-      "publicPath": "public/src/receptorClient.ts"
+      "publicPath": "public/src/editor.ts"
     },
     "2": {
-      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\presenter.ts",
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\components\\texteditor.ts",
       "dependencies": [
         3
       ],
       "id": 2,
-      "mtime": 1651866521183,
+      "mtime": 1651889554191,
       "packageId": "default",
-      "publicPath": "public/src/presenter.ts"
+      "publicPath": "public/src/components/texteditor.ts"
     },
     "3": {
       "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\components\\utils.ts",

@@ -7,6 +7,9 @@ import { AzureSession } from "./speech_recognition/azure";
 import { generarQr } from "./rooms/qrgenerator";
 import { Room } from "./rooms/room";
 import { CaptionDb } from "./db";
+import { crearSesionAlmacenamiento, crearSesionTranscripcion } from "./storage/audioMannager";
+import { appendMsgToFile } from "./storage/localStore";
+import * as fs from "fs";
 var PORT = process.env.PORT || 5000
 
 
@@ -22,7 +25,7 @@ app.use(express.json());
 
 
 app.use("/js", express.static(__dirname + '/../../public/js'))
-
+app.use("/data", express.static(__dirname + '/../../public/data'))
 app.get("/", (req, res) => {
     var room = new Room();
     generarQr(`http://localhost:5000/r/${room.roomId}`)
@@ -36,8 +39,9 @@ app.get("/", (req, res) => {
 app.get("/api/reservar", async (req, res) => {
     var room = new Room();
     try {
+        console.log("insertando item en base de datos")
         await CaptionDb.rooms.insert(room)
-        console.log("Room salvado")
+        console.log("generando qr")
         generarQr(`http://localhost:5000/r/${room.roomId}`)
         .then(qr => {
             res.json({result: {room,qr}})
@@ -61,6 +65,10 @@ app.get("/room/:roomId", (req, res) => {
 app.get("/r/:roomId", (req, res) => {
     res.render("room.html", {roomId: req.params.roomId})
 })
+app.get("/wavesurfer", (req, res) => {
+    res.render("wavesurfer.html", {})
+})
+
 
 
 function onError(error) {
@@ -108,7 +116,8 @@ server.listen(PORT, async () => {
     console.log("_____________________")
 
     require("./speech_recognition/azure")
-    require("./db").init()
+    require("./storage/audioMannager");
+    await require("./db").init()
     const io = new Server(server);
     io.on("connection", (socket) => {
         var decoder : AudioProcessorSession 
@@ -126,11 +135,12 @@ server.listen(PORT, async () => {
             if (room) return;
             console.log(`Session de transcripcion iniciada en ${roomKey}`)            
             var waiting_list = 0;
-            var chunks: Buffer[] = []
             room = new Room(roomKey);    
             var last_query = false;     
-            var last_flush = Date.now();
-            let time_interval = 2000
+            var blob_stream = crearSesionAlmacenamiento(room.roomId);
+            var transcripcion_stream = crearSesionTranscripcion(room.roomId);
+            var filte_stream = appendMsgToFile(room.roomId)
+
     
             decoder = new AudioProcessorSession()   
             decoder.start()
@@ -139,11 +149,15 @@ server.listen(PORT, async () => {
             azureSession.onData = (data) => {
                 waiting_list--;   
                 last_query = false;      
-                console.log(data.text)       
-                io.sockets.emit("mensaje", 
-                    {result: data.text, id: data.offset, speakerId: data.speakerId + ""})
+
+                var jsonl = {result: data.text, id: data.offset, speakerId: data.speakerId + ""};
+                transcripcion_stream.push(JSON.stringify(jsonl)+"\n")  
+                filte_stream.write(JSON.stringify(jsonl)+"\n")
+
+                io.sockets.emit("mensaje", jsonl)
             }   
-            
+
+            /*
     
             var timer = setInterval(() => {
                  if (chunks.length) {
@@ -152,10 +166,20 @@ server.listen(PORT, async () => {
                     chunks = [];     
                  }
             }, time_interval)
+            */
+
+
+            function clear() {
+                //clearInterval(timer)
+                blob_stream.emit("end");
+                transcripcion_stream.emit("end");
+            }
+
             decoder.onData = (buffer) => {           
                 let min_save_interval = 20
              
-                chunks.push(buffer);
+                //chunks.push(buffer);
+                azureSession.push(buffer)   
               
            
                 /*
@@ -186,12 +210,11 @@ server.listen(PORT, async () => {
             }
             socket.on("blob", (blob) => {
                 decoder.next(blob);  
+                blob_stream.push(blob);
             })  
           
             socket.emit("ready")
-            socket.on("disconnect", () => {
-                clearInterval(timer)
-            })
+            socket.on("disconnect", clear)
             socket.join(room.roomId);
  
         })
@@ -200,9 +223,28 @@ server.listen(PORT, async () => {
             socket.join(roomId);   
             socket.emit("joined", roomId)   
         })   
+
+        socket.on("test", () => {
+            console.log("test >>")
+            fs.promises.readFile(__dirname+"/../../test.jsonl", {encoding: "utf-8"}).then(text => {
+                var lines: {result, id, speakerId}[] = text.split("\n").filter(r => r.trim().length >= 6).map(r => JSON.parse(r))
+                
+                function next() {
+                    setTimeout(() => {
+                        var r = lines.splice(0, 1)
+                        console.log("send", r[0].result)
+                        socket.emit("mensaje", r[0])
+                        if (lines.length) next()
+                    }, 1000)
+                }
+              
+                next()
+            })
+        })
    
         socket.emit("hello", "hello")
     })
     
 })
+
 

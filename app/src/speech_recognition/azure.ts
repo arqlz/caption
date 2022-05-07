@@ -4,11 +4,19 @@ import { uid } from "../uid";
 
 
 var speechConfig: sdk.SpeechConfig; 
+var subscription: any
+
+function buildConfig(language: string) {
+    var speechConfig = sdk.SpeechConfig.fromSubscription(subscription.subscription, subscription.region);
+    speechConfig.speechRecognitionLanguage = language;
+    return speechConfig
+}
 
 function createSpeechConfigObject() {
     function build(data) {
         try {        
             let sub = JSON.parse(data);
+            subscription = sub;
             speechConfig = sdk.SpeechConfig.fromSubscription(sub.subscription, sub.region);
             speechConfig.speechRecognitionLanguage = sub.language;
         } catch(err) {    
@@ -46,7 +54,7 @@ export class AzureSession {
 
         
         const audioConfig = sdk.AudioConfig.fromStreamInput(p);
-        const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
+        const recognizer = new sdk.SpeechRecognizer(buildConfig("es-ES"), audioConfig);
         recognizer.canceled = (o, e) => {
             try {
               var str = "(cancel) Reason: " + sdk.CancellationReason[e.reason];
@@ -65,9 +73,16 @@ export class AzureSession {
             try {
                 this.onData(e.result)
             } catch (error) {
-                console.log("canceled error", error)        
+                console.log("recognizing error", error)        
             }
         };
+        recognizer.recognized = (o, e) => {
+            try {
+                this.onData(e.result)
+            } catch (error) {
+                console.log("recognized error", error)        
+            }
+        }
         recognizer.startContinuousRecognitionAsync()   
 
     }

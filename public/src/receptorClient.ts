@@ -5,15 +5,7 @@ var presenter = new Presenter()
 
 var socket = io()
 
-socket.on("ready", () => {
-    console.log("Starting recorder")
 
-    var presenter = new Presenter()
-
-    socket.on("mensaje", data => {
-        presenter.append(data)
-    })
-})
 socket.on("disconnect", () => {
     console.log("disconected")
 })
@@ -29,9 +21,16 @@ socket.on("hello", () => {
     roomId = roomId.split("/").slice(2)[0];
     socket.emit("join", {roomId: roomId});  
 
+
 })
 socket.on("joined",  (roomId) => {
+    socket.on("mensaje", data => {
+        console.log(data.result)
+        presenter.append(data)
+    })
+
     console.log("Joined to room")
+    socket.emit("test")
 });  
 
 socket.connect()

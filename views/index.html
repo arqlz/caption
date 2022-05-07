@@ -1,12 +1,13 @@
 <html>
     <head>
         <title>Front page</title>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
         <style>
             body {
-                background-color: #000114;
+                background: radial-gradient(circle at center 350px, #33246f, transparent 900px), #13121d;
                 color: #ffffff; 
                 font-family: 'Mulish', sans-serif;              
             }
@@ -20,9 +21,32 @@
                 flex-direction: row;
             }
             button {
-                padding: 10px;
+                padding: 12px 40px;
                 border: none;  
                 cursor: pointer;  
+                border: solid 1px #ffffff;
+                background: transparent;
+                color: white;        
+                border-radius: 20px;
+                text-shadow: 0 0 0px rgb(90 17 255);
+                transition: padding 0.25s, box-shadow 0.25s, text-shadow 0.25s;
+      
+            }
+            button:hover {                 
+                box-shadow: 0 0 8px rgb(90 17 255);
+                padding: 12px 60px;
+    
+                text-shadow: 0 0 8px rgb(130 47 255);        
+            }
+            input {
+                padding: 10px;
+                border: none;
+                background: transparent;
+                color: white;
+                outline: none;
+            }
+            input::placeholder {
+                color: #ffffff81
             }
             .page {
                 padding: 10px;
@@ -38,17 +62,30 @@
                 color: #ffffff;
                 font-weight: 600;
             }
+            h1 {
+                text-shadow: 0 0 8px rgb(90 17 255);
+                font-size: 2.1em;
+            }
+            h2 {
+                font-size: 1.1em;
+            }
+            ::-webkit-calendar-picker-indicator {
+                filter: invert(1);
+            }
+            ::calendar-picker-indicator {
+                filter: invert(1);
+            }
         </style>
     </head>
     <body>  
         <div id="core">
             <div class="page margin" id="root">
+                <h1>
+                    Beam
+                </h1>
                 <h2>
-                    Anadir transcripciones deberia ser tan facil como decir, SI
+                    1 clic y a transcribir
                 </h2>
-                <div class="margin">
-                    Hola, Caption es un servicio que te permite anadir transcripciones en vivo a conferencias y reuniones tradicionales.
-                </div>
                 <button onclick="crearSala(event)">Crear una sala</button>
             </div>
       
@@ -79,18 +116,13 @@
 </html>
 
 <script>
+
     function button(text, callback) {
         var div = document.createElement("button")
         div.innerHTML = text;
         if (callback) {           
             div.onclick = callback;
         }
-        return div
-    }
-    function label(text, classes = "") {
-        var div = document.createElement("div")
-        div.classList.add(classes)
-        div.innerHTML = text;
         return div
     }
     async function crearSala() {
@@ -120,22 +152,93 @@
         core.append(div)
     }
 
+    function createElement(type, styleOrClass = {}, styleOrNull = null) {
+        var div = document.createElement(type)
+        var clase = typeof styleOrClass == "string"? styleOrClass : "";
+        var style = typeof styleOrClass == "object"? styleOrClass : styleOrNull && typeof styleOrNull == "object"? styleOrNull : {};
+
+        if (clase.length) div.classList.add(clase);
+        if (typeof style=="object") {
+            for (var k of Object.keys(style)) {
+                div.style[k] = style[k]
+            }
+        }
+        return div;
+    }
+    function createDiv( styleOrClass = {}, styleOrNull = null) {
+        return createElement("div", styleOrClass, styleOrNull)
+    }
+    function h2( text = "", styleOrClass = {}, styleOrNull = null) {
+        var div = createElement("h2", styleOrClass, styleOrNull)
+        div.innerHTML = text;
+        return div
+    }
+    function label( text = "", styleOrClass = {}, styleOrNull = null) {
+        var div = createElement("div", styleOrClass, styleOrNull)
+        div.innerHTML = text;
+        return div
+    }
     async function reservarSala(result) {
         let room = result.room;
         var div = document.createElement("div")
         div.className = "page"
 
 
-        div.append(label(`Este es el codigo de la la sala para tu evento: <a href="${location.href}r/${room.roomId}">${room.roomId}</a>`, "margin"))
-        div.append(label(`Este es tu codigo de acceso para transmitir: <a href="${location.href}transmision/${room.roomKey}">${room.roomKey}</a>`, "margin"))
+
+        var mainCard = document.createElement("div");
+        mainCard.style.display = "flex";
+        mainCard.style.flexDirection = "row";
+        
         var imgdiv = document.createElement("div")
         var img = document.createElement("img")
         img.classList.add("margin")
         img.src = result.qr;
-        imgdiv.append(img)
-        div.append(imgdiv)
-   
+        imgdiv.append(img)        
+        mainCard.append(imgdiv)
 
+        var titleContainner = createDiv({marginLeft: 10});
+        titleContainner.append(h2(room.roomId, {margin: "10px 0 0 0"}))
+        titleContainner.append(label("sala reservada"))
+        mainCard.append(titleContainner);
+
+        div.append(mainCard);
+
+        var linkCard = createDiv({marginTop: 20});
+
+        function createLinkItem(etiqueta, link) {
+            var div = createDiv({marginLeft: 5});
+            div.append(label(etiqueta))
+            var linkItem = createElement("a", {margin: "0 0 15px 10px", display: "block"})
+            linkItem.href = link;
+            linkItem.innerHTML = link;
+            div.append(linkItem)
+            return div
+        }
+        linkCard.append(createLinkItem(`sala del evento: `, `${location.href}r/${room.roomId}`))
+        linkCard.append(createLinkItem(`cabina de transmision:`, `${location.href}transmision/${room.roomKey}`))
+        div.append(linkCard);
+
+        var dataCard = createDiv({marginTop: 60});
+        function input(placeholder, style = {}) {
+            var imp = createElement("input", style)
+            imp.placeholder = placeholder;
+            return imp
+        }
+        dataCard.append(label("Nombre del evento"))
+        var nombreEvento = input("Nombre del evento", {fontSize: '1.5em', marginBottom: 10})
+        dataCard.append(nombreEvento)
+        dataCard.append(label("Fecha de inicio"))
+        var fechaInput = input("Fecha de inicio", {fontSize: '1.2em', marginBottom: 10})
+        fechaInput.type = "date";
+        dataCard.append(fechaInput)
+        dataCard.append(label("Palabras clave/nombres/siglas"))
+        dataCard.append( input("clic para editar", {fontSize: '1.2em', marginBottom: 10}))
+        dataCard.append(label("Email del organizador"))
+        dataCard.append( input("clic para editar", {fontSize: '1.2em', marginBottom: 10}))
+        div.append(dataCard);
+
+
+   
         let core = document.getElementById("core")
         core.innerHTML = "";
         core.append(div)
@@ -146,6 +249,10 @@
             el.classList.add("hide")
         }
         document.getElementById("info").classList.remove("hide")
-
     }
+
+  
+
+    //reservarSala({room: {roomId: "HOLA", roomKey: "HOLA"}, qr: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAYAAAB1PADUAAAAAklEQVR4AewaftIAAATfSURBVO3BQY4bSRAEwfAC//9l3znmqYBGJyXNIszwR6qWnFQtOqladFK16KRq0UnVopOqRSdVi06qFp1ULTqpWnRSteikatFJ1aKTqkUnVYs+eQnIn6RmAjKpeQPIE2qeAHKjZgLyJ6l546Rq0UnVopOqRZ8sU7MJyBtAbtTcqLkBMqm5UfOGmk1ANp1ULTqpWnRSteiTLwPyhJon1ExAJjUTkBs1fxKQSc0TQJ5Q800nVYtOqhadVC365JcDMqm5UTMBmdRMQG7UTECeUPN/clK16KRq0UnVok9+OTUTkBs1k5on1ExAbtRMQCYgk5rf7KRq0UnVopOqRZ98mZq/Sc0E5Ak1E5AbNU+oeUPNv+SkatFJ1aKTqkWfLAPyJwGZ1ExAJjUTkEnNBGRSMwG5ATKpmYBMam6A/MtOqhadVC06qVqEP/KLAdmk5gbIE2pugExqfrOTqkUnVYtOqhZ98hKQSc0E5EbNBOQJNW8AmYBMam7UTEBugDwBZFJzA2RSMwG5UfPGSdWik6pFJ1WLPvnLgNyouQHyhJpJzQRkAvJNaiYgN0Bu1NyomYBsOqladFK16KRq0Sd/mZoJyARkUjOpeQLIE2pugExqJiCTmgnIpGYCcqPmBsiNmk0nVYtOqhadVC365CU1E5AbNU+ouQEyqZmATGomIJOaN4DcAJnUvAHkRs0NkEnNGydVi06qFp1ULcIfeQHIpOYGyKTmBsiNmgnIpGYCMqm5AXKjZgJyo2YCMql5A8iNmm86qVp0UrXopGoR/sgiIG+ouQEyqZmAvKFmAjKpmYDcqJmA3KiZgExq3gByo+aNk6pFJ1WLTqoW4Y98EZDfTM0E5EbNBORGzQRkUjMBmdRMQN5Q88ZJ1aKTqkUnVYs+WQZkUjMBmdRsAjKpuQEyqZmATGomIE+ouVEzAZnUTEAmNTdAJjWbTqoWnVQtOqla9MkyNTdqboDcqJmATGpugLwB5AbIG0AmNROQf9lJ1aKTqkUnVYs++TIgN2pu1ExAJjU3QG7UPKFmAnKj5pvU3AD5k06qFp1ULTqpWvTJS0AmNZOaCcgTQN5QcwPkCSCbgGwCcqPmm06qFp1ULTqpWoQ/8hcBuVFzA+RGzRNAbtQ8AWRScwPkCTU3QCY133RSteikatFJ1aJPlgG5UfMEkH8ZkEnNpGYCsgnIv+SkatFJ1aKTqkX4I78YkEnNDZAbNTdAbtRMQJ5Q8wSQTWreOKladFK16KRq0ScvAfmT1LyhZgJyA+RGzY2aCcgTQCY1T6iZgExqNp1ULTqpWnRSteiTZWo2AfkmNROQN4BMat5Q84Sav+mkatFJ1aKTqkWffBmQJ9Q8oWYCcqPmRs0baiYgk5oJyARkE5BJzTedVC06qVp0UrXok18OyKRmAjIBuVGzSc2NmgnIpGYCcgNkUjMBmdRsOqladFK16KRq0Sf/c2qeADKpuQEyqbkBsknNBORGzQRkUvPGSdWik6pFJ1WLPvkyNd+kZgIyqZmATGomNTdAJjWb1HwTkEnNppOqRSdVi06qFn2yDMifBGRSc6NmAnKjZlIzAZnU3KiZgDyhZgIyqfmbTqoWnVQtOqlahD9SteSkatFJ1aKTqkUnVYtOqhadVC06qVp0UrXopGrRSdWik6pFJ1WLTqoWnVQtOqla9B96GU8mOv+ufgAAAABJRU5ErkJggg==`})
+
 </script>

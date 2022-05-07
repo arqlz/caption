@@ -5,10 +5,17 @@ const sdk = require("microsoft-cognitiveservices-speech-sdk");
 const fs = require("fs");
 const uid_1 = require("../uid");
 var speechConfig;
+var subscription;
+function buildConfig(language) {
+    var speechConfig = sdk.SpeechConfig.fromSubscription(subscription.subscription, subscription.region);
+    speechConfig.speechRecognitionLanguage = language;
+    return speechConfig;
+}
 function createSpeechConfigObject() {
     function build(data) {
         try {
             let sub = JSON.parse(data);
+            subscription = sub;
             speechConfig = sdk.SpeechConfig.fromSubscription(sub.subscription, sub.region);
             speechConfig.speechRecognitionLanguage = sub.language;
         }
@@ -42,7 +49,7 @@ class AzureSession {
         let p = sdk.AudioInputStream.createPushStream(format);
         this.writableStream = p;
         const audioConfig = sdk.AudioConfig.fromStreamInput(p);
-        const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
+        const recognizer = new sdk.SpeechRecognizer(buildConfig("es-ES"), audioConfig);
         recognizer.canceled = (o, e) => {
             try {
                 var str = "(cancel) Reason: " + sdk.CancellationReason[e.reason];
@@ -60,7 +67,15 @@ class AzureSession {
                 this.onData(e.result);
             }
             catch (error) {
-                console.log("canceled error", error);
+                console.log("recognizing error", error);
+            }
+        };
+        recognizer.recognized = (o, e) => {
+            try {
+                this.onData(e.result);
+            }
+            catch (error) {
+                console.log("recognized error", error);
             }
         };
         recognizer.startContinuousRecognitionAsync();

@@ -27,6 +27,148 @@ f.modules = modules;
 })();
 __fuse.bundle({
 
+// public/src/presenter.ts @2
+2: function(__fusereq, exports, module){
+exports.__esModule = true;
+var utils_1 = __fusereq(3);
+class Presenter {
+  constructor(rec) {
+    this.lines = {};
+    this.queue = [];
+    this.raw = "";
+    var div = utils_1.createDiv({
+      width: "100%",
+      height: "100%"
+    });
+    div.className = "msgContainner";
+    this.control = utils_1.createDiv();
+    var stopButton = utils_1.createElement("button");
+    stopButton.innerHTML = "STOP";
+    stopButton.onclick = () => {
+      stopButton.disabled = true;
+      if (rec) {
+        console.log("STOP RECORDER", rec);
+        rec.stop();
+      }
+    };
+    this.control.append(stopButton);
+    div.append(this.control);
+    this.textContainner = utils_1.createDiv({
+      width: 350,
+      margin: "auto auto",
+      color: "#ffffff",
+      fontSize: 20,
+      display: "flex",
+      flexDirection: "column",
+      flexFlow: "column-reverse",
+      overflow: "hidden",
+      height: 120
+    });
+    div.append(this.textContainner);
+    document.body.append(div);
+  }
+  append(data) {
+    this.queue.push(data);
+    if (!this.lines[data.id]) {
+      var div = utils_1.createDiv("textRow", {
+        marginRight: "4pt"
+      });
+      this.textContainner.prepend(div);
+      this.lines[data.id] = div;
+      this.lines[data.id].innerHTML = data.result;
+    } else {
+      this.lines[data.id].innerHTML = data.result;
+    }
+  }
+}
+exports.Presenter = Presenter;
+class Presenter2 {
+  constructor(rec) {
+    this.lines = {};
+    this.queue = [];
+    this.raw = "";
+    var div = utils_1.createDiv({
+      width: "100%",
+      height: "100%"
+    });
+    div.className = "msgContainner";
+    this.control = utils_1.createDiv();
+    var stopButton = utils_1.createElement("button");
+    stopButton.innerHTML = "STOP";
+    stopButton.onclick = () => {
+      stopButton.disabled = true;
+      if (rec) {
+        console.log("STOP RECORDER", rec);
+        rec.stop();
+      }
+    };
+    this.control.append(stopButton);
+    div.append(this.control);
+    this.textContainner = utils_1.createDiv({
+      width: 350,
+      textAlign: "center",
+      margin: "auto auto",
+      color: "#ffffff",
+      fontSize: 20,
+      display: "block"
+    });
+    div.append(this.textContainner);
+    document.body.append(div);
+  }
+  append(data) {
+    this.queue.push(data);
+    if (!this.lines[data.id]) {
+      var div = utils_1.createDiv({
+        display: "inline",
+        marginRight: "4pt"
+      });
+      this.textContainner.append(div);
+      this.lines[data.id] = div;
+      this.lines[data.id].innerHTML = data.result;
+    } else {
+      this.lines[data.id].innerHTML = data.result;
+    }
+  }
+}
+exports.Presenter2 = Presenter2;
+
+},
+
+// public/src/receptorClient.ts @1
+1: function(__fusereq, exports, module){
+exports.__esModule = true;
+var presenter_1 = __fusereq(2);
+var presenter = new presenter_1.Presenter();
+var socket = io();
+socket.on("disconnect", () => {
+  console.log("disconected");
+});
+socket.on("connect", () => {
+  console.log("connected");
+});
+socket.on("hello", () => {
+  var roomId = location.pathname || "";
+  if (roomId.length < 2) {
+    throw new Error("sala invalida");
+    return;
+  }
+  roomId = roomId.split("/").slice(2)[0];
+  socket.emit("join", {
+    roomId: roomId
+  });
+});
+socket.on("joined", roomId => {
+  socket.on("mensaje", data => {
+    console.log(data.result);
+    presenter.append(data);
+  });
+  console.log("Joined to room");
+  socket.emit("test");
+});
+socket.connect();
+
+},
+
 // public/src/components/utils.ts @3
 3: function(__fusereq, exports, module){
 exports.__esModule = true;
@@ -55,100 +197,6 @@ function createDiv(styleOrClass, style) {
   return div;
 }
 exports.createDiv = createDiv;
-
-},
-
-// public/src/presenter.ts @2
-2: function(__fusereq, exports, module){
-exports.__esModule = true;
-var utils_1 = __fusereq(3);
-class Presenter {
-  constructor(rec) {
-    this.lines = {};
-    this.queue = [];
-    var div = utils_1.createDiv({
-      width: "100%",
-      height: "100%"
-    });
-    this.control = utils_1.createDiv();
-    var stopButton = utils_1.createElement("button");
-    stopButton.innerHTML = "STOP";
-    stopButton.onclick = () => {
-      stopButton.disabled = true;
-      if (rec) {
-        console.log("STOP RECORDER", rec);
-        rec.stop();
-      }
-    };
-    this.control.append(stopButton);
-    div.append(this.control);
-    var show = utils_1.createDiv({
-      width: 350,
-      textAlign: "center",
-      margin: "auto auto",
-      color: "#ffffff",
-      fontSize: 20
-    });
-    this.textContainner = show;
-    div.append(show);
-    document.body.append(div);
-    setInterval(() => {
-      this.appendWord();
-    }, 100);
-  }
-  appendWord() {
-    if (this.queue.length) {
-      var w = this.queue.splice(0, 1)[0];
-      if (!this.lines[w.id]) {
-        var div = utils_1.createDiv();
-        this.textContainner.append(div);
-        this.lines[w.id] = div;
-      }
-      this.lines[w.id].innerHTML = w.result;
-    }
-  }
-  append(data) {
-    this.queue.push(data);
-  }
-}
-exports.Presenter = Presenter;
-
-},
-
-// public/src/receptorClient.ts @1
-1: function(__fusereq, exports, module){
-exports.__esModule = true;
-var presenter_1 = __fusereq(2);
-var presenter = new presenter_1.Presenter();
-var socket = io();
-socket.on("ready", () => {
-  console.log("Starting recorder");
-  var presenter = new presenter_1.Presenter();
-  socket.on("mensaje", data => {
-    presenter.append(data);
-  });
-});
-socket.on("disconnect", () => {
-  console.log("disconected");
-});
-socket.on("connect", () => {
-  console.log("connected");
-});
-socket.on("hello", () => {
-  var roomId = location.pathname || "";
-  if (roomId.length < 2) {
-    throw new Error("sala invalida");
-    return;
-  }
-  roomId = roomId.split("/").slice(2)[0];
-  socket.emit("join", {
-    roomId: roomId
-  });
-});
-socket.on("joined", roomId => {
-  console.log("Joined to room");
-});
-socket.connect();
 
 }
 }, function(){
