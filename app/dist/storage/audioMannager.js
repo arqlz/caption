@@ -46,8 +46,9 @@ exports.crearSesionAlmacenamiento = crearSesionAlmacenamiento;
 function crearSesionTranscripcion(uid) {
     const containerClient = blobServiceClient.getContainerClient("rawtranscripcion");
     var stream = new stream_1.Readable({ read: () => null });
-    if (process.env.PORT)
+    if (process.env.PORT) {
         containerClient.getBlockBlobClient(uid).uploadStream(stream);
+    }
     else {
         var writeStream = fs.createWriteStream(__dirname + `/../../../public/data/${uid}.jsonl`, { encoding: "utf-8" });
         stream.pipe(writeStream);

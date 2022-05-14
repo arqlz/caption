@@ -209,7 +209,7 @@ server.listen(PORT, async () => {
         var room: Room;
 
         function simularEmision() {
-            fs.promises.readFile(__dirname+"/../../public/data/IEP7XO.jsonl", {encoding: "utf-8"}).then(data => {
+            fs.promises.readFile(__dirname+"/../../public/IEP7XO.jsonl", {encoding: "utf-8"}).then(data => {
                 var json = data.split("\n").filter(d => !!d).map(str => JSON.parse(str))
                 connectionTimer = setInterval(() => {
                     let item = json.splice(0, 1)[0]
@@ -228,18 +228,12 @@ server.listen(PORT, async () => {
 
             var initiated = false;
 
-            socket.join(room.roomId);
-            socket.emit("ready")
-            console.log("broadcast ready")
-
-            simularEmision()
-
             socket.emit("info", {
                 eventTitle: room.eventTitle,
                 photoUrl: room.photoUrl,
                 language: room.language
             })
-            return
+   
             if (room) return;
             console.log(`Session de transcripcion iniciada en ${roomKey}`)            
             room = new Room(roomKey);   
@@ -308,6 +302,14 @@ server.listen(PORT, async () => {
         }) 
   
         socket.on("test", () => {
+
+            socket.join(room.roomId);
+            socket.emit("ready")
+            console.log("broadcast ready")
+
+            simularEmision()
+
+            return
             console.log("test >>")
             fs.promises.readFile(__dirname+"/../../test.jsonl", {encoding: "utf-8"}).then(text => {
                 var lines: {result, id, speakerId}[] = text.split("\n").filter(r => r.trim().length >= 6).map(r => JSON.parse(r))
