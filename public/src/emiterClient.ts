@@ -47,32 +47,28 @@ socket.once("ready", () => {
     rec.onData = blob => {
         sendBlob(blob)   
     }
+
     rec.start()
 
     socket.on("mensaje", data => {
         presenter.append(data)
     })
+    socket.on("info", (info: {photoUrl: string, eventTitle: string}) => {
+        presenter.title = info.eventTitle;
+        console.log("on info", info)
+    })
 })
+
 socket.on("disconnect", () => {
-    console.log("disconected")
     if (rec) {
         rec.stop()
         rec = null
     }
 })
-socket.on("connect", () => {
-    console.log("connected")
-})
-socket.on("hello", () => {
+socket.on("connect", () => {    
     var roomkey = location.pathname || ""
-    if (roomkey.length < 2) {
-        throw new Error("sala invalida")
-        return
-    }
+    if (roomkey.length < 2) throw new Error("sala invalida")
     roomkey = roomkey.split("/").slice(2)[0];
-    socket.emit("broadcast", {roomKey: roomkey});  
+    socket.emit("broadcast", {roomKey: roomkey, language: "es-DO"});  
 })
-socket.on("joined",  (roomId) => {
-    console.log("Joined to room")
-});  
 socket.connect()

@@ -1,15 +1,8 @@
 import { generarTextEditor } from "./components/texteditor";
-import { createDiv } from "./components/utils";
+import { createDiv, createElement } from "./components/utils";
+import { loadData } from "./utils/loadDocument";
 
-function loadFiles(): Promise<[Blob, any]>{
-    return fetch("/data/KF7NRC.webm").then(r => r.blob()).then(blob => {
-        return fetch("/data/KF7NRC.jsonl").then(r => r.text()).then(text => {
-            var json = text.split("\n").filter(f => f.trim().length).map(j => JSON.parse(j))
-            return [blob, json] as any
-        })
-   
-    }).catch(console.error)
-}
+
 function generarSamplesFromArray(raw: Float32Array, samples = 400) {
     const blockSize = Math.floor(raw.length/samples);
     const filtered = [];
@@ -38,12 +31,6 @@ function decodeAudio(buffer) {
         return audioBuffer
     })
 }
-const drawLineSegment = (ctx, x, y, width, isEven: number) => {
-    ctx.fillStyle = "#e7534b";
-    if (y<3) y = 1;
-    y = isEven ? y : -y;
-    ctx.fillRect(x,0,width,y)
-};
 
 
 function drawHorizontal(canvas: HTMLCanvasElement, normalizedData: number[]) {
@@ -69,62 +56,72 @@ function drawHorizontal(canvas: HTMLCanvasElement, normalizedData: number[]) {
 
     }
 }
-function drawVertical(canvas: HTMLCanvasElement, normalizedData: number[]) {
-    const dpr = window.devicePixelRatio || 1;    
-    const padding = 10;
-    canvas.width = canvas.offsetWidth + padding * 2 * dpr;
-    canvas.height = (canvas.offsetHeight ) * dpr;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,canvas.width, canvas.height)
-    ctx.scale(dpr, dpr);
-    ctx.translate( canvas.offsetWidth / 2 + padding, 0); 
+
+async function build() { 
+    var [blob, doc] = await loadData("IEP7XO");
+    console.log(doc)
+    if (!blob) return;
 
 
-
-    const width = canvas.offsetHeight / normalizedData.length;
-    ctx.fillStyle = "#e7534b";
-    for (let i = 0; i < normalizedData.length; i++) {
-        let y = width * i;
-        let w = normalizedData[i] * canvas.offsetWidth - padding;
-        let x = 0;
-
-        if (w<3) w = 1;
-        if (i%2 == 0) {
-            w = -w;
-      
-        }
-
-        ctx.fillRect(x,y,w, width)
-
-    }
-}
-
-
-
-
-async function build() {
+    var div = createDiv({width: 500, margin: "0 auto"})  
+    const visualization = createDiv("row")
     const canvas = document.createElement("canvas");
+    canvas.classList.add("flex")
     canvas.style.width = "100%";
     canvas.style.height = "100px";
+    visualization.append(canvas);
+    div.append(visualization)
 
-    var div = createDiv({width: 500, margin: "0 auto"})
-    div.append(canvas)
+    const photo = createDiv({height: 150, width: "100%", background: "#00000022", margin: "30px auto"})
+    
+    let img = createElement("img", {width: "100%"}) as HTMLImageElement;
+    console.log(doc.photoUrl)
+    if (doc.photoUrl) img.src = doc.photoUrl;
+    photo.append(img)
+    
+    photo.onclick = () => {
+        let input = createElement("input") as HTMLInputElement;
+        input.type = "file";
+        input.accept = "image/jpeg"
+        input.onchange = (e: any) => {
+            let image_file = e.target.files[0];
+            var form = new FormData();
+            form.append("file", image_file);
+            fetch(`/api/images/${doc.roomId}`, {method: "POST", body: form})
+            .then(r => r.json()).then(res => {
+                doc.photoUrl = res.result;
+                img.src = doc.photoUrl;
+                doc.save().then(console.log, console.error)
+               
+                
+            }, console.error)
+        }
+        input.click()
+    }
+    div.append(photo)
+
+    const audioControls = createDiv("row center", {marginTop: 10}); 
+    const playPauseButton = createElement("button", {width: 100, height: 50});
+    playPauseButton.innerText = "Play";
+    audioControls.append(playPauseButton);
+    const downloadAudioButton = createElement("button", {width: 140, height: 50, marginLeft: 10});
+    downloadAudioButton.innerText = "Download";
+    audioControls.append(downloadAudioButton);
+
+
+    div.append(audioControls)
     document.body.append(div);
 
-    /*
-    const canvas2 = document.createElement("canvas");
-    canvas2.style.width = "100px";
-    canvas2.style.height = "100%";
-    document.body.append(canvas2);
-    */
-
-
-    var [blob, json] = await loadFiles() ;
-    if (!blob) return;
     
     const audioBuffer = await decodeAudio(await blob.arrayBuffer());
     const normalized = generarSamples(audioBuffer);
     drawHorizontal(canvas, normalized)  
+
+
+    let editor = generarTextEditor(doc, document.body);
+    var context = new AudioContext();
+    var source: AudioBufferSourceNode
+
     canvas.onmousemove = e => {
         drawHorizontal(canvas, normalized)  
         var ctx = canvas.getContext("2d");
@@ -136,38 +133,50 @@ async function build() {
 
 
         let progress = e.offsetX/canvas.width;
-        console.log(progress*audioBuffer.length)
-    }
-    console.log(json)
-    
+        let segundos = audioBuffer.duration * progress ;
 
-    document.body.append(generarTextEditor(json))
 
-    /*
-    for (let i = 0; i < audioBuffer.length; i+=(8**3)*2) {
-        var subset = audioBuffer.getChannelData(0).slice(0, i)
-        var normalized = generarSamplesFromArray(subset);
-        drawHorizontal(canvas, normalized)   
-        drawVertical(canvas2, normalized)   
-        await wait();
-    }
-    return
-    var normalized = generarSamples(audioBuffer);
-    normalized = normalized.concat(normalized)
-    normalized = normalized.concat(normalized)
+        var after_this = doc.near(segundos)
+        if (after_this.length) {
+            editor.clearMark().mark(after_this[0].id.toString())
+        } 
+    }   
 
-    function wait(time = 10) {
-        return new Promise((resolve) => setTimeout(resolve, time))
+    function playAudio(offset: number) {
+        if (source) source.stop()
+        playPauseButton.innerText = "Stop"
+        source = context.createBufferSource()
+        source.buffer = audioBuffer;
+        source.connect(context.destination)
+        source.start(0, offset)
     }
-    for (var i = 0; i < normalized.length; i++) {
-        var sub = normalized.slice(0, i)
+    canvas.onclick = (e) => {
+        let progress = e.offsetX/canvas.width;
+        let segundos = audioBuffer.duration * progress ;
         
-        drawHorizontal(canvas, sub)   
-        drawVertical(canvas2, sub)   
-        await wait();
-    }*/
- 
+        var target = doc.near(segundos)
+        if (target.length) playAudio( target[0].id / 10000000)
+    }
+    playPauseButton.onclick = () => {
+        if (source) {
+            source.stop()
+            source = null;
+            playPauseButton.innerText = "Play"
+        } else playAudio(0)
+    }
+    downloadAudioButton.onclick = () => {
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style.display = "none";
+        let url = window.URL.createObjectURL(blob)
+        a.href = url;
+        a.download = doc.roomId+".webm";
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+    }
+
 }
 
-
 build()
+

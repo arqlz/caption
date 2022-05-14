@@ -9,6 +9,7 @@ var subscription: any
 function buildConfig(language: string) {
     var speechConfig = sdk.SpeechConfig.fromSubscription(subscription.subscription, subscription.region);
     speechConfig.speechRecognitionLanguage = language;
+
     return speechConfig
 }
 
@@ -46,15 +47,17 @@ export class AzureSession {
     speechRecognizer: sdk.SpeechRecognizer
     writableStream: sdk.PushAudioInputStream
     onData = (data: sdk.SpeechRecognitionResult) => null
-    constructor() {
+    onSessionLimitReached = () => null
+    length: number = 0;
+
+    constructor(language: string = "es-ES", sessionTimeLimitSeconds = 60*30) {
         if (!speechConfig) throw new Error("SpeechConfig no fue encontrado, por favor verifique si se ha creado correctamente el archivo subscription.json")
         const format = sdk.AudioStreamFormat.getWaveFormatPCM(48000, 16, 1);      
         let p = sdk.AudioInputStream.createPushStream(format)
         this.writableStream = p
-
         
         const audioConfig = sdk.AudioConfig.fromStreamInput(p);
-        const recognizer = new sdk.SpeechRecognizer(buildConfig("es-ES"), audioConfig);
+        const recognizer = new sdk.SpeechRecognizer(buildConfig(language), audioConfig);
         recognizer.canceled = (o, e) => {
             try {
               var str = "(cancel) Reason: " + sdk.CancellationReason[e.reason];
@@ -64,14 +67,18 @@ export class AzureSession {
               console.log(str);
       
             } catch (error) {
-              console.log("canceled error", error)
-      
+              console.log("canceled error", error)      
             }
         };
    
         recognizer.recognizing = (o, e) => {
             try {
                 this.onData(e.result)
+                this.length = e.result.offset/10000000
+                if ( this.length > sessionTimeLimitSeconds) {
+                    // ha superado el limite de tiempo por session          
+                    this.onSessionLimitReached()
+                }
             } catch (error) {
                 console.log("recognizing error", error)        
             }
@@ -79,6 +86,11 @@ export class AzureSession {
         recognizer.recognized = (o, e) => {
             try {
                 this.onData(e.result)
+                this.length = e.result.offset/10000000
+                if ( this.length > sessionTimeLimitSeconds) {
+                    // ha superado el limite de tiempo por session
+                    this.onSessionLimitReached()
+                }
             } catch (error) {
                 console.log("recognized error", error)        
             }
@@ -86,7 +98,12 @@ export class AzureSession {
         recognizer.startContinuousRecognitionAsync()   
 
     }
-    push(buffer) {        
+    close() {
+        console.log("Cerrando streaming")
+        this.writableStream.close()
+    }
+    push(buffer) {      
+          
         this.writableStream.write(buffer)  
     }
 }

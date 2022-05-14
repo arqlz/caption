@@ -32,5 +32,8 @@ CaptionDb.rooms = {
     },
     find: async (query, limit = -1) => {
         return client.db("caption").collection("room").find(query).limit(limit || 1000).toArray();
+    },
+    findOne: async (query) => {
+        return client.db("caption").collection("room").findOne(query);
     }
 };

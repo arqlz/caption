@@ -8,7 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
         <style>
             body {
-                background-color: #000114;
+                background: radial-gradient(circle at center 350px, #33246f, transparent 900px), #13121d;
                 color: #ffffff; 
                 font-family: 'Mulish', sans-serif;              
             }
@@ -22,9 +22,26 @@
                 flex-direction: row;
             }
             button {
-                padding: 10px;
+                padding: 12px 40px;
                 border: none;  
                 cursor: pointer;  
+                border: solid 1px #ffffff;
+                background: transparent;
+                color: white;        
+                border-radius: 20px;
+                text-shadow: 0 0 0px rgb(90 17 255);
+                transition: padding 0.25s, box-shadow 0.25s, text-shadow 0.25s;
+      
+            }
+            button:hover {                 
+                box-shadow: 0 0 8px rgb(90 17 255);
+                padding: 12px 60px;
+                text-shadow: 0 0 8px rgb(130 47 255);        
+            }
+            button.disabled {
+                border: solid 1px #ffffff60;
+                box-shadow: 0 0 8px rgba(88, 17, 255, 0.438);
+                color: #ffffff33;
             }
             .page {
                 padding: 10px;
@@ -46,8 +63,9 @@
         </style>
     </head>
     <body>
-        <div>Room ID <%=roomId %></div>
     </body>
 </html>
-
+<script>
+    var roomId = "<%= roomId %>";
+</script>
 <script src="/js/receptor.js"></script>

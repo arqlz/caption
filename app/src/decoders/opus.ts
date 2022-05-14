@@ -19,7 +19,7 @@ export async function guardarRealtime(filename: string, buffer: Buffer) {
 }
 
 var index = 0
-export class AudioProcessorSession {
+export class AudioDecodeSesion {
     stream: Readable 
     onData = (buffer: Buffer, index: number) => null
     onEnd = (b?: Buffer) => { }
@@ -49,6 +49,16 @@ export class AudioProcessorSession {
         .pipe(writeable)
     }
     toWav(buffer: Buffer): Buffer {
+        var wavData = wavConverter.encodeWav(buffer, {
+            numChannels: 1,
+            sampleRate: 48000,
+            byteRate: 16
+        })
+        var data = new WaveFile(wavData)
+        data.toSampleRate(16000)
+        return data.toBuffer()
+    }
+    resample(buffer: Buffer): Buffer {
         var wavData = wavConverter.encodeWav(buffer, {
             numChannels: 1,
             sampleRate: 48000,
@@ -93,7 +103,7 @@ export class AudioProcessorSession {
 }
 
 
-class AudioProcessorCustom extends AudioProcessorSession {
+class AudioProcessorCustom extends AudioDecodeSesion {
     async salvarBuffer(buffer: Buffer, name: string) {
         var wavData = wavConverter.encodeWav(buffer, {
             numChannels: 1,
@@ -153,7 +163,7 @@ async function emular() {
 }
 
 var chunks = []
-var session: AudioProcessorSession
+var session: AudioDecodeSesion
 
 export function easyDecode(buffer: Buffer) {
     return new Promise<Buffer>((resolve) => {
@@ -163,7 +173,7 @@ export function easyDecode(buffer: Buffer) {
         }
 
         if (!session) {
-            session = new AudioProcessorSession()
+            session = new AudioDecodeSesion()
             chunks = []        
             session.start()
         }

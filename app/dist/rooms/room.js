@@ -23,6 +23,15 @@ class Room {
         this._id = generateUUID();
         this.roomKey = roomKey || XXH.h32(this._id, 0xBEBE).toString(36).toUpperCase();
         this.roomId = Room.getRoomId(this.roomKey);
+        this.timestamp = Date.now();
+        this.ownerId = "";
+        this.ownerEmail = "";
+        this.eventTitle = "";
+        this.eventDate = 0;
+        this.photoUrl = "";
+        this.language = "es-DO";
+        this.length = 0;
+        this.sessions = [];
     }
     static getRoomId(roomKey) {
         return XXH.h32(roomKey, 0xCDDE).toString(36).toUpperCase();

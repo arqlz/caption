@@ -2,17 +2,22 @@ import * as http from "http"
 import * as express from "express"
 import { Server } from "socket.io";
 import * as ejs from "ejs"
-import { AudioProcessorSession } from "./decoders/opus"
+import { AudioDecodeSesion } from "./decoders/opus"
 import { AzureSession } from "./speech_recognition/azure";
 import { generarQr } from "./rooms/qrgenerator";
 import { Room } from "./rooms/room";
 import { CaptionDb } from "./db";
-import { crearSesionAlmacenamiento, crearSesionTranscripcion } from "./storage/audioMannager";
+import { crearSesionAlmacenamiento, crearSesionTranscripcion, getTrascriptionFile, saveFile, saveTrascriptionFile } from "./storage/audioMannager";
 import { appendMsgToFile } from "./storage/localStore";
 import * as fs from "fs";
-var PORT = process.env.PORT || 5000
+import * as multer from "multer"
+import * as sharp from "sharp"
+import wavefile = require("wavefile");
+import { validateRoomKey } from "./rooms/utils";
 
+var PORT = process.env.PORT || 5000;
 
+const upload = multer().single("file")
 const app = express()
 const server = http.createServer(app)
 
@@ -56,8 +61,57 @@ app.get("/api/reservar", async (req, res) => {
     }
 
 })
+app.get("/api/transcripcion/:key", async (req, res) => {
+    /*
+    Not secured:
+    Users are allowed to edit or create any document the want as it is implemented
+    If you want to use this repo consider adding your own controls instead
+    */
+    getTrascriptionFile(req.params.key).then((data) => {
+        res.json({result: JSON.parse( data.toString('utf8'))})
+   }).catch(err => {
+       console.error(err)
+       res.status(500).send("Error")
+   })
+
+})
+app.post("/api/transcripcion/:key", async (req, res) => {
+    /*
+    Not secured:
+    Users are allowed to edit or create any document the want as it is implemented
+    If you want to use this repo consider adding your own controls instead
+    */
+   saveTrascriptionFile(req.params.key, JSON.stringify(req.body)).then(() => {
+        res.json({result: "Ok"})
+   }).catch(err => {
+       console.error(err)
+       res.status(500).send("Error")
+   })
+})
+app.post("/api/images/:key", upload, async (req, res) => {
+    /*
+    Not secured:
+    Users are allowed to edit or create any document the want as it is implemented
+    If you want to use this repo consider adding your own controls instead
+    */
+    let imagen = sharp(req.file.buffer);
+    var meta = await imagen.metadata();
+    var width = 640;
+    var height = (meta.height / (meta.width/width) ) | 0
+    imagen.resize(width, height)
+    .extract({left: 0, top: 0, width, height: 192})
+    var buffer = await imagen.jpeg({quality: 80}).toBuffer()
+
+    saveFile("images", "i"+(Date.now())+".jpeg", buffer ).then((url) => {
+        res.json({result: url})
+    }).catch(err => {
+        console.error(err)
+        res.status(500).send("Error")
+    })
+})
+
 app.get("/transmision/:roomId", (req, res) => {
-    res.render("emiter.html", {})
+    res.render("emiter.html", {roomId: req.params.roomId})
 })
 app.get("/room/:roomId", (req, res) => {
     res.render("room.html", {roomId: req.params.roomId})
@@ -65,8 +119,19 @@ app.get("/room/:roomId", (req, res) => {
 app.get("/r/:roomId", (req, res) => {
     res.render("room.html", {roomId: req.params.roomId})
 })
+app.get("/editor/:roomId", (req, res) => {
+    let roomId = req.params.roomId;
+    let roomKey = req.query.roomKey as string;
+
+    validateRoomKey(roomId, roomKey).then((valid) => {
+        if (valid) res.render("editor.html", {})
+        else res.status(401).send("Room Key invalid")
+    })
+
+})
+
 app.get("/wavesurfer", (req, res) => {
-    res.render("wavesurfer.html", {})
+    res.render("editor.html", {})
 })
 
 
@@ -109,7 +174,16 @@ if (process.env.PORT) {
     }
 }
 
+/*
+    TODO
+    * crear un api de coneccion 
+    * se debe anadir un header en las paginas
+    * completar el wizard para crear una transmision
+    * crear la pagina web para celulares
+    * anadir la seleccion de room en c#
+    * se necesita poder compartir los audios o transcripciones con otros servicios
 
+*/
 
 server.listen(PORT, async () => {
     console.log(`listening to http://localhost:${PORT}`)
@@ -120,95 +194,96 @@ server.listen(PORT, async () => {
     await require("./db").init()
     const io = new Server(server);
     io.on("connection", (socket) => {
-        var decoder : AudioProcessorSession 
+        var decoder : AudioDecodeSesion 
+        var connectionTimer
         console.log("new connection stablished")
+        
         socket.on("disconnect", () => {
-            console.log("DISCONECTED")
             if( decoder) {
                 decoder.stop()
                 decoder = null  
+                clearInterval(connectionTimer)
             }      
         })
 
         var room: Room;
-        socket.on("broadcast",  ({roomKey}: {roomKey: string}) => {
+
+        function simularEmision() {
+            fs.promises.readFile(__dirname+"/../../public/data/IEP7XO.jsonl", {encoding: "utf-8"}).then(data => {
+                var json = data.split("\n").filter(d => !!d).map(str => JSON.parse(str))
+                connectionTimer = setInterval(() => {
+                    let item = json.splice(0, 1)[0]
+                    io.sockets.emit("mensaje", item)
+                    if (json.length == 0) clearTimeout(connectionTimer)
+                }, 200)
+             
+            })
+        }
+        socket.on("broadcast",  async ({roomKey, language}: {roomKey: string, language: string}) => {
+            // buscar el room
+            room = await CaptionDb.rooms.findOne({roomId: Room.getRoomId( roomKey) })
+            if (!room) {
+                return socket.emit("Error", "la sala no fue encontrada")
+            }
+
+            var initiated = false;
+
+            socket.join(room.roomId);
+            socket.emit("ready")
+            console.log("broadcast ready")
+
+            simularEmision()
+
+            socket.emit("info", {
+                eventTitle: room.eventTitle,
+                photoUrl: room.photoUrl,
+                language: room.language
+            })
+            return
             if (room) return;
             console.log(`Session de transcripcion iniciada en ${roomKey}`)            
-            var waiting_list = 0;
-            room = new Room(roomKey);    
-            var last_query = false;     
-            var blob_stream = crearSesionAlmacenamiento(room.roomId);
-            var transcripcion_stream = crearSesionTranscripcion(room.roomId);
-            var filte_stream = appendMsgToFile(room.roomId)
+            room = new Room(roomKey);   
+                 
+            var session = room.roomId + "." + room.sessions.length;
+            var blob_stream = crearSesionAlmacenamiento(session);
+            var transcripcion_stream = crearSesionTranscripcion(session);
+            var localStream = appendMsgToFile(session)
 
     
-            decoder = new AudioProcessorSession()   
+            decoder = new AudioDecodeSesion()   
             decoder.start()
             
-            var azureSession: AzureSession = new AzureSession()    
+            var azureSession: AzureSession = new AzureSession(language || "es-DO", 30*60-room.length)    
             azureSession.onData = (data) => {
-                waiting_list--;   
-                last_query = false;      
-
                 var jsonl = {result: data.text, id: data.offset, speakerId: data.speakerId + ""};
                 transcripcion_stream.push(JSON.stringify(jsonl)+"\n")  
-                filte_stream.write(JSON.stringify(jsonl)+"\n")
-
-                io.sockets.emit("mensaje", jsonl)
+                localStream.write(JSON.stringify(jsonl)+"\n")
+                io.sockets.emit("mensaje", jsonl)             
             }   
 
-            /*
-    
-            var timer = setInterval(() => {
-                 if (chunks.length) {
-                     console.log("SEND")
-                    azureSession.push(Buffer.concat(chunks))   
-                    chunks = [];     
-                 }
-            }, time_interval)
-            */
-
-
+            azureSession.onSessionLimitReached = () => {
+                clear()
+                socket.emit("sessionLimitReached")
+            }
             function clear() {
-                //clearInterval(timer)
+                azureSession.close()
                 blob_stream.emit("end");
                 transcripcion_stream.emit("end");
+                localStream.emit("end");
+                room.length += azureSession.length;
+                CaptionDb.rooms.update(room)
             }
 
-            decoder.onData = (buffer) => {           
-                let min_save_interval = 20
-             
-                //chunks.push(buffer);
-                azureSession.push(buffer)   
-              
-           
-                /*
-                if ( (Date.now() - last_flush) > time_interval  ) {
-                    console.log("Time", (Date.now() - last_flush), ">", time_interval, last_query)
-                    waiting_list++;
-                    console.log("paquete enviado a azure");
-                    
-                    last_query = true;
-                    let to_concat = chunks;
-                    chunks = [];
-
-                    azureSession.push(Buffer.concat(to_concat))          
-                
-               
-                    last_flush = Date.now()
-                }   
-                */          
-  
-                /*if ( (chunks.length >= min_save_interval && waiting_list < 5) || chunks.length > min_save_interval+5 || (Date.now() - last_flush) > 3000  ) {
-                    waiting_list++;
-                    console.log("paquete enviado a azure");
-                    azureSession.push(Buffer.concat(chunks))          
-                
-                    chunks = [];
-                    last_flush = Date.now()
-                }     */           
+      
+            decoder.onData = (buffer) => {       
+                azureSession.push(buffer)                          
             }
             socket.on("blob", (blob) => {
+                if (!initiated) {
+                    room.sessions.push(session)
+                    CaptionDb.rooms.update(room).catch(console.error)
+                    initiated = true;
+                }
                 decoder.next(blob);  
                 blob_stream.push(blob);
             })  
@@ -221,9 +296,17 @@ server.listen(PORT, async () => {
         socket.on("join", ({roomId}: {roomId: string}) => {  
             console.log(`Nuevo escucha en la sala: ${roomId}`)   
             socket.join(roomId);   
-            socket.emit("joined", roomId)   
-        })   
+            socket.emit("joined", roomId)  
+            
+            if (!room) return;
 
+            socket.emit("info", {
+                eventTitle: room.eventTitle,
+                photoUrl: room.photoUrl,
+                language: room.language
+            })
+        }) 
+  
         socket.on("test", () => {
             console.log("test >>")
             fs.promises.readFile(__dirname+"/../../test.jsonl", {encoding: "utf-8"}).then(text => {
@@ -242,7 +325,7 @@ server.listen(PORT, async () => {
             })
         })
    
-        socket.emit("hello", "hello")
+        socket.emit("hello")
     })
     
 })

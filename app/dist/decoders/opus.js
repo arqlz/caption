@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.easyDecode = exports.AudioProcessorSession = exports.guardarRealtime = void 0;
+exports.easyDecode = exports.AudioDecodeSesion = exports.guardarRealtime = void 0;
 const fs = require("fs");
 const path = require("path");
 const prism = require("prism-media");
@@ -21,7 +21,7 @@ async function guardarRealtime(filename, buffer) {
 }
 exports.guardarRealtime = guardarRealtime;
 var index = 0;
-class AudioProcessorSession {
+class AudioDecodeSesion {
     constructor() {
         this.onData = (buffer, index) => null;
         this.onEnd = (b) => { };
@@ -61,6 +61,16 @@ class AudioProcessorSession {
         data.toSampleRate(16000);
         return data.toBuffer();
     }
+    resample(buffer) {
+        var wavData = wavConverter.encodeWav(buffer, {
+            numChannels: 1,
+            sampleRate: 48000,
+            byteRate: 16
+        });
+        var data = new WaveFile(wavData);
+        data.toSampleRate(16000);
+        return data.toBuffer();
+    }
     next(buffer) {
         this.stream.push(buffer);
         this.pushes++;
@@ -91,8 +101,8 @@ class AudioProcessorSession {
         this.stream.emit('end');
     }
 }
-exports.AudioProcessorSession = AudioProcessorSession;
-class AudioProcessorCustom extends AudioProcessorSession {
+exports.AudioDecodeSesion = AudioDecodeSesion;
+class AudioProcessorCustom extends AudioDecodeSesion {
     constructor() {
         super(...arguments);
         this.data = [];
@@ -160,7 +170,7 @@ function easyDecode(buffer) {
             //size += chunks[0].length
         }
         if (!session) {
-            session = new AudioProcessorSession();
+            session = new AudioDecodeSesion();
             chunks = [];
             session.start();
         }

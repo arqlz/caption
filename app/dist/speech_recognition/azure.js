@@ -40,16 +40,18 @@ function createSpeechConfigObject() {
 }
 createSpeechConfigObject();
 class AzureSession {
-    constructor() {
+    constructor(language = "es-ES", sessionTimeLimitSeconds = 60 * 30) {
         this._id = (0, uid_1.uid)();
         this.onData = (data) => null;
+        this.onSessionLimitReached = () => null;
+        this.length = 0;
         if (!speechConfig)
             throw new Error("SpeechConfig no fue encontrado, por favor verifique si se ha creado correctamente el archivo subscription.json");
         const format = sdk.AudioStreamFormat.getWaveFormatPCM(48000, 16, 1);
         let p = sdk.AudioInputStream.createPushStream(format);
         this.writableStream = p;
         const audioConfig = sdk.AudioConfig.fromStreamInput(p);
-        const recognizer = new sdk.SpeechRecognizer(buildConfig("es-ES"), audioConfig);
+        const recognizer = new sdk.SpeechRecognizer(buildConfig(language), audioConfig);
         recognizer.canceled = (o, e) => {
             try {
                 var str = "(cancel) Reason: " + sdk.CancellationReason[e.reason];
@@ -65,6 +67,11 @@ class AzureSession {
         recognizer.recognizing = (o, e) => {
             try {
                 this.onData(e.result);
+                this.length = e.result.offset / 10000000;
+                if (this.length > sessionTimeLimitSeconds) {
+                    // ha superado el limite de tiempo por session          
+                    this.onSessionLimitReached();
+                }
             }
             catch (error) {
                 console.log("recognizing error", error);
@@ -73,12 +80,21 @@ class AzureSession {
         recognizer.recognized = (o, e) => {
             try {
                 this.onData(e.result);
+                this.length = e.result.offset / 10000000;
+                if (this.length > sessionTimeLimitSeconds) {
+                    // ha superado el limite de tiempo por session
+                    this.onSessionLimitReached();
+                }
             }
             catch (error) {
                 console.log("recognized error", error);
             }
         };
         recognizer.startContinuousRecognitionAsync();
+    }
+    close() {
+        console.log("Cerrando streaming");
+        this.writableStream.close();
     }
     push(buffer) {
         this.writableStream.write(buffer);

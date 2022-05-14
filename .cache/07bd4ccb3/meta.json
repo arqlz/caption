@@ -1,0 +1,26 @@
+{
+  "currentId": 1,
+  "modules": {
+    "1": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\main.ts",
+      "dependencies": [],
+      "id": 1,
+      "mtime": 1652416362837,
+      "packageId": "default",
+      "publicPath": "public/src/main.ts"
+    }
+  },
+  "packages": {
+    "default": {
+      "type": 0,
+      "publicName": "default",
+      "isUserPackage": true,
+      "isExternalPackage": false
+    }
+  },
+  "ctx": {
+    "linkedReferences": {},
+    "systemDependencies": {},
+    "tsConfigAtPaths": []
+  }
+}

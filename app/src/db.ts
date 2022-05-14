@@ -1,4 +1,5 @@
 import {MongoClient} from "mongodb";
+import { Room } from "./rooms/room";
 
 var client: MongoClient;
 export async function init() {
@@ -26,6 +27,9 @@ export class CaptionDb {
         },
         find: async (query, limit = -1) => {
             return client.db("caption").collection("room").find(query).limit(limit || 1000).toArray()
+        },
+        findOne: async (query): Promise<Room> => {
+            return client.db("caption").collection("room").findOne(query) as any
         }
     }
 }

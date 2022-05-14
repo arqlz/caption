@@ -20,10 +20,28 @@ export class Room {
     _id: string;
     roomId: string;
     roomKey: string;
+    timestamp: number;
+    ownerId: string;
+    ownerEmail: string;
+    eventTitle: string;
+    eventDate: number;
+    photoUrl: string;
+    language: string;
+    length: number;
+    sessions: string[];
     constructor(roomKey?: string) {
         this._id = generateUUID();
         this.roomKey = roomKey || XXH.h32(this._id, 0xBEBE).toString(36).toUpperCase();
         this.roomId = Room.getRoomId(this.roomKey);
+        this.timestamp = Date.now();
+        this.ownerId = "";
+        this.ownerEmail = "";
+        this.eventTitle = "";
+        this.eventDate = 0;
+        this.photoUrl = "";
+        this.language = "es-DO";
+        this.length = 0;
+        this.sessions = []
     }
 
     static getRoomId(roomKey: string): string {

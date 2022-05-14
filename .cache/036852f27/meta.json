@@ -1,14 +1,15 @@
 {
-  "currentId": 3,
+  "currentId": 5,
   "modules": {
     "1": {
       "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\editor.ts",
       "dependencies": [
         2,
-        3
+        3,
+        4
       ],
       "id": 1,
-      "mtime": 1651890252044,
+      "mtime": 1652413929200,
       "packageId": "default",
       "publicPath": "public/src/editor.ts"
     },
@@ -18,7 +19,7 @@
         3
       ],
       "id": 2,
-      "mtime": 1651889554191,
+      "mtime": 1652407865009,
       "packageId": "default",
       "publicPath": "public/src/components/texteditor.ts"
     },
@@ -29,6 +30,24 @@
       "mtime": 1650639262328,
       "packageId": "default",
       "publicPath": "public/src/components/utils.ts"
+    },
+    "4": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\utils\\loadDocument.ts",
+      "dependencies": [
+        5
+      ],
+      "id": 4,
+      "mtime": 1652408025102,
+      "packageId": "default",
+      "publicPath": "public/src/utils/loadDocument.ts"
+    },
+    "5": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\utils\\document.ts",
+      "dependencies": [],
+      "id": 5,
+      "mtime": 1652407963095,
+      "packageId": "default",
+      "publicPath": "public/src/utils/document.ts"
     }
   },
   "packages": {
