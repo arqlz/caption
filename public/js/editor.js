@@ -80,7 +80,6 @@ function drawHorizontal(canvas, normalizedData) {
   }
 }
 async function build() {
-  console.log(sessions);
   var [blob, doc] = await loadDocument_1.loadData(sessions);
   if (!blob) return;
   var div = utils_1.createDiv({
@@ -103,7 +102,6 @@ async function build() {
   let img = utils_1.createElement("img", {
     width: "100%"
   });
-  console.log(doc.photoUrl);
   if (doc.photoUrl) img.src = doc.photoUrl;
   photo.append(img);
   photo.onclick = () => {

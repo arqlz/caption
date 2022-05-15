@@ -34,7 +34,7 @@ app.use("/data", express.static(__dirname + '/../../public/data'))
 app.use("/images", express.static(__dirname + '/../../public/images'))
 app.get("/", (req, res) => {
     var room = new Room();
-    generarQr(`http://localhost:5000/r/${room.roomId}`)
+    generarQr(`${process.env.PORT? "https://caption.azurewebsites.net" : "http://localhost:5000"}/r/${room.roomId}`)
     .then(qr => {
         res.render("index.html", {qr, roomId: room.roomId, roomKey: room.roomKey})
     }).catch(err => {
@@ -58,7 +58,7 @@ app.post("/api/reservar", async (req, res) => {
         console.log("insertando item en base de datos")
         await CaptionDb.rooms.insert(room)
         console.log("generando qr")
-        generarQr(`http://localhost:5000/r/${room.roomId}`)
+        generarQr(`${process.env.PORT? "https://caption.azurewebsites.net" : "http://localhost:5000"}/r/${room.roomId}`)
         .then(qr => {
             res.json({result: {room,qr}})
         }).catch(err => {
@@ -82,8 +82,7 @@ app.get("/api/transcripcion/:key", async (req, res) => {
     getTrascriptionFile(req.params.key).then((data) => {
         res.json({result: JSON.parse( data.toString('utf8'))})
    }).catch(err => {
-       // buscar en raw
-       //console.error(err)
+    
     
        res.status(err.status  || 500).send("Error")
    })
