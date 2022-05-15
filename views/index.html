@@ -41,7 +41,7 @@
                 transition: padding 0.25s, box-shadow 0.25s, text-shadow 0.25s, background 0.25s, color 0.25s;
       
             }
-            button:hover {                 
+            button:hover:not(:disabled) {                 
                 box-shadow: 0 0 8px rgb(90 17 255);
                 padding: 12px 60px;
     
@@ -51,6 +51,16 @@
                 background: #ffffffc7;
                 color: rgb(42 30 88);
             }
+            button:disabled {
+                opacity: 0.5;
+            }
+            .linkTransmission {
+                transition: color 0.25s;
+                color: #ffffff;
+            }
+            .linkTransmission:hover {
+                color: #ff0080
+            }
             input {
                 padding: 10px;
                 border: none;
@@ -58,12 +68,18 @@
                 color: white;
                 outline: none;
                 font-family: 'Mulish', sans-serif;  
+             
             }
             input::placeholder {
+                transition: color 0.25s;
                 color: #ffffff81
             }
+            input:hover::placeholder {
+                color: #ffffffd0
+            }
+            
             .page {
-                padding: 10px;
+                padding-top: 10px;
             }
             .bubble {  
                 z-index: 10;          
@@ -95,12 +111,16 @@
             h2 {
                 font-size: 1.1em;
             }
+            h3 {
+                font-size: 1em;
+            }
             ::-webkit-calendar-picker-indicator {
                 filter: invert(1);
             }
             ::calendar-picker-indicator {
                 filter: invert(1);
             }
+      
         </style>
     </head>
     <body>  
@@ -109,20 +129,13 @@
                 <h1>
                     Beam
                 </h1>
-                <h2>
-                    1 clic y empieza a transcribir
-                </h2>
             </div>
             <div class="page margin" style="width: min-content;">             
                 <div class="row"  id="stateBar" ></div>
                 <div class="line"></div>
             </div>
         </div>
-        <div id="core">       
-            <div class="page margin" id="root">             
-                <button id="root_crear_sala">Crear una sala</button>
-                <button id="root_acceder">Acceder</button>            
-            </div>      
+        <div id="core">            
         </div>   
     </body>
 </html>

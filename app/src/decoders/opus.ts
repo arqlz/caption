@@ -21,6 +21,7 @@ export async function guardarRealtime(filename: string, buffer: Buffer) {
 var index = 0
 export class AudioDecodeSesion {
     stream: Readable 
+    pushes = 0
     onData = (buffer: Buffer, index: number) => null
     onEnd = (b?: Buffer) => { }
     start() {      
@@ -58,17 +59,7 @@ export class AudioDecodeSesion {
         data.toSampleRate(16000)
         return data.toBuffer()
     }
-    resample(buffer: Buffer): Buffer {
-        var wavData = wavConverter.encodeWav(buffer, {
-            numChannels: 1,
-            sampleRate: 48000,
-            byteRate: 16
-        })
-        var data = new WaveFile(wavData)
-        data.toSampleRate(16000)
-        return data.toBuffer()
-    }
-    pushes = 0
+
     next(buffer: Buffer) {
 
         this.stream.push(buffer)
@@ -138,40 +129,13 @@ class AudioProcessorCustom extends AudioDecodeSesion {
         }
     }
 }
-async function emular() {
-    var file_path = path.resolve(__dirname+"/../../../public/data/test.webm")
-    var buffer = fs.readFileSync(file_path)
-    var size = 1024*16
-    var index = 0
-    function queue() {
-        let end = index+size>buffer.length? buffer.length : index+size
-        p.next(buffer.slice(index, end))
-        index = end
-        setTimeout( function (){
-            if (index < buffer.length) queue() 
-            else {
-                p.stop()
-            }
-        }, 1000)
-    }
-    
 
-    var p = new AudioProcessorCustom()
-    p.start()
-
-    queue() 
-}
 
 var chunks = []
 var session: AudioDecodeSesion
 
 export function easyDecode(buffer: Buffer) {
     return new Promise<Buffer>((resolve) => {
-        var size = buffer.length
-        if (chunks && chunks.length) {
-            //size += chunks[0].length
-        }
-
         if (!session) {
             session = new AudioDecodeSesion()
             chunks = []        

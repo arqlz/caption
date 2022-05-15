@@ -29,6 +29,7 @@ class Room {
         this.eventTitle = "";
         this.eventDate = 0;
         this.photoUrl = "";
+        this.palabrasClave = "";
         this.language = "es-DO";
         this.length = 0;
         this.sessions = [];

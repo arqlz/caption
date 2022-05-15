@@ -10,15 +10,39 @@ export class Presenter {
     stoped: boolean = false;
     listennerMode: boolean = true;
 
+    elements: {title?: HTMLElement, roomData?: HTMLElement, timeCounter?: HTMLElement} = {}
+
     private __title = "";
-    constructor( rec?) {
+    constructor( rec?, roomKey?: string) {
         var div = createDiv({width: "100%", height: "100%"})
         div.className="msgContainner";
         div.id = "core"
 
-        let title = createDiv({margin: "15px 0"})
-        title.innerHTML = `Id de la sala: ${roomId}`;
-        div.append(title)
+        var header = createDiv("header")
+        div.append(header)
+
+        let title = createElement("h2", {margin: "15px 0"})
+        title.innerHTML = ``;       
+        header.append(title)
+        this.elements.title = title;
+
+        let roomData = createDiv({margin: "15px 0"})
+        roomData.innerHTML = `Id de la sala: ${roomId}`;  
+        let svg = createElement("img",  {paddingLeft: 10}) as HTMLImageElement;
+        svg.classList.add("fullscreen")
+        svg.src = "/images/fullscreen.svg";
+        svg.onclick = () => {
+            document.documentElement.requestFullscreen()
+        }
+        roomData.append(svg)     
+        header.append(roomData)
+        this.elements.roomData = roomData;
+
+        let timeCounter = createDiv({margin: "15px 0", fontSize: 30, fontWeight: 600})
+        timeCounter.innerHTML = ``;       
+        header.append(timeCounter)
+        this.elements.timeCounter = timeCounter;
+
 
         if (rec) this.listennerMode = false;
 
@@ -37,14 +61,25 @@ export class Presenter {
             }
            
             if(rec) {
-                console.log("STOP RECORDER", rec)
-                rec.stop()
+                console.log("STOP RECORDER", rec);
+                rec.stop();
+
+                var irAlEditor = createElement("button");
+                irAlEditor.innerHTML = "Ir al editor";
+                irAlEditor.onclick = () => {
+                    location.href = `/editor/${roomKey}`;
+                }
+                this.control.append(irAlEditor);
             }
         }
         this.control.append(stopButton)
+
+        
+
+
         div.append(this.control)
 
-        this.transmissionContainner = createDiv({width: 400, maxHeight: 200,  margin: "auto auto", color: "#ffffff", fontSize: 20, 
+        this.transmissionContainner = createDiv("transcripciones", {width: 400, maxHeight: 200,  margin: "auto auto", color: "#ffffff", fontSize: 20, 
         display: "flex", flexDirection: "column", overflow: "hidden"})
         this.transmissionContainner.style.scrollBehavior = "smooth";
         div.append(this.transmissionContainner)
@@ -54,8 +89,12 @@ export class Presenter {
 
     set title(value: string) {
         this.__title = value;
-        
+        this.elements.title.innerHTML = value;
     }
+    set timeElapsed(value: number) {
+        this.elements.timeCounter.innerHTML = (value / 1000 | 0).toString();
+    }
+
     private render() {
         if (this.listennerMode == true && this.stoped) return;
         while(this.queue.length) {
@@ -83,47 +122,5 @@ export class Presenter {
     resume() {
         this.stoped = false;
         this.render();
-    }
-}
-export class Presenter2 {
-    textContainner: HTMLDivElement;
-    control: HTMLDivElement;
-    lines: {[id: string]: HTMLDivElement} = {}
-    queue: {result: string, id: string}[] = []
-    raw: string = ""
-    constructor(rec?) {
-        var div = createDiv({width: "100%", height: "100%"})
-        div.className="msgContainner";
-
-        this.control = createDiv()
-        var stopButton = createElement("button")
-        stopButton.innerHTML = "STOP"
-        stopButton.onclick = () => {
-            stopButton.disabled = true
-            if(rec) {
-                console.log("STOP RECORDER", rec)
-                rec.stop()
-            }
-        }
-        this.control.append(stopButton)
-        div.append(this.control)
-
-        this.textContainner = createDiv({width: 350, textAlign: "center", margin: "auto auto", color: "#ffffff", fontSize: 20, display: "block"})
-        div.append(this.textContainner)
-
-        document.body.append(div)
-    }
-    append(data: {result: string, id: string}) {
-        this.queue.push(data)   
-
-        if (!this.lines[data.id]) {
-            var div = createDiv({display: "inline", marginRight: "4pt"});
-            this.textContainner.append(div);
-            this.lines[data.id] = div;
-            this.lines[data.id].innerHTML = data.result;
-        } else {
-            this.lines[data.id].innerHTML = data.result;
-        }
-      
     }
 }

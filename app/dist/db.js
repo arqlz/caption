@@ -28,7 +28,7 @@ CaptionDb.rooms = {
         return client.db("caption").collection("room").insertOne(room);
     },
     update: async (room) => {
-        return client.db("caption").collection("room").updateOne({ _id: room._id }, room, { upsert: true });
+        return client.db("caption").collection("room").updateOne({ _id: room._id }, { $set: room }, { upsert: true });
     },
     find: async (query, limit = -1) => {
         return client.db("caption").collection("room").find(query).limit(limit || 1000).toArray();

@@ -63,23 +63,51 @@ exports.createDiv = createDiv;
 exports.__esModule = true;
 var utils_1 = __fusereq(3);
 class Presenter {
-  constructor(rec) {
+  constructor(rec, roomKey) {
     this.mensajes = {};
     this.queue = [];
     this.raw = "";
     this.stoped = false;
     this.listennerMode = true;
+    this.elements = {};
+    this.__title = "";
     var div = utils_1.createDiv({
       width: "100%",
       height: "100%"
     });
     div.className = "msgContainner";
     div.id = "core";
-    let title = utils_1.createDiv({
+    var header = utils_1.createDiv("header");
+    div.append(header);
+    let title = utils_1.createElement("h2", {
       margin: "15px 0"
     });
-    title.innerHTML = `Id de la sala: ${roomId}`;
-    div.append(title);
+    title.innerHTML = ``;
+    header.append(title);
+    this.elements.title = title;
+    let roomData = utils_1.createDiv({
+      margin: "15px 0"
+    });
+    roomData.innerHTML = `Id de la sala: ${roomId}`;
+    let svg = utils_1.createElement("img", {
+      paddingLeft: 10
+    });
+    svg.classList.add("fullscreen");
+    svg.src = "/images/fullscreen.svg";
+    svg.onclick = () => {
+      document.documentElement.requestFullscreen();
+    };
+    roomData.append(svg);
+    header.append(roomData);
+    this.elements.roomData = roomData;
+    let timeCounter = utils_1.createDiv({
+      margin: "15px 0",
+      fontSize: 30,
+      fontWeight: 600
+    });
+    timeCounter.innerHTML = ``;
+    header.append(timeCounter);
+    this.elements.timeCounter = timeCounter;
     if (rec) this.listennerMode = false;
     this.control = utils_1.createDiv("navigation");
     var stopButton = utils_1.createElement("button");
@@ -97,11 +125,17 @@ class Presenter {
       if (rec) {
         console.log("STOP RECORDER", rec);
         rec.stop();
+        var irAlEditor = utils_1.createElement("button");
+        irAlEditor.innerHTML = "Ir al editor";
+        irAlEditor.onclick = () => {
+          location.href = `/editor/${roomKey}`;
+        };
+        this.control.append(irAlEditor);
       }
     };
     this.control.append(stopButton);
     div.append(this.control);
-    this.transmissionContainner = utils_1.createDiv({
+    this.transmissionContainner = utils_1.createDiv("transcripciones", {
       width: 400,
       maxHeight: 200,
       margin: "auto auto",
@@ -114,6 +148,13 @@ class Presenter {
     this.transmissionContainner.style.scrollBehavior = "smooth";
     div.append(this.transmissionContainner);
     document.body.append(div);
+  }
+  set title(value) {
+    this.__title = value;
+    this.elements.title.innerHTML = value;
+  }
+  set timeElapsed(value) {
+    this.elements.timeCounter.innerHTML = (value / 1000 | 0).toString();
   }
   render() {
     if (this.listennerMode == true && this.stoped) return;
@@ -150,55 +191,6 @@ class Presenter {
   }
 }
 exports.Presenter = Presenter;
-class Presenter2 {
-  constructor(rec) {
-    this.lines = {};
-    this.queue = [];
-    this.raw = "";
-    var div = utils_1.createDiv({
-      width: "100%",
-      height: "100%"
-    });
-    div.className = "msgContainner";
-    this.control = utils_1.createDiv();
-    var stopButton = utils_1.createElement("button");
-    stopButton.innerHTML = "STOP";
-    stopButton.onclick = () => {
-      stopButton.disabled = true;
-      if (rec) {
-        console.log("STOP RECORDER", rec);
-        rec.stop();
-      }
-    };
-    this.control.append(stopButton);
-    div.append(this.control);
-    this.textContainner = utils_1.createDiv({
-      width: 350,
-      textAlign: "center",
-      margin: "auto auto",
-      color: "#ffffff",
-      fontSize: 20,
-      display: "block"
-    });
-    div.append(this.textContainner);
-    document.body.append(div);
-  }
-  append(data) {
-    this.queue.push(data);
-    if (!this.lines[data.id]) {
-      var div = utils_1.createDiv({
-        display: "inline",
-        marginRight: "4pt"
-      });
-      this.textContainner.append(div);
-      this.lines[data.id] = div;
-      this.lines[data.id].innerHTML = data.result;
-    } else {
-      this.lines[data.id].innerHTML = data.result;
-    }
-  }
-}
-exports.Presenter2 = Presenter2;
 
 },
 
@@ -210,6 +202,8 @@ class Recorder {
   constructor() {
     this.isAvailable = false;
     this.onData = blob => null;
+    this.startTime = 0;
+    this.listenners = [];
   }
   start(time = 4000) {
     navigator.mediaDevices.getUserMedia({
@@ -218,6 +212,7 @@ class Recorder {
       var recorder = new MediaRecorder(stream, {
         mimeType: 'audio/webm;codecs=opus'
       });
+      this.startTime = Date.now();
       recorder.ondataavailable = e => {
         this.onData(e.data);
       };
@@ -230,7 +225,11 @@ class Recorder {
     if (this.isAvailable) {
       this.isAvailable = false;
       this.recorder.stop();
+      for (let cb of this.listenners) cb();
     }
+  }
+  onStop(cb) {
+    this.listenners.push(cb);
   }
 }
 function sendBlob(blob) {
@@ -242,15 +241,9 @@ function sendBlob(blob) {
 }
 var socket = io();
 var rec;
+var presenter;
 socket.once("ready", () => {
   console.log("Starting recorder");
-  if (rec) {
-    rec.stop();
-    rec = new Recorder();
-  } else {
-    rec = new Recorder();
-  }
-  var presenter = new presenter_1.Presenter(rec);
   rec.onData = blob => {
     sendBlob(blob);
   };
@@ -258,9 +251,11 @@ socket.once("ready", () => {
   socket.on("mensaje", data => {
     presenter.append(data);
   });
-  socket.on("info", info => {
-    presenter.title = info.eventTitle;
-    console.log("on info", info);
+  var interval = setInterval(() => {
+    presenter.timeElapsed = Date.now() - rec.startTime;
+  }, 200);
+  rec.onStop(() => {
+    clearInterval(interval);
   });
 });
 socket.on("disconnect", () => {
@@ -269,10 +264,22 @@ socket.on("disconnect", () => {
     rec = null;
   }
 });
+socket.on("error", data => {
+  console.error(data);
+});
 socket.on("connect", () => {
   var roomkey = location.pathname || "";
   if (roomkey.length < 2) throw new Error("sala invalida");
   roomkey = roomkey.split("/").slice(2)[0];
+  if (rec) {
+    rec.stop();
+  }
+  rec = new Recorder();
+  presenter = new presenter_1.Presenter(rec, roomkey);
+  socket.on("info", info => {
+    presenter.title = info.eventTitle;
+    console.log("on info", info);
+  });
   socket.emit("broadcast", {
     roomKey: roomkey,
     language: "es-DO"

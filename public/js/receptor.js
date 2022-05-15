@@ -63,23 +63,51 @@ exports.createDiv = createDiv;
 exports.__esModule = true;
 var utils_1 = __fusereq(3);
 class Presenter {
-  constructor(rec) {
+  constructor(rec, roomKey) {
     this.mensajes = {};
     this.queue = [];
     this.raw = "";
     this.stoped = false;
     this.listennerMode = true;
+    this.elements = {};
+    this.__title = "";
     var div = utils_1.createDiv({
       width: "100%",
       height: "100%"
     });
     div.className = "msgContainner";
     div.id = "core";
-    let title = utils_1.createDiv({
+    var header = utils_1.createDiv("header");
+    div.append(header);
+    let title = utils_1.createElement("h2", {
       margin: "15px 0"
     });
-    title.innerHTML = `Id de la sala: ${roomId}`;
-    div.append(title);
+    title.innerHTML = ``;
+    header.append(title);
+    this.elements.title = title;
+    let roomData = utils_1.createDiv({
+      margin: "15px 0"
+    });
+    roomData.innerHTML = `Id de la sala: ${roomId}`;
+    let svg = utils_1.createElement("img", {
+      paddingLeft: 10
+    });
+    svg.classList.add("fullscreen");
+    svg.src = "/images/fullscreen.svg";
+    svg.onclick = () => {
+      document.documentElement.requestFullscreen();
+    };
+    roomData.append(svg);
+    header.append(roomData);
+    this.elements.roomData = roomData;
+    let timeCounter = utils_1.createDiv({
+      margin: "15px 0",
+      fontSize: 30,
+      fontWeight: 600
+    });
+    timeCounter.innerHTML = ``;
+    header.append(timeCounter);
+    this.elements.timeCounter = timeCounter;
     if (rec) this.listennerMode = false;
     this.control = utils_1.createDiv("navigation");
     var stopButton = utils_1.createElement("button");
@@ -97,11 +125,17 @@ class Presenter {
       if (rec) {
         console.log("STOP RECORDER", rec);
         rec.stop();
+        var irAlEditor = utils_1.createElement("button");
+        irAlEditor.innerHTML = "Ir al editor";
+        irAlEditor.onclick = () => {
+          location.href = `/editor/${roomKey}`;
+        };
+        this.control.append(irAlEditor);
       }
     };
     this.control.append(stopButton);
     div.append(this.control);
-    this.transmissionContainner = utils_1.createDiv({
+    this.transmissionContainner = utils_1.createDiv("transcripciones", {
       width: 400,
       maxHeight: 200,
       margin: "auto auto",
@@ -114,6 +148,13 @@ class Presenter {
     this.transmissionContainner.style.scrollBehavior = "smooth";
     div.append(this.transmissionContainner);
     document.body.append(div);
+  }
+  set title(value) {
+    this.__title = value;
+    this.elements.title.innerHTML = value;
+  }
+  set timeElapsed(value) {
+    this.elements.timeCounter.innerHTML = (value / 1000 | 0).toString();
   }
   render() {
     if (this.listennerMode == true && this.stoped) return;
@@ -150,55 +191,6 @@ class Presenter {
   }
 }
 exports.Presenter = Presenter;
-class Presenter2 {
-  constructor(rec) {
-    this.lines = {};
-    this.queue = [];
-    this.raw = "";
-    var div = utils_1.createDiv({
-      width: "100%",
-      height: "100%"
-    });
-    div.className = "msgContainner";
-    this.control = utils_1.createDiv();
-    var stopButton = utils_1.createElement("button");
-    stopButton.innerHTML = "STOP";
-    stopButton.onclick = () => {
-      stopButton.disabled = true;
-      if (rec) {
-        console.log("STOP RECORDER", rec);
-        rec.stop();
-      }
-    };
-    this.control.append(stopButton);
-    div.append(this.control);
-    this.textContainner = utils_1.createDiv({
-      width: 350,
-      textAlign: "center",
-      margin: "auto auto",
-      color: "#ffffff",
-      fontSize: 20,
-      display: "block"
-    });
-    div.append(this.textContainner);
-    document.body.append(div);
-  }
-  append(data) {
-    this.queue.push(data);
-    if (!this.lines[data.id]) {
-      var div = utils_1.createDiv({
-        display: "inline",
-        marginRight: "4pt"
-      });
-      this.textContainner.append(div);
-      this.lines[data.id] = div;
-      this.lines[data.id].innerHTML = data.result;
-    } else {
-      this.lines[data.id].innerHTML = data.result;
-    }
-  }
-}
-exports.Presenter2 = Presenter2;
 
 },
 
@@ -219,6 +211,10 @@ socket.on("connect", () => {
   roomId = roomId.split("/").slice(2)[0];
   socket.emit("join", {
     roomId: roomId
+  });
+  socket.on("info", info => {
+    presenter.title = info.eventTitle;
+    console.log("on info", info);
   });
 });
 socket.on("joined", roomId => {

@@ -1,7 +1,7 @@
 import { generarTextEditor } from "./components/texteditor";
 import { createDiv, createElement } from "./components/utils";
 import { loadData } from "./utils/loadDocument";
-
+declare const sessions;
 
 function generarSamplesFromArray(raw: Float32Array, samples = 400) {
     const blockSize = Math.floor(raw.length/samples);
@@ -58,7 +58,9 @@ function drawHorizontal(canvas: HTMLCanvasElement, normalizedData: number[]) {
 }
 
 async function build() { 
-    var [blob, doc] = await loadData("IEP7XO");
+
+    console.log(sessions)
+    var [blob, doc] = await loadData(sessions);
     console.log(doc)
     if (!blob) return;
 

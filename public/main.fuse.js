@@ -2,7 +2,7 @@ const {fusebox} = require('fuse-box');
 
 fusebox({
   target: 'browser',
-  entry: 'src/main.ts',
+  entry: 'src/main.tsx',
   devServer: false,
 }).runDev(  {bundles: {
     distRoot: './js',

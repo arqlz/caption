@@ -16,12 +16,18 @@ socket.on("connect", () => {
     }
     roomId = roomId.split("/").slice(2)[0];
     socket.emit("join", {roomId: roomId});  
+    
+    socket.on("info", (info: {photoUrl: string, eventTitle: string}) => {
+        presenter.title = info.eventTitle;
+        console.log("on info", info)
+    })
 })
 
 socket.on("joined",  (roomId) => {
     socket.on("mensaje", data => {
         presenter.append(data)
     })
+  
     console.log("Joined to room")
 });  
 

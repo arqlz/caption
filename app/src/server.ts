@@ -7,7 +7,7 @@ import { AzureSession } from "./speech_recognition/azure";
 import { generarQr } from "./rooms/qrgenerator";
 import { Room } from "./rooms/room";
 import { CaptionDb } from "./db";
-import { crearSesionAlmacenamiento, crearSesionTranscripcion, getTrascriptionFile, saveFile, saveTrascriptionFile } from "./storage/audioMannager";
+import { crearSesionAlmacenamiento, crearSesionTranscripcion, getTrascriptionFile, saveFile, saveTrascriptionFile } from "./storage/fileutils";
 import { appendMsgToFile } from "./storage/localStore";
 import * as fs from "fs";
 import * as multer from "multer"
@@ -31,6 +31,7 @@ app.use(express.json());
 
 app.use("/js", express.static(__dirname + '/../../public/js'))
 app.use("/data", express.static(__dirname + '/../../public/data'))
+app.use("/images", express.static(__dirname + '/../../public/images'))
 app.get("/", (req, res) => {
     var room = new Room();
     generarQr(`http://localhost:5000/r/${room.roomId}`)
@@ -41,8 +42,18 @@ app.get("/", (req, res) => {
         res.status(500).send("Error")
     })
 })
-app.get("/api/reservar", async (req, res) => {
+app.post("/api/reservar", async (req, res) => {
+    if (!req.body) {
+        return res.status(400).send("Error")
+    }
     var room = new Room();
+    var {eventTitle, palabrasClave, eventDate, ownerEmail} = req.body;
+    room.eventTitle = eventTitle || "";
+    room.palabrasClave = palabrasClave || "";
+    room.eventDate = eventDate;
+    room.ownerEmail = ownerEmail;
+
+
     try {
         console.log("insertando item en base de datos")
         await CaptionDb.rooms.insert(room)
@@ -119,21 +130,16 @@ app.get("/room/:roomId", (req, res) => {
 app.get("/r/:roomId", (req, res) => {
     res.render("room.html", {roomId: req.params.roomId})
 })
-app.get("/editor/:roomId", (req, res) => {
-    let roomId = req.params.roomId;
-    let roomKey = req.query.roomKey as string;
-
-    validateRoomKey(roomId, roomKey).then((valid) => {
-        if (valid) res.render("editor.html", {})
-        else res.status(401).send("Room Key invalid")
-    })
+app.get("/editor/:roomKey", async (req, res) => {
+    let roomKey = req.params.roomKey;
+    let room = await CaptionDb.rooms.findOne({roomKey})
+    if (!room) {
+        res.status(400).send("Error")
+    } else {
+        res.render("editor.html", {roomId: room.roomId, sessions: room.sessions})
+    }
 
 })
-
-app.get("/wavesurfer", (req, res) => {
-    res.render("editor.html", {})
-})
-
 
 
 function onError(error) {
@@ -196,14 +202,16 @@ server.listen(PORT, async () => {
     io.on("connection", (socket) => {
         var decoder : AudioDecodeSesion 
         var connectionTimer
-        console.log("new connection stablished")
+        var timers = []
+        console.log("new connection stablished")        
         
         socket.on("disconnect", () => {
             if( decoder) {
                 decoder.stop()
-                decoder = null  
-                clearInterval(connectionTimer)
-            }      
+                decoder = null 
+            }     
+            clearInterval(connectionTimer) 
+            for (var t of timers) clearImmediate(t)
         })
 
         var room: Room;
@@ -215,17 +223,16 @@ server.listen(PORT, async () => {
                     let item = json.splice(0, 1)[0]
                     io.sockets.emit("mensaje", item)
                     if (json.length == 0) clearTimeout(connectionTimer)
-                }, 200)
+                }, 500)
              
             })
         }
         socket.on("broadcast",  async ({roomKey, language}: {roomKey: string, language: string}) => {
-            // buscar el room
             room = await CaptionDb.rooms.findOne({roomId: Room.getRoomId( roomKey) })
             if (!room) {
-                return socket.emit("Error", "la sala no fue encontrada")
-            }
-
+                return socket.emit("error", "la sala no fue encontrada")
+            }     
+            var last_message = Date.now();           
             var initiated = false;
 
             socket.emit("info", {
@@ -234,15 +241,13 @@ server.listen(PORT, async () => {
                 language: room.language
             })
    
-            if (room) return;
+            if (!room) return;
             console.log(`Session de transcripcion iniciada en ${roomKey}`)            
-            room = new Room(roomKey);   
+       
                  
             var session = room.roomId + "." + room.sessions.length;
             var blob_stream = crearSesionAlmacenamiento(session);
             var transcripcion_stream = crearSesionTranscripcion(session);
-            var localStream = appendMsgToFile(session)
-
     
             decoder = new AudioDecodeSesion()   
             decoder.start()
@@ -251,23 +256,23 @@ server.listen(PORT, async () => {
             azureSession.onData = (data) => {
                 var jsonl = {result: data.text, id: data.offset, speakerId: data.speakerId + ""};
                 transcripcion_stream.push(JSON.stringify(jsonl)+"\n")  
-                localStream.write(JSON.stringify(jsonl)+"\n")
-                io.sockets.emit("mensaje", jsonl)             
+                if (jsonl.result)  last_message = Date.now();
+                io.to(room.roomId).emit("mensaje", jsonl)             
             }   
 
             azureSession.onSessionLimitReached = () => {
                 clear()
                 socket.emit("sessionLimitReached")
             }
+       
             function clear() {
                 azureSession.close()
                 blob_stream.emit("end");
                 transcripcion_stream.emit("end");
-                localStream.emit("end");
                 room.length += azureSession.length;
                 CaptionDb.rooms.update(room)
+                for (var t of timers) clearImmediate(t)
             }
-
       
             decoder.onData = (buffer) => {       
                 azureSession.push(buffer)                          
@@ -281,50 +286,42 @@ server.listen(PORT, async () => {
                 decoder.next(blob);  
                 blob_stream.push(blob);
             })  
+
+            timers.push(setInterval(() => {
+                if ( Date.now() -last_message > 60*1000) {
+                    clear()
+                }
+            }, 5000))
           
             socket.emit("ready")
             socket.on("disconnect", clear)
             socket.join(room.roomId);
  
         })
-        socket.on("join", ({roomId}: {roomId: string}) => {  
+        socket.on("join", async( data: {roomId: string}) => {  
+            var {roomId} = data;
+
+            room = await CaptionDb.rooms.findOne({roomId})
+            if (!room) {
+                return socket.emit("Error", "la sala no fue encontrada")
+            }
+
             console.log(`Nuevo escucha en la sala: ${roomId}`)   
             socket.join(roomId);   
-            socket.emit("joined", roomId)  
-            
-            if (!room) return;
-
+      
             socket.emit("info", {
                 eventTitle: room.eventTitle,
                 photoUrl: room.photoUrl,
                 language: room.language
             })
+            socket.emit("joined", roomId) 
         }) 
   
         socket.on("test", () => {
-
             socket.join(room.roomId);
             socket.emit("ready")
             console.log("broadcast ready")
-
             simularEmision()
-
-            return
-            console.log("test >>")
-            fs.promises.readFile(__dirname+"/../../test.jsonl", {encoding: "utf-8"}).then(text => {
-                var lines: {result, id, speakerId}[] = text.split("\n").filter(r => r.trim().length >= 6).map(r => JSON.parse(r))
-                
-                function next() {
-                    setTimeout(() => {
-                        var r = lines.splice(0, 1)
-                        console.log("send", r[0].result)
-                        socket.emit("mensaje", r[0])
-                        if (lines.length) next()
-                    }, 1000)
-                }
-              
-                next()
-            })
         })
    
         socket.emit("hello")

@@ -33,7 +33,6 @@ export async function descargarONNXModel() {
 
     console.log("ONNX ready")
 }
-
 function argmax(arr: Float32Array, shape: number[]) {
     var r: number[] = [];
     var row_size = shape[0]

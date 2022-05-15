@@ -60,6 +60,45 @@
             .textRow {
                 display: inline;
             }
+            .fullscreen {
+                opacity: 0.6;
+                transition: opacity 0.25s;
+            }
+            .fullscreen:hover {
+                opacity: 1;
+            }
+
+            @media all and (display-mode: fullscreen) {
+                .header, .navigation {
+                    visibility: hidden;
+                }
+                .textRow {
+                    margin: 10px 0px;
+                    font-size: 50px;
+                    width: 100% !important;
+                }
+                .transcripciones {
+                    width: 100% !important;
+                }
+                .msgContainner {
+                    max-width: 80vw !important;
+                    overflow: hidden;         
+                }
+                body {
+                    overflow: hidden;
+                }
+            }
+
+        
+
+            @media only screen and (max-width: 600px) {
+                .textRow {                 
+                    width: 85vw;
+                }
+                .transcripciones {
+                    margin-top: 20px;
+                }
+            }
         </style>
     </head>
     <body>
