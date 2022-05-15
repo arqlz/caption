@@ -61,7 +61,6 @@ async function build() {
 
     console.log(sessions)
     var [blob, doc] = await loadData(sessions);
-    console.log(doc)
     if (!blob) return;
 
 

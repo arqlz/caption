@@ -73,8 +73,9 @@ app.get("/api/transcripcion/:key", async (req, res) => {
     (0, fileutils_1.getTrascriptionFile)(req.params.key).then((data) => {
         res.json({ result: JSON.parse(data.toString('utf8')) });
     }).catch(err => {
-        console.error(err);
-        res.status(500).send("Error");
+        // buscar en raw
+        //console.error(err)
+        res.status(err.status || 500).send("Error");
     });
 });
 app.post("/api/transcripcion/:key", async (req, res) => {
@@ -108,6 +109,16 @@ app.post("/api/images/:key", upload, async (req, res) => {
     }).catch(err => {
         console.error(err);
         res.status(500).send("Error");
+    });
+});
+app.get("/audio/:sessionId", (req, res) => {
+    (0, fileutils_1.getFile)("audio", req.params.sessionId).then(buffer => {
+        res.send(buffer);
+    });
+});
+app.get("/transcripcion/:sessionId", (req, res) => {
+    (0, fileutils_1.getFile)("rawtranscripcion", req.params.sessionId).then(buffer => {
+        res.send(buffer);
     });
 });
 app.get("/transmision/:roomId", (req, res) => {

@@ -75,6 +75,11 @@ export function saveFile(collection: string, key: string, data: Buffer) {
     return containerClient.url+"/"+key;
   })
 }
+export function getFile(collection: string, key: string) {
+  const containerClient = blobServiceClient.getContainerClient(collection);
+
+  return containerClient.getBlockBlobClient(key).downloadToBuffer()
+}
 
 
 export function getTrascriptionFile(key: string) {

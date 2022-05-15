@@ -7,7 +7,7 @@ import { AzureSession } from "./speech_recognition/azure";
 import { generarQr } from "./rooms/qrgenerator";
 import { Room } from "./rooms/room";
 import { CaptionDb } from "./db";
-import { crearSesionAlmacenamiento, crearSesionTranscripcion, getTrascriptionFile, saveFile, saveTrascriptionFile } from "./storage/fileutils";
+import { crearSesionAlmacenamiento, crearSesionTranscripcion, getFile, getTrascriptionFile, saveFile, saveTrascriptionFile } from "./storage/fileutils";
 import { appendMsgToFile } from "./storage/localStore";
 import * as fs from "fs";
 import * as multer from "multer"
@@ -78,11 +78,14 @@ app.get("/api/transcripcion/:key", async (req, res) => {
     Users are allowed to edit or create any document the want as it is implemented
     If you want to use this repo consider adding your own controls instead
     */
+
     getTrascriptionFile(req.params.key).then((data) => {
         res.json({result: JSON.parse( data.toString('utf8'))})
    }).catch(err => {
-       console.error(err)
-       res.status(500).send("Error")
+       // buscar en raw
+       //console.error(err)
+    
+       res.status(err.status  || 500).send("Error")
    })
 
 })
@@ -121,6 +124,16 @@ app.post("/api/images/:key", upload, async (req, res) => {
     })
 })
 
+app.get("/audio/:sessionId", (req, res) => {
+    getFile("audio", req.params.sessionId).then(buffer => {
+        res.send(buffer)
+    })
+})
+app.get("/transcripcion/:sessionId", (req, res) => {
+    getFile("rawtranscripcion", req.params.sessionId).then(buffer => {
+        res.send(buffer)
+    })
+})
 app.get("/transmision/:roomId", (req, res) => {
     res.render("emiter.html", {roomId: req.params.roomId})
 })

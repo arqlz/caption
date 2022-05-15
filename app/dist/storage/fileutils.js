@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTrascriptionFile = exports.saveFile = exports.saveTrascriptionFile = exports.crearSesionTranscripcion = exports.crearSesionAlmacenamiento = void 0;
+exports.getTrascriptionFile = exports.getFile = exports.saveFile = exports.saveTrascriptionFile = exports.crearSesionTranscripcion = exports.crearSesionAlmacenamiento = void 0;
 const storage_blob_1 = require("@azure/storage-blob");
 const loadCredentials_1 = require("./loadCredentials");
 const stream_1 = require("stream");
@@ -68,6 +68,11 @@ function saveFile(collection, key, data) {
     });
 }
 exports.saveFile = saveFile;
+function getFile(collection, key) {
+    const containerClient = blobServiceClient.getContainerClient(collection);
+    return containerClient.getBlockBlobClient(key).downloadToBuffer();
+}
+exports.getFile = getFile;
 function getTrascriptionFile(key) {
     const containerClient = blobServiceClient.getContainerClient("transcripcion");
     return containerClient.getBlockBlobClient(key).downloadToBuffer();

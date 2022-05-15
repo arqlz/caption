@@ -82,7 +82,6 @@ function drawHorizontal(canvas, normalizedData) {
 async function build() {
   console.log(sessions);
   var [blob, doc] = await loadDocument_1.loadData(sessions);
-  console.log(doc);
   if (!blob) return;
   var div = utils_1.createDiv({
     width: 500,
@@ -360,14 +359,13 @@ var document_1 = __fusereq(5);
 function loadData(room_id) {
   return new Promise(async (resolve, reject) => {
     try {
-      const blob = await fetch(`/data/${room_id}.webm`).then(r => r.blob()).catch(err => {
-        throw new Error("Error al descargar el archivo de audio: " + err);
-      });
+      const blob = await fetch(`/audio/${room_id}`).then(r => r.blob()).catch(err => null);
+      if (!blob) return;
       fetch(`/api/transcripcion/${room_id}`).then(r => r.json()).then(jdoc => {
         var doc = new document_1.TranscriptionDocument(jdoc.result);
         resolve([blob, doc]);
       }).catch(err => {
-        return fetch(`/data/${room_id}.jsonl`).then(r => r.text()).then(text => {
+        return fetch(`/transcripcion/${room_id}`).then(r => r.text()).then(text => {
           var json = text.split("\n").filter(f => f.trim().length).map(j => JSON.parse(j));
           var doc = new document_1.TranscriptionDocument(room_id, json);
           doc.clean();
