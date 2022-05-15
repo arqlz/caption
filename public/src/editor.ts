@@ -32,7 +32,6 @@ function decodeAudio(buffer) {
     })
 }
 
-
 function drawHorizontal(canvas: HTMLCanvasElement, normalizedData: number[]) {
     const dpr = window.devicePixelRatio || 1;    
     const padding = 10;
@@ -59,7 +58,6 @@ function drawHorizontal(canvas: HTMLCanvasElement, normalizedData: number[]) {
 
 async function build() { 
 
-    console.log(sessions)
     var [blob, doc] = await loadData(sessions);
     if (!blob) return;
 
@@ -76,7 +74,6 @@ async function build() {
     const photo = createDiv({height: 150, width: "100%", background: "#00000022", margin: "30px auto"})
     
     let img = createElement("img", {width: "100%"}) as HTMLImageElement;
-    console.log(doc.photoUrl)
     if (doc.photoUrl) img.src = doc.photoUrl;
     photo.append(img)
     
