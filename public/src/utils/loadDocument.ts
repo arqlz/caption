@@ -3,12 +3,9 @@ import { TranscriptionDocument } from "./document"
 export function loadData(room_id: string): Promise<[Blob, TranscriptionDocument]>{
     return new Promise<[Blob, TranscriptionDocument]>(async (resolve, reject) => {
         try {
-            //const blob = await fetch(`/data/${room_id}.webm`).then(r => r.blob()).catch(err => {
-             //   throw new Error("Error al descargar el archivo de audio: "+err)
-            //})
             const blob = await fetch(`/audio/${room_id}`).then(r => r.blob()).catch(err => null)
-            if (!blob) return;
-
+            if (blob) console.log(blob.size, room_id)
+            if (!blob || blob.size < 1000) return;
 
             fetch(`/api/transcripcion/${room_id}`).then(r => r.json()).then( (jdoc: {result: TranscriptionDocument}) => {
                 var doc = new TranscriptionDocument(jdoc.result)

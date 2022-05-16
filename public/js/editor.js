@@ -130,53 +130,6 @@ exports.generarTextEditor = generarTextEditor;
 
 },
 
-// public/src/utils/document.ts @5
-5: function(__fusereq, exports, module){
-class TranscriptionDocument {
-  constructor(roomIdOrDocument, itemes = []) {
-    this.roomId = "";
-    this.itemes = [];
-    this.photoUrl = "";
-    if (typeof roomIdOrDocument == "string") {
-      this.roomId = roomIdOrDocument;
-      this.itemes = itemes;
-    } else {
-      this.roomId = roomIdOrDocument.roomId;
-      this.itemes = roomIdOrDocument.itemes || itemes;
-      this.photoUrl = roomIdOrDocument.photoUrl;
-    }
-  }
-  near(second) {
-    let candidates = this.itemes.filter(f => {
-      return f.id > second * 10000000;
-    });
-    if (candidates.length) return candidates; else if (this.itemes.length) return [this.itemes[this.itemes.length - 1]];
-    return [];
-  }
-  clean() {
-    var times = {};
-    for (let m of this.itemes) {
-      times[m.id] = m;
-    }
-    this.itemes = Object.values(times);
-  }
-  get(id) {
-    return this.itemes.find(f => f.id.toString() == id);
-  }
-  save() {
-    return fetch(`/api/transcripcion/${this.roomId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(this)
-    }).then(r => r.json());
-  }
-}
-exports.TranscriptionDocument = TranscriptionDocument;
-
-},
-
 // public/src/utils/loadDocument.ts @4
 4: function(__fusereq, exports, module){
 exports.__esModule = true;
@@ -185,7 +138,8 @@ function loadData(room_id) {
   return new Promise(async (resolve, reject) => {
     try {
       const blob = await fetch(`/audio/${room_id}`).then(r => r.blob()).catch(err => null);
-      if (!blob) return;
+      if (blob) console.log(blob.size, room_id);
+      if (!blob || blob.size < 1000) return;
       fetch(`/api/transcripcion/${room_id}`).then(r => r.json()).then(jdoc => {
         var doc = new document_1.TranscriptionDocument(jdoc.result);
         resolve([blob, doc]);
@@ -260,9 +214,10 @@ function drawHorizontal(canvas, normalizedData) {
     ctx.fillRect(x, 0, width, h);
   }
 }
-async function build() {
-  var [blob, doc] = await loadDocument_1.loadData(sessions);
-  if (!blob) return;
+async function build(sessionId) {
+  var [blob, doc] = await loadDocument_1.loadData(sessionId);
+  if (!blob && blob.size < 1000) return;
+  console.log(blob.size);
   var div = utils_1.createDiv({
     width: 500,
     margin: "0 auto"
@@ -377,7 +332,56 @@ async function build() {
     document.body.removeChild(a);
   };
 }
-build();
+for (var sessionId of sessions) {
+  build(sessionId);
+}
+
+},
+
+// public/src/utils/document.ts @5
+5: function(__fusereq, exports, module){
+class TranscriptionDocument {
+  constructor(roomIdOrDocument, itemes = []) {
+    this.roomId = "";
+    this.itemes = [];
+    this.photoUrl = "";
+    if (typeof roomIdOrDocument == "string") {
+      this.roomId = roomIdOrDocument;
+      this.itemes = itemes;
+    } else {
+      this.roomId = roomIdOrDocument.roomId;
+      this.itemes = roomIdOrDocument.itemes || itemes;
+      this.photoUrl = roomIdOrDocument.photoUrl;
+    }
+  }
+  near(second) {
+    let candidates = this.itemes.filter(f => {
+      return f.id > second * 10000000;
+    });
+    if (candidates.length) return candidates; else if (this.itemes.length) return [this.itemes[this.itemes.length - 1]];
+    return [];
+  }
+  clean() {
+    var times = {};
+    for (let m of this.itemes) {
+      times[m.id] = m;
+    }
+    this.itemes = Object.values(times);
+  }
+  get(id) {
+    return this.itemes.find(f => f.id.toString() == id);
+  }
+  save() {
+    return fetch(`/api/transcripcion/${this.roomId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this)
+    }).then(r => r.json());
+  }
+}
+exports.TranscriptionDocument = TranscriptionDocument;
 
 }
 }, function(){

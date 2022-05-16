@@ -50,7 +50,6 @@ socket.once("ready", () => {
         sendBlob(blob)   
     }
     rec.start()
-
     socket.on("mensaje", data => {
         presenter.append(data)
     })
@@ -84,8 +83,6 @@ socket.on("connect", () => {
     
     rec = new Recorder()
     socket.on("info", (info: {photoUrl: string, eventTitle: string, roomId: string}) => {
-
-     
         presenter = new Presenter(info.roomId, rec, roomkey)
         presenter.title = info.eventTitle;
         console.log("on info", info)

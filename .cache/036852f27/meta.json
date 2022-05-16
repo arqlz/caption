@@ -1,5 +1,5 @@
 {
-  "currentId": 5,
+  "currentId": 8,
   "modules": {
     "1": {
       "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\public\\src\\editor.ts",
@@ -9,7 +9,7 @@
         4
       ],
       "id": 1,
-      "mtime": 1652635776494,
+      "mtime": 1652717110513,
       "packageId": "default",
       "publicPath": "public/src/editor.ts"
     },
@@ -37,7 +37,7 @@
         5
       ],
       "id": 4,
-      "mtime": 1652607598458,
+      "mtime": 1652717259766,
       "packageId": "default",
       "publicPath": "public/src/utils/loadDocument.ts"
     },
@@ -48,6 +48,33 @@
       "mtime": 1652407963095,
       "packageId": "default",
       "publicPath": "public/src/utils/document.ts"
+    },
+    "6": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer\\index.js",
+      "dependencies": [
+        7,
+        8
+      ],
+      "id": 6,
+      "mtime": 499162500000,
+      "packageId": "buffer@1.0.0",
+      "publicPath": "node_modules/fuse-box/modules/buffer/index.js"
+    },
+    "7": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js\\index.js",
+      "dependencies": [],
+      "id": 7,
+      "mtime": 499162500000,
+      "packageId": "base64-js@1.5.1",
+      "publicPath": "node_modules/base64-js/index.js"
+    },
+    "8": {
+      "absPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754\\index.js",
+      "dependencies": [],
+      "id": 8,
+      "mtime": 499162500000,
+      "packageId": "ieee754@1.2.1",
+      "publicPath": "node_modules/ieee754/index.js"
     }
   },
   "packages": {
@@ -56,6 +83,63 @@
       "publicName": "default",
       "isUserPackage": true,
       "isExternalPackage": false
+    },
+    "buffer@1.0.0": {
+      "type": 1,
+      "meta": {
+        "fusebox": {
+          "polyfill": true
+        },
+        "name": "buffer",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer",
+        "version": "1.0.0",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\fuse-box\\modules\\buffer\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "buffer@1.0.0",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        6
+      ],
+      "mtime": 499162500000
+    },
+    "base64-js@1.5.1": {
+      "type": 1,
+      "meta": {
+        "name": "base64-js",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js",
+        "version": "1.5.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\base64-js\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "base64-js@1.5.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        7
+      ],
+      "mtime": 1650312616790
+    },
+    "ieee754@1.2.1": {
+      "type": 1,
+      "meta": {
+        "name": "ieee754",
+        "packageJSONLocation": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754\\package.json",
+        "packageRoot": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754",
+        "version": "1.2.1",
+        "entryAbsPath": "C:\\Users\\arqle\\Desktop\\BackupdaWork\\Work\\iota\\caption\\node_modules\\ieee754\\index.js",
+        "entryFuseBoxPath": "index.js"
+      },
+      "publicName": "ieee754@1.2.1",
+      "isUserPackage": false,
+      "isExternalPackage": true,
+      "deps": [
+        8
+      ],
+      "mtime": 1650312616789
     }
   },
   "ctx": {

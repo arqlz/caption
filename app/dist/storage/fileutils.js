@@ -34,7 +34,7 @@ var blobServiceClient;
 function crearSesionAlmacenamiento(uid) {
     const containerClient = blobServiceClient.getContainerClient("audio");
     var stream = new stream_1.Readable({ read: () => null });
-    if (process.env.PORT)
+    if (process.env.PORT || true)
         containerClient.getBlockBlobClient(uid).uploadStream(stream);
     else {
         var writeStream = fs.createWriteStream(__dirname + `/../../../public/data/${uid}.webm`);
@@ -46,7 +46,7 @@ exports.crearSesionAlmacenamiento = crearSesionAlmacenamiento;
 function crearSesionTranscripcion(uid) {
     const containerClient = blobServiceClient.getContainerClient("rawtranscripcion");
     var stream = new stream_1.Readable({ read: () => null });
-    if (process.env.PORT) {
+    if (process.env.PORT || true) {
         containerClient.getBlockBlobClient(uid).uploadStream(stream);
     }
     else {

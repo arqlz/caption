@@ -108,7 +108,6 @@ async function audioATextoAzure(wav) {
         let audioConfig = sdk.AudioConfig.fromWavFileInput(wav);
         let speechRecognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
         speechRecognizer.recognizeOnceAsync(result => {
-            console.log(result);
             resolve(result.text);
         });
     });

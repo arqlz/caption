@@ -356,11 +356,9 @@ function RoomDetail({ref}) {
         }, 1200)
     }
     function render(room, qr) {
-        //fetch("/api/reservar", {method: "POST", body: JSON.stringify(room), headers: {"Content-Type" : "application/json"}}).then(r => r.json()).then(json => {
-            
             ReactDOM.render(<div className="column">
                <div className="row"  style={{marginBottom: 25, minWidth: 0}}>
-               <button title="descargar la app de pc" onClick={e => location.href = `${location.href}/files/beamclient.zip`}>Descarga la app</button>
+               <button title="descargar la app de pc" onClick={e => location.href = `${location.href}files/beamclient.zip`}>Descarga la app</button>
 
                 <button title="empezar la transcripcion" style={{marginLeft: 10}} onClick={e => location.href = `${location.href}transmision/${room.roomKey}`}>Empezar</button>
               </div>
@@ -399,7 +397,7 @@ function RoomDetail({ref}) {
               </div>
          
             </div>, containner)
-        //})
+   
   
     }
 

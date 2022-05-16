@@ -547,7 +547,7 @@ function RoomDetail({ref}) {
       }
     }, React.createElement("button", {
       title: "descargar la app de pc",
-      onClick: e => location.href = `${location.href}/files/beamclient.zip`
+      onClick: e => location.href = `${location.href}files/beamclient.zip`
     }, "Descarga la app"), React.createElement("button", {
       title: "empezar la transcripcion",
       style: {

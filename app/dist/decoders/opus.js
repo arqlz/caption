@@ -1,25 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.easyDecode = exports.AudioDecodeSesion = exports.guardarRealtime = void 0;
-const fs = require("fs");
-const path = require("path");
+exports.AudioDecodeSesion = void 0;
 const prism = require("prism-media");
 const stream_1 = require("stream");
 const WaveFile = require('wavefile').WaveFile;
 const wavConverter = require("wav-converter");
-async function guardarRealtime(filename, buffer) {
-    var file_path = path.resolve(__dirname + "/../../../public/data/", filename);
-    var existe = await fs.promises.stat(file_path).catch(e => false);
-    if (existe) {
-        console.log("el archivo existe, apendeando");
-        await fs.promises.appendFile(file_path, buffer);
-    }
-    else {
-        console.log("el archivo no existe, creandolo");
-        await fs.promises.writeFile(file_path, buffer);
-    }
-}
-exports.guardarRealtime = guardarRealtime;
 var index = 0;
 class AudioDecodeSesion {
     constructor() {
@@ -31,7 +16,6 @@ class AudioDecodeSesion {
         var index = 0;
         var writeable = new stream_1.Writable({
             write: (chunk, encoding, next) => {
-                index++;
                 this.onData(chunk, index);
                 index++;
                 next();
@@ -92,66 +76,51 @@ class AudioDecodeSesion {
     }
 }
 exports.AudioDecodeSesion = AudioDecodeSesion;
-class AudioProcessorCustom extends AudioDecodeSesion {
-    constructor() {
-        super(...arguments);
-        this.data = [];
-        this.dataSize = 0;
-        this.onData = (chunk, index) => {
-            if (this.dataSize < 1024 * 312) {
-                this.data.push(chunk);
-                this.dataSize += chunk.length;
-            }
-            else {
-                var buffer = Buffer.concat(this.data);
-                this.data = [];
-                this.dataSize = 0;
-                this.salvarBuffer(buffer, "a" + index);
-            }
-        };
-        this.onEnd = () => {
-            if (this.data.length) {
-                var buffer = Buffer.concat(this.data);
-                this.data = [];
-                this.dataSize = 0;
-                this.salvarBuffer(buffer, "aend");
-                console.log("salvando el residuo");
-            }
-        };
+/*
+export async function guardarRealtime(filename: string, buffer: Buffer) {
+    var file_path = path.resolve(__dirname+"/../../../public/data/", filename)
+    var existe = await fs.promises.stat(file_path).catch( e => false)
+    if (existe) {
+        console.log("el archivo existe, apendeando")
+        await fs.promises.appendFile(file_path, buffer)
+    } else {
+        console.log("el archivo no existe, creandolo")
+        await fs.promises.writeFile(file_path, buffer)
     }
-    async salvarBuffer(buffer, name) {
-        var wavData = wavConverter.encodeWav(buffer, {
-            numChannels: 1,
-            sampleRate: 48000,
-            byteRate: 16
-        });
-        var data = new WaveFile(wavData);
-        data.toSampleRate(16000);
-        await fs.writeFileSync(__dirname + `/../../../public/data/${name}.wav`, data.toBuffer());
-    }
+
 }
-var chunks = [];
-var session;
-function easyDecode(buffer) {
-    return new Promise((resolve) => {
+
+
+
+
+var chunks = []
+var session: AudioDecodeSesion
+
+
+export function easyDecode(buffer: Buffer) {
+    return new Promise<Buffer>((resolve) => {
         if (!session) {
-            session = new AudioDecodeSesion();
-            chunks = [];
-            session.start();
+            session = new AudioDecodeSesion()
+            chunks = []
+            session.start()
         }
-        session.onData = (buffer) => {
-            chunks.push(buffer);
+        session.onData = (buffer: Buffer) => {
+            chunks.push(buffer)
+            
             if (chunks.length >= 100) {
-                var b = session.toWav(Buffer.concat(chunks));
-                chunks = [buffer];
-                resolve(b);
+                var b = session.toWav(Buffer.concat(chunks))
+                chunks = [buffer]
+                resolve(b)
             }
-        };
+        }
         session.onEnd = () => {
-            var buffer = session.toWav(Buffer.concat(chunks));
-            resolve(buffer);
-        };
-        session.next(buffer);
-    });
+            var buffer = session.toWav(Buffer.concat(chunks))
+            resolve(buffer)
+        }
+
+        session.next(buffer)
+    })
 }
-exports.easyDecode = easyDecode;
+
+
+*/ 

@@ -5,18 +5,7 @@ import {Writable, Readable} from "stream"
 const WaveFile = require('wavefile').WaveFile;
 import * as wavConverter from 'wav-converter'
 
-export async function guardarRealtime(filename: string, buffer: Buffer) {
-    var file_path = path.resolve(__dirname+"/../../../public/data/", filename)
-    var existe = await fs.promises.stat(file_path).catch( e => false)
-    if (existe) {
-        console.log("el archivo existe, apendeando")
-        await fs.promises.appendFile(file_path, buffer)
-    } else {
-        console.log("el archivo no existe, creandolo")
-        await fs.promises.writeFile(file_path, buffer)
-    }
 
-}
 
 var index = 0
 export class AudioDecodeSesion {
@@ -27,8 +16,7 @@ export class AudioDecodeSesion {
     start() {      
         var index = 0
         var writeable = new Writable({
-            write: (chunk, encoding, next) => {
-                index++
+            write: (chunk, encoding, next) => {       
                 this.onData(chunk, index)              
                 index++;      
                 next()
@@ -92,47 +80,26 @@ export class AudioDecodeSesion {
         this.stream.emit('end')
     }
 }
+/*
+export async function guardarRealtime(filename: string, buffer: Buffer) {
+    var file_path = path.resolve(__dirname+"/../../../public/data/", filename)
+    var existe = await fs.promises.stat(file_path).catch( e => false)
+    if (existe) {
+        console.log("el archivo existe, apendeando")
+        await fs.promises.appendFile(file_path, buffer)
+    } else {
+        console.log("el archivo no existe, creandolo")
+        await fs.promises.writeFile(file_path, buffer)
+    }
 
-
-class AudioProcessorCustom extends AudioDecodeSesion {
-    async salvarBuffer(buffer: Buffer, name: string) {
-        var wavData = wavConverter.encodeWav(buffer, {
-            numChannels: 1,
-            sampleRate: 48000,
-            byteRate: 16
-        })
-        var data = new WaveFile(wavData)
-        data.toSampleRate(16000)
-        await fs.writeFileSync(__dirname+`/../../../public/data/${name}.wav`,data.toBuffer() )
-   
-    }
-    data: Buffer[] = []
-    dataSize = 0
-    onData = (chunk: Buffer, index: number) => {
-        if (this.dataSize < 1024*312 ) {
-            this.data.push(chunk)
-            this.dataSize += chunk.length
-        } else {
-            var buffer = Buffer.concat(this.data)
-            this.data = []
-            this.dataSize = 0
-            this.salvarBuffer(buffer, "a"+index)
-        }
-    }
-    onEnd = () => {      
-        if (this.data.length) {
-            var buffer = Buffer.concat(this.data)
-            this.data = []
-            this.dataSize = 0
-            this.salvarBuffer(buffer, "aend")
-            console.log("salvando el residuo")
-        }
-    }
 }
+
+
 
 
 var chunks = []
 var session: AudioDecodeSesion
+
 
 export function easyDecode(buffer: Buffer) {
     return new Promise<Buffer>((resolve) => {
@@ -160,3 +127,4 @@ export function easyDecode(buffer: Buffer) {
 }
 
 
+*/

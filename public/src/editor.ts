@@ -1,7 +1,7 @@
 import { generarTextEditor } from "./components/texteditor";
 import { createDiv, createElement } from "./components/utils";
 import { loadData } from "./utils/loadDocument";
-declare const sessions;
+declare const sessions: string[];
 
 function generarSamplesFromArray(raw: Float32Array, samples = 400) {
     const blockSize = Math.floor(raw.length/samples);
@@ -56,10 +56,11 @@ function drawHorizontal(canvas: HTMLCanvasElement, normalizedData: number[]) {
     }
 }
 
-async function build() { 
-
-    var [blob, doc] = await loadData(sessions);
-    if (!blob) return;
+async function build(sessionId: string) { 
+    var [blob, doc] = await loadData(sessionId);
+  
+    if (!blob && blob.size < 1000) return;
+    console.log(blob.size)
 
 
     var div = createDiv({width: 500, margin: "0 auto"})  
@@ -176,5 +177,7 @@ async function build() {
 
 }
 
-build()
+for (var sessionId of sessions) {
+    build(sessionId)
+}
 

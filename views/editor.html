@@ -1,5 +1,7 @@
 <html>
     <head>
+        <title>Editor de transcripciones</title>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <style>  
             body {
                 background: radial-gradient(circle at center 350px, #33246f, transparent 900px), #13121d;
@@ -62,7 +64,7 @@
 </html>
 <script>
     const roomId = "<%= roomId %>";
-    const sessions = "<%= sessions %>";
+    const sessions = "<%= sessions %>".split(",");
 </script>
 
 <script src="/js/editor.js">

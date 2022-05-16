@@ -115,6 +115,9 @@ app.post("/api/images/:key", upload, async (req, res) => {
 app.get("/audio/:sessionId", (req, res) => {
     (0, fileutils_1.getFile)("audio", req.params.sessionId).then(buffer => {
         res.send(buffer);
+    }).catch(err => {
+        console.log("not found");
+        res.status(404).send("Error");
     });
 });
 app.get("/transcripcion/:sessionId", (req, res) => {
@@ -151,7 +154,6 @@ function onError(error) {
     var bind = typeof PORT === 'string'
         ? 'Pipe ' + PORT
         : 'Port ' + PORT;
-    // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' requires elevated privileges');
@@ -177,16 +179,6 @@ if (process.env.PORT) {
         debug('Listening on ' + bind);
     }
 }
-/*
-    TODO
-    * crear un api de coneccion
-    * se debe anadir un header en las paginas
-    * completar el wizard para crear una transmision
-    * crear la pagina web para celulares
-    * anadir la seleccion de room en c#
-    * se necesita poder compartir los audios o transcripciones con otros servicios
-
-*/
 server.listen(PORT, async () => {
     console.log(`listening to http://localhost:${PORT}`);
     console.log("_____________________");
@@ -197,7 +189,6 @@ server.listen(PORT, async () => {
     io.on("connection", (socket) => {
         var decoder;
         var connectionTimer;
-        var timers = [];
         console.log("new connection stablished");
         socket.on("disconnect", () => {
             if (decoder) {
@@ -205,8 +196,6 @@ server.listen(PORT, async () => {
                 decoder = null;
             }
             clearInterval(connectionTimer);
-            for (var t of timers)
-                clearImmediate(t);
         });
         var room;
         function simularEmision() {
@@ -227,51 +216,50 @@ server.listen(PORT, async () => {
             }
             var last_message = Date.now();
             var initiated = false;
-            socket.emit("info", {
-                eventTitle: room.eventTitle,
-                photoUrl: room.photoUrl,
-                language: room.language,
-                roomId: room.roomId
-            });
-            if (!room)
-                return;
-            console.log(`Session de transcripcion iniciada en ${roomKey}`);
+            console.log(`Session de transcripcion iniciada en ${room.roomId}, idioma ${room.language}`);
             var session = room.roomId + "." + room.sessions.length;
             var blob_stream = (0, fileutils_1.crearSesionAlmacenamiento)(session);
             var transcripcion_stream = (0, fileutils_1.crearSesionTranscripcion)(session);
             decoder = new opus_1.AudioDecodeSesion();
             decoder.start();
-            console.log("Creando session con el idioma", room.language);
+            console.log("NEW SESSION", session);
             var azureSession = new azure_1.AzureSession(room.language || "es-DO", 30 * 60 - room.length);
             azureSession.onData = (data) => {
                 var jsonl = { result: data.text, id: data.offset, speakerId: data.speakerId + "" };
-                transcripcion_stream.push(JSON.stringify(jsonl) + "\n");
+                if (transcripcion_stream)
+                    transcripcion_stream.push(JSON.stringify(jsonl) + "\n");
                 if (jsonl.result)
                     last_message = Date.now();
                 io.to(room.roomId).emit("mensaje", jsonl);
             };
             azureSession.onSessionLimitReached = () => {
-                console.log("la session ha superado la cuota establecida");
                 clear();
+                console.log("la session ha superado la cuota establecida");
                 socket.emit("sessionLimitReached");
             };
             function clear() {
-                console.log("LLAMANDO A CLEAR PARA QUE LIMPIE LA ESCENA");
+                console.log("Clearing all");
                 if (!azureSession)
                     return;
                 azureSession.close();
-                blob_stream.emit("end");
-                transcripcion_stream.emit("end");
+                if (blob_stream) {
+                    blob_stream.emit("end");
+                    blob_stream = null;
+                }
+                if (transcripcion_stream) {
+                    transcripcion_stream.emit("end");
+                    transcripcion_stream = null;
+                }
                 room.length += azureSession.length;
                 db_1.CaptionDb.rooms.update(room);
                 azureSession = null;
-                for (var t of timers)
-                    clearImmediate(t);
             }
             decoder.onData = (buffer) => {
                 azureSession.push(buffer);
             };
             socket.on("blob", (blob) => {
+                if (!azureSession)
+                    return;
                 if (!initiated) {
                     room.sessions.push(session);
                     db_1.CaptionDb.rooms.update(room).catch(console.error);
@@ -291,6 +279,12 @@ server.listen(PORT, async () => {
                 }, 5000);
             }
             checkForIdleTime();
+            socket.emit("info", {
+                eventTitle: room.eventTitle,
+                photoUrl: room.photoUrl,
+                language: room.language,
+                roomId: room.roomId
+            });
             socket.emit("ready");
             socket.on("disconnect", clear);
             socket.join(room.roomId);
