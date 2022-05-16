@@ -49,6 +49,7 @@ export class AzureSession {
     onData = (data: sdk.SpeechRecognitionResult) => null
     onSessionLimitReached = () => null
     length: number = 0;
+    onClose = () => null;
 
     constructor(language: string = "es-ES", sessionTimeLimitSeconds = 60*30) {
         if (!speechConfig) throw new Error("SpeechConfig no fue encontrado, por favor verifique si se ha creado correctamente el archivo subscription.json")
@@ -101,6 +102,7 @@ export class AzureSession {
     close() {
         console.log("Cerrando streaming")
         this.writableStream.close()
+        this.onClose()
     }
     push(buffer) {      
           

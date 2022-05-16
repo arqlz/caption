@@ -437,13 +437,18 @@ function DetallesDeSala({onPageChange}) {
     eventTitle: "",
     palabrasClave: "",
     eventDate: 0,
-    ownerEmail: ""
+    ownerEmail: "",
+    language: "es-DO"
   };
   return React.createElement("div", null, React.createElement("div", {
     style: {
       margin: "20px 0"
     }
-  }, React.createElement("div", null, "Nombre del evento"), React.createElement("input", {
+  }, React.createElement("div", {
+    style: {
+      "opacity": 0.9
+    }
+  }, "Nombre del evento"), React.createElement("input", {
     placeholder: "Nombre del evento",
     style: {
       fontSize: 22
@@ -451,9 +456,13 @@ function DetallesDeSala({onPageChange}) {
     onChange: e => room["eventTitle"] = e.target.value
   })), React.createElement("div", {
     style: {
-      margin: "40px 0 0 0"
+      margin: "30px 0 0 0"
     }
-  }, React.createElement("div", null, "Fecha de inicio"), React.createElement("input", {
+  }, React.createElement("div", {
+    style: {
+      "opacity": 0.9
+    }
+  }, "Fecha de inicio"), React.createElement("input", {
     placeholder: "fecha programada",
     type: "date",
     onChange: e => room["eventDate"] = e.target.valueAsNumber
@@ -461,20 +470,42 @@ function DetallesDeSala({onPageChange}) {
     style: {
       margin: "10px 0 0 0"
     }
-  }, React.createElement("div", null, "Palabras clave/nombres/siglas"), React.createElement("input", {
+  }, React.createElement("div", {
+    style: {
+      "opacity": 0.9
+    }
+  }, "Palabras clave/nombres/siglas"), React.createElement("input", {
     placeholder: "clic para editar",
     onChange: e => room["palabrasClave"] = e.target.value
   })), React.createElement("div", {
     style: {
       margin: "10px 0 0 0"
     }
-  }, React.createElement("div", null, "Email del organizador"), React.createElement("input", {
+  }, React.createElement("div", {
+    style: {
+      "opacity": 0.9
+    }
+  }, "Email del organizador"), React.createElement("input", {
     placeholder: "opcional",
     type: "email",
     onChange: e => room["ownerEmail"] = e.target.value
   })), React.createElement("div", {
     style: {
-      margin: "10px 0 0 0"
+      margin: "10px 10 0 0"
+    }
+  }, React.createElement("div", {
+    style: {
+      "opacity": 0.8
+    }
+  }, "Idioma"), React.createElement("select", {
+    onChange: e => room["language"] = e.target.value
+  }, React.createElement("option", {
+    value: "es-DO"
+  }, "Espanol"), React.createElement("option", {
+    value: "en-US"
+  }, "English"))), React.createElement("div", {
+    style: {
+      margin: "20px 0 0 0"
     }
   }, React.createElement("button", {
     onClick: e => onPageChange(2, room)

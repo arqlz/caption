@@ -45,6 +45,7 @@ class AzureSession {
         this.onData = (data) => null;
         this.onSessionLimitReached = () => null;
         this.length = 0;
+        this.onClose = () => null;
         if (!speechConfig)
             throw new Error("SpeechConfig no fue encontrado, por favor verifique si se ha creado correctamente el archivo subscription.json");
         const format = sdk.AudioStreamFormat.getWaveFormatPCM(48000, 16, 1);
@@ -95,6 +96,7 @@ class AzureSession {
     close() {
         console.log("Cerrando streaming");
         this.writableStream.close();
+        this.onClose();
     }
     push(buffer) {
         this.writableStream.write(buffer);

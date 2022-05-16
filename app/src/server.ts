@@ -45,11 +45,12 @@ app.post("/api/reservar", async (req, res) => {
         return res.status(400).send("Error")
     }
     var room = new Room();
-    var {eventTitle, palabrasClave, eventDate, ownerEmail} = req.body;
+    var {eventTitle, palabrasClave, eventDate, ownerEmail, language} = req.body;
     room.eventTitle = eventTitle || "";
     room.palabrasClave = palabrasClave || "";
     room.eventDate = eventDate;
     room.ownerEmail = ownerEmail;
+    room.language = language;
 
 
     try {
@@ -227,7 +228,6 @@ server.listen(PORT, async () => {
         })
 
         var room: Room;
-
         function simularEmision() {
             fs.promises.readFile(__dirname+"/../../public/IEP7XO.jsonl", {encoding: "utf-8"}).then(data => {
                 var json = data.split("\n").filter(d => !!d).map(str => JSON.parse(str))
@@ -264,7 +264,8 @@ server.listen(PORT, async () => {
             decoder = new AudioDecodeSesion()   
             decoder.start()
             
-            var azureSession: AzureSession = new AzureSession(language || "es-DO", 30*60-room.length)    
+            console.log("Creando session con el idioma", room.language)
+            var azureSession: AzureSession = new AzureSession(room.language || "es-DO", 30*60-room.length)    
             azureSession.onData = (data) => {
                 var jsonl = {result: data.text, id: data.offset, speakerId: data.speakerId + ""};
                 transcripcion_stream.push(JSON.stringify(jsonl)+"\n")  

@@ -92,7 +92,7 @@ export class Presenter {
         this.elements.title.innerHTML = value;
     }
     set timeElapsed(value: number) {
-        this.elements.timeCounter.innerHTML = (value / 3000 | 0).toString();
+        this.elements.timeCounter.innerHTML = (value / 1000 | 0).toString();
     }
 
     private render() {

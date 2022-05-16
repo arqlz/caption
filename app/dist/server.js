@@ -41,11 +41,12 @@ app.post("/api/reservar", async (req, res) => {
         return res.status(400).send("Error");
     }
     var room = new room_1.Room();
-    var { eventTitle, palabrasClave, eventDate, ownerEmail } = req.body;
+    var { eventTitle, palabrasClave, eventDate, ownerEmail, language } = req.body;
     room.eventTitle = eventTitle || "";
     room.palabrasClave = palabrasClave || "";
     room.eventDate = eventDate;
     room.ownerEmail = ownerEmail;
+    room.language = language;
     try {
         console.log("insertando item en base de datos");
         await db_1.CaptionDb.rooms.insert(room);
@@ -238,7 +239,8 @@ server.listen(PORT, async () => {
             var transcripcion_stream = (0, fileutils_1.crearSesionTranscripcion)(session);
             decoder = new opus_1.AudioDecodeSesion();
             decoder.start();
-            var azureSession = new azure_1.AzureSession(language || "es-DO", 30 * 60 - room.length);
+            console.log("Creando session con el idioma", room.language);
+            var azureSession = new azure_1.AzureSession(room.language || "es-DO", 30 * 60 - room.length);
             azureSession.onData = (data) => {
                 var jsonl = { result: data.text, id: data.offset, speakerId: data.speakerId + "" };
                 transcripcion_stream.push(JSON.stringify(jsonl) + "\n");

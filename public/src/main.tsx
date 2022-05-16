@@ -309,27 +309,35 @@ function CrearNuevaSalaView({onPageChange}) {
 
 
 function DetallesDeSala({onPageChange}) {
-    var room = {eventTitle: "", palabrasClave: "", eventDate: 0, ownerEmail: ""};
+    var room = {eventTitle: "", palabrasClave: "", eventDate: 0, ownerEmail: "", language: "es-DO"};
     return <div>
         <div  style={{margin: "20px 0"}} >
-            <div>Nombre del evento</div>
+            <div style={{"opacity": 0.9}}>Nombre del evento</div>
             <input placeholder="Nombre del evento" style={{fontSize: 22}} onChange={e => room["eventTitle"] = e.target.value}></input>                   
         </div>
-        <div style={{margin: "40px 0 0 0"}}>
-            <div>Fecha de inicio</div>            
+        <div style={{margin: "30px 0 0 0"}}>
+            <div style={{"opacity": 0.9}}>Fecha de inicio</div>            
             <input placeholder="fecha programada" type="date"  onChange={e => room["eventDate"] = e.target.valueAsNumber}></input>                                 
         </div>
         <div style={{margin: "10px 0 0 0"}}>
-            <div>Palabras clave/nombres/siglas</div>            
+            <div style={{"opacity": 0.9}}>Palabras clave/nombres/siglas</div>            
             <input placeholder="clic para editar" onChange={e => room["palabrasClave"] = e.target.value}></input>                                 
         </div>
         <div style={{margin: "10px 0 0 0"}}>
-            <div>Email del organizador</div>            
+            <div style={{"opacity": 0.9}}>Email del organizador</div>            
             <input placeholder="opcional" type="email"  onChange={e => room["ownerEmail"] = e.target.value}></input>                                 
         </div>
-        <div style={{margin: "10px 0 0 0"}}>
+        <div style={{margin: "10px 10 0 0"}}>
+            <div style={{"opacity": 0.8}}>Idioma</div>  
+            <select onChange={e => room["language"] = e.target.value}>
+                <option value="es-DO">Espanol</option>
+                <option value="en-US">English</option>
+            </select>
+        </div>
+        <div style={{margin: "20px 0 0 0"}}>
             <button onClick={e => onPageChange(2, room) }>Continuar</button>                             
         </div>
+  
     </div>
 }
 function RoomDetail({ref}) {
