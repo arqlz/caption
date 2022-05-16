@@ -14,14 +14,15 @@ socket.on("connect", () => {
     if (roomId.length < 2) {
         throw new Error("sala invalida")
     }
-    roomId = roomId.split("/").slice(2)[0];
-    socket.emit("join", {roomId: roomId});  
-    
+
     socket.on("info", (info: {photoUrl: string, eventTitle: string}) => {
         presenter.title = info.eventTitle;
-        console.log("on info", info)
     })
+    roomId = roomId.split("/").slice(2)[0];
+    socket.emit("join", {roomId: roomId});  
+
 })
+
 
 socket.on("joined",  (roomId) => {
     socket.on("mensaje", data => {

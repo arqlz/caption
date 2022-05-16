@@ -27,37 +27,6 @@ f.modules = modules;
 })();
 __fuse.bundle({
 
-// public/src/components/utils.ts @3
-3: function(__fusereq, exports, module){
-exports.__esModule = true;
-const pixelFields = ["margin", "marginLeft", "marginRight", "marginTop", "marginBottom", "padding", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "left", "top", "right", "bottom", "width", "height", "minWidth", "minHeight", "maxWidth", "maxHeight", "borderWidth"];
-function applyStyle(div, style) {
-  Object.keys(style || ({})).forEach(k => {
-    let is_number = pixelFields.indexOf(k) >= 0;
-    if (is_number && typeof style[k] == "number") div.style[k] = style[k] + "px"; else div.style[k] = style[k];
-  });
-}
-exports.applyStyle = applyStyle;
-exports.createElement = (type, styleOrClass, style) => {
-  var __style = typeof styleOrClass == "object" ? styleOrClass : style || ({});
-  var __className = typeof styleOrClass == "string" ? styleOrClass : "";
-  var div = document.createElement(type);
-  div.className = __className;
-  applyStyle(div, __style);
-  return div;
-};
-function createDiv(styleOrClass, style) {
-  var __style = typeof styleOrClass == "object" ? styleOrClass : style || ({});
-  var __className = typeof styleOrClass == "string" ? styleOrClass : "";
-  var div = document.createElement("div");
-  div.className = __className;
-  applyStyle(div, __style);
-  return div;
-}
-exports.createDiv = createDiv;
-
-},
-
 // public/src/presenter.ts @2
 2: function(__fusereq, exports, module){
 exports.__esModule = true;
@@ -154,12 +123,13 @@ class Presenter {
     this.elements.title.innerHTML = value;
   }
   set timeElapsed(value) {
-    this.elements.timeCounter.innerHTML = (value / 1000 | 0).toString();
+    this.elements.timeCounter.innerHTML = (value / 3000 | 0).toString();
   }
   render() {
     if (this.listennerMode == true && this.stoped) return;
     while (this.queue.length) {
       var mensaje = this.queue.splice(0, 1)[0];
+      console.log(mensaje, this.queue);
       if (!this.mensajes[mensaje.id]) {
         var div = utils_1.createDiv("textRow", {
           marginRight: "4pt"
@@ -179,8 +149,12 @@ class Presenter {
     }
   }
   append(data) {
-    this.queue.push(data);
-    this.render();
+    if (data) {
+      this.queue.push(data);
+      this.render();
+    } else {
+      console.error("Append null");
+    }
   }
   stop() {
     this.stoped = true;
@@ -208,13 +182,12 @@ socket.on("connect", () => {
   if (roomId.length < 2) {
     throw new Error("sala invalida");
   }
+  socket.on("info", info => {
+    presenter.title = info.eventTitle;
+  });
   roomId = roomId.split("/").slice(2)[0];
   socket.emit("join", {
     roomId: roomId
-  });
-  socket.on("info", info => {
-    presenter.title = info.eventTitle;
-    console.log("on info", info);
   });
 });
 socket.on("joined", roomId => {
@@ -224,6 +197,37 @@ socket.on("joined", roomId => {
   console.log("Joined to room");
 });
 socket.connect();
+
+},
+
+// public/src/components/utils.ts @3
+3: function(__fusereq, exports, module){
+exports.__esModule = true;
+const pixelFields = ["margin", "marginLeft", "marginRight", "marginTop", "marginBottom", "padding", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "left", "top", "right", "bottom", "width", "height", "minWidth", "minHeight", "maxWidth", "maxHeight", "borderWidth"];
+function applyStyle(div, style) {
+  Object.keys(style || ({})).forEach(k => {
+    let is_number = pixelFields.indexOf(k) >= 0;
+    if (is_number && typeof style[k] == "number") div.style[k] = style[k] + "px"; else div.style[k] = style[k];
+  });
+}
+exports.applyStyle = applyStyle;
+exports.createElement = (type, styleOrClass, style) => {
+  var __style = typeof styleOrClass == "object" ? styleOrClass : style || ({});
+  var __className = typeof styleOrClass == "string" ? styleOrClass : "";
+  var div = document.createElement(type);
+  div.className = __className;
+  applyStyle(div, __style);
+  return div;
+};
+function createDiv(styleOrClass, style) {
+  var __style = typeof styleOrClass == "object" ? styleOrClass : style || ({});
+  var __className = typeof styleOrClass == "string" ? styleOrClass : "";
+  var div = document.createElement("div");
+  div.className = __className;
+  applyStyle(div, __style);
+  return div;
+}
+exports.createDiv = createDiv;
 
 }
 }, function(){

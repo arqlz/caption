@@ -73,6 +73,7 @@ app.get("/api/transcripcion/:key", async (req, res) => {
     (0, fileutils_1.getTrascriptionFile)(req.params.key).then((data) => {
         res.json({ result: JSON.parse(data.toString('utf8')) });
     }).catch(err => {
+        console.error("No se encontro la transcripcion para ", req.params.key);
         res.status(err.status || 500).send("Error");
     });
 });
@@ -117,6 +118,9 @@ app.get("/audio/:sessionId", (req, res) => {
 app.get("/transcripcion/:sessionId", (req, res) => {
     (0, fileutils_1.getFile)("rawtranscripcion", req.params.sessionId).then(buffer => {
         res.send(buffer);
+    }).catch(err => {
+        console.error("Raw transcriptions not found");
+        console.error(err);
     });
 });
 app.get("/transmision/:roomId", (req, res) => {
@@ -132,7 +136,7 @@ app.get("/editor/:roomKey", async (req, res) => {
     let roomKey = req.params.roomKey;
     let room = await db_1.CaptionDb.rooms.findOne({ roomKey });
     if (!room) {
-        res.status(400).send("Error");
+        res.status(400).send("Error, no se encontro ninguna sala con los datos indicados");
     }
     else {
         res.render("editor.html", { roomId: room.roomId, sessions: room.sessions });
@@ -243,15 +247,20 @@ server.listen(PORT, async () => {
                 io.to(room.roomId).emit("mensaje", jsonl);
             };
             azureSession.onSessionLimitReached = () => {
+                console.log("la session ha superado la cuota establecida");
                 clear();
                 socket.emit("sessionLimitReached");
             };
             function clear() {
+                console.log("LLAMANDO A CLEAR PARA QUE LIMPIE LA ESCENA");
+                if (!azureSession)
+                    return;
                 azureSession.close();
                 blob_stream.emit("end");
                 transcripcion_stream.emit("end");
                 room.length += azureSession.length;
                 db_1.CaptionDb.rooms.update(room);
+                azureSession = null;
                 for (var t of timers)
                     clearImmediate(t);
             }
@@ -267,11 +276,17 @@ server.listen(PORT, async () => {
                 decoder.next(blob);
                 blob_stream.push(blob);
             });
-            timers.push(setInterval(() => {
-                if (Date.now() - last_message > 60 * 1000) {
-                    clear();
-                }
-            }, 5000));
+            function checkForIdleTime() {
+                setTimeout(() => {
+                    if (Date.now() - last_message > 60 * 1000) {
+                        console.log("se llamara a clear debido a que se ha exedido el tiempo de espera");
+                        clear();
+                    }
+                    else
+                        checkForIdleTime();
+                }, 5000);
+            }
+            checkForIdleTime();
             socket.emit("ready");
             socket.on("disconnect", clear);
             socket.join(room.roomId);
@@ -292,6 +307,7 @@ server.listen(PORT, async () => {
             socket.emit("joined", roomId);
         });
         socket.on("test", () => {
+            console.log("ALGUIEN SOLICITO TEST");
             socket.join(room.roomId);
             socket.emit("ready");
             console.log("broadcast ready");

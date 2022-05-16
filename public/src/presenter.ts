@@ -92,13 +92,15 @@ export class Presenter {
         this.elements.title.innerHTML = value;
     }
     set timeElapsed(value: number) {
-        this.elements.timeCounter.innerHTML = (value / 1000 | 0).toString();
+        this.elements.timeCounter.innerHTML = (value / 3000 | 0).toString();
     }
 
     private render() {
         if (this.listennerMode == true && this.stoped) return;
         while(this.queue.length) {
+        
             var mensaje = this.queue.splice(0, 1)[0];
+            console.log(mensaje, this.queue)
             if (!this.mensajes[mensaje.id]) {
                 var div = createDiv("textRow",{ marginRight: "4pt"});
                 this.transmissionContainner.append(div);
@@ -113,8 +115,13 @@ export class Presenter {
      
     }
     append(data: {result: string, id: string}) {
-        this.queue.push(data)   
-        this.render();  
+        if (data) {
+            this.queue.push(data)   
+            this.render();  
+        } else {
+            console.error("Append null")
+        }
+
     }
     stop() {
         this.stoped = true;

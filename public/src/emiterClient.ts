@@ -38,6 +38,7 @@ function sendBlob(blob: Blob): Promise<string> {
     })
 }
 
+
 var socket = io()
 
 var rec: Recorder 

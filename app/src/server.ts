@@ -8,12 +8,10 @@ import { generarQr } from "./rooms/qrgenerator";
 import { Room } from "./rooms/room";
 import { CaptionDb } from "./db";
 import { crearSesionAlmacenamiento, crearSesionTranscripcion, getFile, getTrascriptionFile, saveFile, saveTrascriptionFile } from "./storage/fileutils";
-import { appendMsgToFile } from "./storage/localStore";
 import * as fs from "fs";
 import * as multer from "multer"
 import * as sharp from "sharp"
-import wavefile = require("wavefile");
-import { validateRoomKey } from "./rooms/utils";
+
 
 var PORT = process.env.PORT || 5000;
 
@@ -82,8 +80,7 @@ app.get("/api/transcripcion/:key", async (req, res) => {
     getTrascriptionFile(req.params.key).then((data) => {
         res.json({result: JSON.parse( data.toString('utf8'))})
    }).catch(err => {
-    
-    
+    console.error("No se encontro la transcripcion para ", req.params.key)
        res.status(err.status  || 500).send("Error")
    })
 
@@ -97,6 +94,7 @@ app.post("/api/transcripcion/:key", async (req, res) => {
    saveTrascriptionFile(req.params.key, JSON.stringify(req.body)).then(() => {
         res.json({result: "Ok"})
    }).catch(err => {
+
        console.error(err)
        res.status(500).send("Error")
    })
@@ -131,6 +129,9 @@ app.get("/audio/:sessionId", (req, res) => {
 app.get("/transcripcion/:sessionId", (req, res) => {
     getFile("rawtranscripcion", req.params.sessionId).then(buffer => {
         res.send(buffer)
+    }).catch(err => {
+        console.error("Raw transcriptions not found")
+        console.error(err)
     })
 })
 app.get("/transmision/:roomId", (req, res) => {
@@ -146,11 +147,10 @@ app.get("/editor/:roomKey", async (req, res) => {
     let roomKey = req.params.roomKey;
     let room = await CaptionDb.rooms.findOne({roomKey})
     if (!room) {
-        res.status(400).send("Error")
+        res.status(400).send("Error, no se encontro ninguna sala con los datos indicados")
     } else {
         res.render("editor.html", {roomId: room.roomId, sessions: room.sessions})
     }
-
 })
 
 
@@ -273,16 +273,21 @@ server.listen(PORT, async () => {
             }   
 
             azureSession.onSessionLimitReached = () => {
+                console.log("la session ha superado la cuota establecida")
                 clear()
                 socket.emit("sessionLimitReached")
             }
        
             function clear() {
+                
+                console.log("LLAMANDO A CLEAR PARA QUE LIMPIE LA ESCENA")       
+                if (!azureSession) return;   
                 azureSession.close()
                 blob_stream.emit("end");
                 transcripcion_stream.emit("end");
                 room.length += azureSession.length;
                 CaptionDb.rooms.update(room)
+                azureSession = null;
                 for (var t of timers) clearImmediate(t)
             }
       
@@ -299,11 +304,16 @@ server.listen(PORT, async () => {
                 blob_stream.push(blob);
             })  
 
-            timers.push(setInterval(() => {
-                if ( Date.now() -last_message > 60*1000) {
-                    clear()
-                }
-            }, 5000))
+            function checkForIdleTime() {
+                setTimeout(() => {
+                    if ( Date.now() -last_message > 60*1000) {
+                        console.log("se llamara a clear debido a que se ha exedido el tiempo de espera")
+                        clear()
+                    } else checkForIdleTime()
+                }, 5000)
+            }
+            checkForIdleTime()
+         
           
             socket.emit("ready")
             socket.on("disconnect", clear)
@@ -330,6 +340,7 @@ server.listen(PORT, async () => {
         }) 
   
         socket.on("test", () => {
+            console.log("ALGUIEN SOLICITO TEST")
             socket.join(room.roomId);
             socket.emit("ready")
             console.log("broadcast ready")

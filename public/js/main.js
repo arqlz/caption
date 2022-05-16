@@ -505,91 +505,85 @@ function RoomDetail({ref}) {
       div.remove();
     }, 1200);
   }
-  function render(room) {
-    fetch("/api/reservar", {
-      method: "POST",
-      body: JSON.stringify(room),
-      headers: {
-        "Content-Type": "application/json"
+  function render(room, qr) {
+    ReactDOM.render(React.createElement("div", {
+      className: "column"
+    }, React.createElement("div", {
+      className: "row",
+      style: {
+        marginBottom: 25,
+        minWidth: 0
       }
-    }).then(r => r.json()).then(json => {
-      let room = json.result.room;
-      ReactDOM.render(React.createElement("div", {
-        className: "column"
-      }, React.createElement("div", {
-        className: "row",
-        style: {
-          marginBottom: 25,
-          minWidth: 0
-        }
-      }, React.createElement("button", {
-        title: "descargar la app de pc",
-        onClick: e => location.href = `${location.href}descarga`
-      }, "Descarga la app"), React.createElement("button", {
-        title: "empezar la transcripcion",
-        style: {
-          marginLeft: 10
-        },
-        onClick: e => location.href = `${location.href}transmision/${room.roomKey}`
-      }, "Empezar")), React.createElement("div", {
-        className: "column"
-      }, React.createElement("div", {
-        style: {
-          padding: "20px 0",
-          width: 350
-        }
-      }, "\r\n                    Primero, este es el link que te permitira iniciar la transmision, no lo compartas\r\n                "), React.createElement("div", {
-        title: "link para iniciar a la transcripcion",
-        className: "linkTransmission",
-        onClick: e => copyLink(e.target, `${location.href}transmision/${room.roomKey}`)
-      }, React.createElement("h2", null, `${location.href}transmision/${room.roomKey}`))), React.createElement("div", {
-        className: "column",
-        style: {
-          marginTop: 55
-        }
-      }, React.createElement("div", {
-        style: {
-          padding: "30px 0",
-          width: 350,
-          borderTop: "solid 1px"
-        }
-      }, "\r\n                    Imprime el codigo QR y pide a tus invitados que lo escaneen en el telefono\r\n                "), React.createElement("div", {
-        className: "linkTransmission",
-        onClick: e => copyLink(e.target, `${location.href}r/${room.roomId}`)
-      }, React.createElement("img", {
-        alt: "qr de la sala",
-        src: json.result.qr,
-        style: {
-          width: 120
-        }
-      }))), React.createElement("div", {
-        className: "column",
-        style: {
-          marginTop: 25
-        }
-      }, React.createElement("div", {
-        style: {
-          padding: "10px 0"
-        }
-      }, "\r\n                    O comparte la siguiente direccion\r\n                "), React.createElement("div", {
-        title: "link para acceder a la transcripcion",
-        className: "linkTransmission",
-        onClick: e => copyLink(e.target, `${location.href}r/${room.roomId}`)
-      }, React.createElement("h2", null, `${location.href}r/${room.roomId}`))), React.createElement("div", {
-        className: "column",
-        style: {
-          marginTop: 25
-        }
-      }, React.createElement("div", {
-        style: {
-          padding: "10px 0"
-        }
-      }, "\r\n                    O comparte el id de la sala simplemente\r\n                "), React.createElement("h3", null, room.roomId))), containner);
-    });
+    }, React.createElement("button", {
+      title: "descargar la app de pc",
+      onClick: e => location.href = `${location.href}descarga`
+    }, "Descarga la app"), React.createElement("button", {
+      title: "empezar la transcripcion",
+      style: {
+        marginLeft: 10
+      },
+      onClick: e => location.href = `${location.href}transmision/${room.roomKey}`
+    }, "Empezar")), React.createElement("div", {
+      className: "column"
+    }, React.createElement("div", {
+      style: {
+        padding: "20px 0",
+        width: 350
+      }
+    }, "\r\n                    Primero, este es el link que te permitira iniciar la transmision, no lo compartas\r\n                "), React.createElement("div", {
+      title: "link para iniciar a la transcripcion",
+      className: "linkTransmission",
+      onClick: e => copyLink(e.target, `${location.href}transmision/${room.roomKey}`)
+    }, React.createElement("h2", null, `${location.href}transmision/${room.roomKey}`))), React.createElement("div", {
+      className: "column",
+      style: {
+        marginTop: 55
+      }
+    }, React.createElement("div", {
+      style: {
+        padding: "30px 0",
+        width: 350,
+        borderTop: "solid 1px"
+      }
+    }, "\r\n                    Imprime el codigo QR y pide a tus invitados que lo escaneen en el telefono\r\n                "), React.createElement("div", {
+      className: "linkTransmission",
+      onClick: e => copyLink(e.target, `${location.href}r/${room.roomId}`)
+    }, React.createElement("img", {
+      alt: "qr de la sala",
+      src: qr,
+      style: {
+        width: 120
+      }
+    }))), React.createElement("div", {
+      className: "column",
+      style: {
+        marginTop: 25
+      }
+    }, React.createElement("div", {
+      style: {
+        padding: "10px 0"
+      }
+    }, "\r\n                    O comparte la siguiente direccion\r\n                "), React.createElement("div", {
+      title: "link para acceder a la transcripcion",
+      className: "linkTransmission",
+      onClick: e => copyLink(e.target, `${location.href}r/${room.roomId}`)
+    }, React.createElement("h2", null, `${location.href}r/${room.roomId}`))), React.createElement("div", {
+      className: "column",
+      style: {
+        marginTop: 25
+      }
+    }, React.createElement("div", {
+      style: {
+        padding: "10px 0"
+      }
+    }, "\r\n                    O comparte el id de la sala simplemente\r\n                "), React.createElement("div", {
+      className: "linkTransmission",
+      onClick: e => copyLink(e.target, `${room.roomId}`)
+    }, React.createElement("h3", null, room.roomId)))), containner);
   }
   ref.call(this, {
-    set: room => {
-      render(room);
+    set: (room, qr) => {
+      render(room, qr);
     }
   });
   return React.createElement("div", {
@@ -602,11 +596,20 @@ function start() {
     var div;
     var roomDetail;
     function onPageChange(pageNumber, data) {
-      if (div) {
-        div.style.transform = `translateX(-${pageNumber * pagesWidth}px)`;
-      }
       if (pageNumber == 2) {
-        roomDetail.set(data);
+        fetch("/api/reservar", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(r => r.json()).then(json => {
+          console.log(json.result.qr);
+          roomDetail.set(json.result.room, json.result.qr);
+          if (div) div.style.transform = `translateX(-${pageNumber * pagesWidth}px)`;
+        });
+      } else {
+        if (div) div.style.transform = `translateX(-${pageNumber * pagesWidth}px)`;
       }
     }
     return React.createElement("div", {

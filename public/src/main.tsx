@@ -347,9 +347,9 @@ function RoomDetail({ref}) {
             div.remove()
         }, 1200)
     }
-    function render(room) {
-        fetch("/api/reservar", {method: "POST", body: JSON.stringify(room), headers: {"Content-Type" : "application/json"}}).then(r => r.json()).then(json => {
-            let room = json.result.room;
+    function render(room, qr) {
+        //fetch("/api/reservar", {method: "POST", body: JSON.stringify(room), headers: {"Content-Type" : "application/json"}}).then(r => r.json()).then(json => {
+            
             ReactDOM.render(<div className="column">
                <div className="row"  style={{marginBottom: 25, minWidth: 0}}>
                <button title="descargar la app de pc" onClick={e => location.href = `${location.href}descarga`}>Descarga la app</button>
@@ -370,7 +370,7 @@ function RoomDetail({ref}) {
                     Imprime el codigo QR y pide a tus invitados que lo escaneen en el telefono
                 </div>
                 <div className="linkTransmission" onClick={e => copyLink(e.target,`${location.href}r/${room.roomId}`)}>
-                    <img alt="qr de la sala" src={ json.result.qr } style={{width: 120}}></img>
+                    <img alt="qr de la sala" src={ qr } style={{width: 120}}></img>
                 </div>
               </div>
             
@@ -385,16 +385,18 @@ function RoomDetail({ref}) {
                 <div style={{padding: "10px 0"}}>
                     O comparte el id de la sala simplemente
                 </div>
-                <h3 >{room.roomId}</h3>
+                <div className="linkTransmission" onClick={e => copyLink(e.target,`${room.roomId}`)}>
+                    <h3 >{room.roomId}</h3>
+                </div>
               </div>
          
             </div>, containner)
-        })
+        //})
   
     }
 
-    ref.call(this, {set: (room) => {
-        render(room)
+    ref.call(this, {set: (room, qr) => {
+        render(room, qr)
     }})
     return <div ref={e => containner = e}>
     </div>
@@ -406,13 +408,16 @@ function start() {
         var pagesWidth = 640;
         var div: HTMLDivElement;
         var roomDetail: {set};
-        function onPageChange(pageNumber: number, data) {
-            if (div) {
-                div.style.transform = `translateX(-${pageNumber*pagesWidth}px)`
-            }  
+        function onPageChange(pageNumber: number, data) {        
             if (pageNumber == 2) {
-                roomDetail.set(data)
-    
+                fetch("/api/reservar", {method: "POST", body: JSON.stringify(data), headers: {"Content-Type" : "application/json"}}).then(r => r.json()).then(json => { 
+                    console.log(json.result.qr)
+                    roomDetail.set(json.result.room, json.result.qr)
+                    if (div) div.style.transform = `translateX(-${pageNumber*pagesWidth}px)`
+                })
+            } else {
+                if (div) div.style.transform = `translateX(-${pageNumber*pagesWidth}px)`
+             
             }
         }
         return <div
