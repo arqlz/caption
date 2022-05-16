@@ -27,6 +27,39 @@ f.modules = modules;
 })();
 __fuse.bundle({
 
+// public/src/receptorClient.ts @1
+1: function(__fusereq, exports, module){
+exports.__esModule = true;
+var presenter_1 = __fusereq(2);
+var path = location.pathname || "";
+var presenter = new presenter_1.Presenter(path.split("/").slice(2)[0]);
+var socket = io();
+socket.on("disconnect", () => {
+  console.log("disconected");
+});
+socket.on("connect", () => {
+  var roomId = location.pathname || "";
+  if (roomId.length < 2) {
+    throw new Error("sala invalida");
+  }
+  socket.on("info", info => {
+    presenter.title = info.eventTitle;
+  });
+  roomId = roomId.split("/").slice(2)[0];
+  socket.emit("join", {
+    roomId: roomId
+  });
+});
+socket.on("joined", roomId => {
+  socket.on("mensaje", data => {
+    presenter.append(data);
+  });
+  console.log("Joined to room");
+});
+socket.connect();
+
+},
+
 // public/src/components/utils.ts @3
 3: function(__fusereq, exports, module){
 exports.__esModule = true;
@@ -63,7 +96,7 @@ exports.createDiv = createDiv;
 exports.__esModule = true;
 var utils_1 = __fusereq(3);
 class Presenter {
-  constructor(rec, roomKey) {
+  constructor(roomId, rec, roomKey) {
     this.mensajes = {};
     this.queue = [];
     this.raw = "";
@@ -196,38 +229,6 @@ class Presenter {
   }
 }
 exports.Presenter = Presenter;
-
-},
-
-// public/src/receptorClient.ts @1
-1: function(__fusereq, exports, module){
-exports.__esModule = true;
-var presenter_1 = __fusereq(2);
-var presenter = new presenter_1.Presenter();
-var socket = io();
-socket.on("disconnect", () => {
-  console.log("disconected");
-});
-socket.on("connect", () => {
-  var roomId = location.pathname || "";
-  if (roomId.length < 2) {
-    throw new Error("sala invalida");
-  }
-  socket.on("info", info => {
-    presenter.title = info.eventTitle;
-  });
-  roomId = roomId.split("/").slice(2)[0];
-  socket.emit("join", {
-    roomId: roomId
-  });
-});
-socket.on("joined", roomId => {
-  socket.on("mensaje", data => {
-    presenter.append(data);
-  });
-  console.log("Joined to room");
-});
-socket.connect();
 
 }
 }, function(){

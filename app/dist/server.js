@@ -230,7 +230,8 @@ server.listen(PORT, async () => {
             socket.emit("info", {
                 eventTitle: room.eventTitle,
                 photoUrl: room.photoUrl,
-                language: room.language
+                language: room.language,
+                roomId: room.roomId
             });
             if (!room)
                 return;

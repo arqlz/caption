@@ -1,5 +1,5 @@
 import { createDiv, createElement } from "./components/utils"
-declare const roomId: string;
+
 
 export class Presenter {
     transmissionContainner: HTMLDivElement;
@@ -13,7 +13,7 @@ export class Presenter {
     elements: {title?: HTMLElement, roomData?: HTMLElement, timeCounter?: HTMLElement} = {}
 
     private __title = "";
-    constructor( rec?, roomKey?: string) {
+    constructor( roomId: string, rec?, roomKey?: string) {
         var div = createDiv({width: "100%", height: "100%"})
         div.className="msgContainner";
         div.id = "core"

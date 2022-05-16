@@ -80,10 +80,13 @@ socket.on("connect", () => {
 
     if (rec) {
         rec.stop()
-    } 
+    }   
+    
     rec = new Recorder()
-    presenter = new Presenter(rec, roomkey)
-    socket.on("info", (info: {photoUrl: string, eventTitle: string}) => {
+    socket.on("info", (info: {photoUrl: string, eventTitle: string, roomId: string}) => {
+
+     
+        presenter = new Presenter(info.roomId, rec, roomkey)
         presenter.title = info.eventTitle;
         console.log("on info", info)
     })

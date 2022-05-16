@@ -63,7 +63,7 @@ exports.createDiv = createDiv;
 exports.__esModule = true;
 var utils_1 = __fusereq(3);
 class Presenter {
-  constructor(rec, roomKey) {
+  constructor(roomId, rec, roomKey) {
     this.mensajes = {};
     this.queue = [];
     this.raw = "";
@@ -280,8 +280,8 @@ socket.on("connect", () => {
     rec.stop();
   }
   rec = new Recorder();
-  presenter = new presenter_1.Presenter(rec, roomkey);
   socket.on("info", info => {
+    presenter = new presenter_1.Presenter(info.roomId, rec, roomkey);
     presenter.title = info.eventTitle;
     console.log("on info", info);
   });

@@ -1,6 +1,9 @@
 import { Presenter } from "./presenter";
 declare const io : typeof import("socket.io-client").default
-var presenter = new Presenter()
+
+
+var path = location.pathname || "";
+var presenter = new Presenter( path.split("/").slice(2)[0] )
 
 
 var socket = io()
@@ -27,8 +30,7 @@ socket.on("connect", () => {
 socket.on("joined",  (roomId) => {
     socket.on("mensaje", data => {
         presenter.append(data)
-    })
-  
+    })  
     console.log("Joined to room")
 });  
 
