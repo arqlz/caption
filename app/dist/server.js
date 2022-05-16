@@ -25,6 +25,7 @@ app.set('views', __dirname + '/../../views');
 app.use(express.json());
 app.use("/js", express.static(__dirname + '/../../public/js'));
 app.use("/data", express.static(__dirname + '/../../public/data'));
+app.use("/files", express.static(__dirname + '/../../public/files'));
 app.use("/images", express.static(__dirname + '/../../public/images'));
 app.get("/", (req, res) => {
     var room = new room_1.Room();
