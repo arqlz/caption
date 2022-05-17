@@ -45,7 +45,6 @@ var rec: Recorder
 var presenter : Presenter
 socket.once("ready", () => {
     console.log("Starting recorder")
-
     rec.onData = blob => {
         sendBlob(blob)   
     }

@@ -1,10 +1,47 @@
-# Transcribir una conferencia deberia ser tan facil como enviar un email... o mejor; un twitt!
-El objetivo de este repo es hacer estupidamente simple agregar transcripciones en tiempo real para conferencias y reuniones fisicas.
+# API
+Las applicaciones se comunican a travez de web sockets, usando socketio, por el momento;
 
-### Por que ahora y por que asi?
-Las personas con problemas de audicion tienen dificultad para integrarse en eventos educativos e informativos disenados principalmente para personas capaces de expresar ideas vocalmente; Ellos son uno de los grupos mejor posicionados para aprovechar los avances en la transcripcion de audio a texto en tiempo real que se esta implementando en muchos servicios y empresas el dia de hoy.
+Cada sesion tiene un identificador unico, o ROOMID, que debe enviarse luego del evento **connection** a travez del canal **join**
+`
+socket.emit({roomID: "ROOMID"})
+`
 
-Sin embargo, y salvo para soluciones que tienden a funcionar muy bien en un contexto especifico, como los videos de Youtube, las reuniones virtuales de Meeting o los espacios de Twitter, integrar servicios de transcripcion en tiempo real resulta ser o complicado y/o costoso.
+En el momento de registrarse a un **room** se recibe la informacion general de la sala
+`
+socket.on("info", function (room_info) {
 
+})
+`
 
+Una vez subscrito a un **room**, se reciben los mensajes mientras son generados:
+`
+socket.on("mensaje", function (mensajeData) {
+    var text = mensajeData.result; 
+    var timeOffset = mensajeData.id;
+})
 
+`
+
+Para solicitar un resumen de todos los mensajes
+
+Una vez subscrito a un **room**, se reciben los mensajes mientras son generados:
+`
+socket.on("replay", function (mensajeDataList) {
+    // a list of messages
+})
+socket.emit("replay")
+
+Cada sesion tiene su propio identificador, para adquirir una lista de sesiones:
+`
+socket.on("list_sessions", function (session_list) {
+
+})
+socket.emit("list_sessions")
+`
+
+Una vez la sesion ha terminado el servidor responde con el evento **end**
+`
+socket.on("end", function () {
+    // end event handling
+})
+`

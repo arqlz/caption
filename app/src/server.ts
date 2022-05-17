@@ -212,6 +212,8 @@ server.listen(PORT, async () => {
                 decoder = null 
             }     
             clearInterval(connectionTimer) 
+            // notify the session has ended
+            socket.emit("end")
         })
 
         var room: Room;
@@ -231,9 +233,7 @@ server.listen(PORT, async () => {
                 return socket.emit("error", "la sala no fue encontrada")
             }     
             var last_message = Date.now();           
-            var initiated = false;
-
-       
+            var initiated = false;       
 
             console.log(`Session de transcripcion iniciada en ${room.roomId}, idioma ${room.language}`)                   
             var session = room.roomId + "." + room.sessions.length;
@@ -242,7 +242,6 @@ server.listen(PORT, async () => {
     
             decoder = new AudioDecodeSesion()   
             decoder.start()
-            console.log("NEW SESSION", session)
 
             var azureSession: AzureSession = new AzureSession(room.language || "es-DO", 30*60-room.length)    
             azureSession.onData = (data) => {
@@ -250,8 +249,7 @@ server.listen(PORT, async () => {
                 if(transcripcion_stream) transcripcion_stream.push(JSON.stringify(jsonl)+"\n")  
                 if (jsonl.result)  last_message = Date.now();
                 io.to(room.roomId).emit("mensaje", jsonl)             
-            }   
-        
+            }           
             azureSession.onSessionLimitReached = () => {
                 clear()
                 console.log("la session ha superado la cuota establecida")               
@@ -286,7 +284,10 @@ server.listen(PORT, async () => {
                 }
                 decoder.next(blob);  
                 blob_stream.push(blob);
-            })          
+            })       
+            socket.on("clear", () => {
+                io.to(room.roomId).emit("clear");    
+            })   
             function checkForIdleTime() {
                 setTimeout(() => {
                     if ( Date.now() -last_message > 60*1000) {
@@ -294,8 +295,7 @@ server.listen(PORT, async () => {
                         clear()
                     } else checkForIdleTime()
                 }, 5000)
-            }
-            checkForIdleTime()
+            }        
          
             socket.emit("info", {
                 eventTitle: room.eventTitle,
@@ -307,6 +307,7 @@ server.listen(PORT, async () => {
             socket.emit("ready")
             socket.on("disconnect", clear)
             socket.join(room.roomId);
+            checkForIdleTime()
  
         })
         socket.on("join", async( data: {roomId: string}) => {  
@@ -316,6 +317,9 @@ server.listen(PORT, async () => {
             if (!room) {
                 return socket.emit("Error", "la sala no fue encontrada")
             }
+            socket.on("list_sessions", () => {
+                socket.emit("list_sessions", room.sessions)
+            })
 
             console.log(`Nuevo escucha en la sala: ${roomId}`)   
             socket.join(roomId);   
@@ -323,8 +327,9 @@ server.listen(PORT, async () => {
             socket.emit("info", {
                 eventTitle: room.eventTitle,
                 photoUrl: room.photoUrl,
-                language: room.language
-            })
+                language: room.language,
+                sessions: room.sessions
+            })            
             socket.emit("joined", roomId) 
         }) 
   

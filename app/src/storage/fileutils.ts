@@ -40,25 +40,15 @@ export function crearSesionAlmacenamiento(uid: string)  {
    const containerClient = blobServiceClient.getContainerClient("audio");
    var stream = new Readable({read: () => null}); 
 
-   if (process.env.PORT || true ) containerClient.getBlockBlobClient(uid).uploadStream(stream);
-   else {
-     var writeStream = fs.createWriteStream(__dirname+`/../../../public/data/${uid}.webm`)
-     stream.pipe(writeStream);
-   }
-
+   containerClient.getBlockBlobClient(uid).uploadStream(stream);
    return stream
 }
 
 export function crearSesionTranscripcion(uid: string)  {
   const containerClient = blobServiceClient.getContainerClient("rawtranscripcion");
   var stream = new Readable({read: () => null}); 
-  if (process.env.PORT || true) {
-    containerClient.getBlockBlobClient(uid).uploadStream(stream); 
-  }
-  else {
-    var writeStream = fs.createWriteStream(__dirname+`/../../../public/data/${uid}.jsonl`, {encoding: "utf-8"})
-    stream.pipe(writeStream);
-  }
+  containerClient.getBlockBlobClient(uid).uploadStream(stream); 
+
   return stream
 }
 
