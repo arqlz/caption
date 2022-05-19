@@ -4,7 +4,6 @@ exports.getTrascriptionFile = exports.getFile = exports.saveFile = exports.saveT
 const storage_blob_1 = require("@azure/storage-blob");
 const loadCredentials_1 = require("./loadCredentials");
 const stream_1 = require("stream");
-const fs = require("fs");
 var blobServiceClient;
 (0, loadCredentials_1.loadCredentials)(credentials => {
     blobServiceClient = storage_blob_1.BlobServiceClient.fromConnectionString(credentials.storageConnectionString);
@@ -34,25 +33,14 @@ var blobServiceClient;
 function crearSesionAlmacenamiento(uid) {
     const containerClient = blobServiceClient.getContainerClient("audio");
     var stream = new stream_1.Readable({ read: () => null });
-    if (process.env.PORT || true)
-        containerClient.getBlockBlobClient(uid).uploadStream(stream);
-    else {
-        var writeStream = fs.createWriteStream(__dirname + `/../../../public/data/${uid}.webm`);
-        stream.pipe(writeStream);
-    }
+    containerClient.getBlockBlobClient(uid).uploadStream(stream);
     return stream;
 }
 exports.crearSesionAlmacenamiento = crearSesionAlmacenamiento;
 function crearSesionTranscripcion(uid) {
     const containerClient = blobServiceClient.getContainerClient("rawtranscripcion");
     var stream = new stream_1.Readable({ read: () => null });
-    if (process.env.PORT || true) {
-        containerClient.getBlockBlobClient(uid).uploadStream(stream);
-    }
-    else {
-        var writeStream = fs.createWriteStream(__dirname + `/../../../public/data/${uid}.jsonl`, { encoding: "utf-8" });
-        stream.pipe(writeStream);
-    }
+    containerClient.getBlockBlobClient(uid).uploadStream(stream);
     return stream;
 }
 exports.crearSesionTranscripcion = crearSesionTranscripcion;

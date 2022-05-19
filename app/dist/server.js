@@ -183,7 +183,7 @@ server.listen(PORT, async () => {
     console.log(`listening to http://localhost:${PORT}`);
     console.log("_____________________");
     require("./speech_recognition/azure");
-    require("./storage/audioMannager");
+    require("./storage/fileutils");
     await require("./db").init();
     const io = new socket_io_1.Server(server);
     io.on("connection", (socket) => {
@@ -196,6 +196,8 @@ server.listen(PORT, async () => {
                 decoder = null;
             }
             clearInterval(connectionTimer);
+            // notify the session has ended
+            socket.emit("end");
         });
         var room;
         function simularEmision() {
@@ -222,7 +224,6 @@ server.listen(PORT, async () => {
             var transcripcion_stream = (0, fileutils_1.crearSesionTranscripcion)(session);
             decoder = new opus_1.AudioDecodeSesion();
             decoder.start();
-            console.log("NEW SESSION", session);
             var azureSession = new azure_1.AzureSession(room.language || "es-DO", 30 * 60 - room.length);
             azureSession.onData = (data) => {
                 var jsonl = { result: data.text, id: data.offset, speakerId: data.speakerId + "" };
@@ -268,6 +269,9 @@ server.listen(PORT, async () => {
                 decoder.next(blob);
                 blob_stream.push(blob);
             });
+            socket.on("clear", () => {
+                io.to(room.roomId).emit("clear");
+            });
             function checkForIdleTime() {
                 setTimeout(() => {
                     if (Date.now() - last_message > 60 * 1000) {
@@ -278,7 +282,6 @@ server.listen(PORT, async () => {
                         checkForIdleTime();
                 }, 5000);
             }
-            checkForIdleTime();
             socket.emit("info", {
                 eventTitle: room.eventTitle,
                 photoUrl: room.photoUrl,
@@ -288,6 +291,7 @@ server.listen(PORT, async () => {
             socket.emit("ready");
             socket.on("disconnect", clear);
             socket.join(room.roomId);
+            checkForIdleTime();
         });
         socket.on("join", async (data) => {
             var { roomId } = data;
@@ -295,12 +299,19 @@ server.listen(PORT, async () => {
             if (!room) {
                 return socket.emit("Error", "la sala no fue encontrada");
             }
+            socket.on("list_sessions", async () => {
+                var __room = await db_1.CaptionDb.rooms.findOne({ roomId });
+                if (!__room)
+                    return socket.emit("room not found");
+                socket.emit("list_sessions", __room.sessions);
+            });
             console.log(`Nuevo escucha en la sala: ${roomId}`);
             socket.join(roomId);
             socket.emit("info", {
                 eventTitle: room.eventTitle,
                 photoUrl: room.photoUrl,
-                language: room.language
+                language: room.language,
+                sessions: room.sessions
             });
             socket.emit("joined", roomId);
         });

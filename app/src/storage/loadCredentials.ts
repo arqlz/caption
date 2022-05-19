@@ -3,17 +3,28 @@ import * as fs from "fs"
 interface ICredentials {
     subscription: string, 
     region: string,
-    db_url: string,
+    cosmosDbConnectionString: string,
     storageConnectionString: string
 }
+var credenciales: ICredentials
 export function loadCredentials(cb: (credentials: ICredentials) => void) {
+    if (credenciales) return cb(credenciales);
+
     function build(data) {
         try {        
             let sub = JSON.parse(data);
-            cb(sub)
-           
+            credenciales = sub;
+            cb(sub)           
         } catch(err) {    
-            throw new Error(`El archivo json de la subscripcion es invalido, se esperaba un objeto {\"subscripcion\": \"SUBSCRIPCION_ID\", \"region\": \"REGION\", "language": "LANGUAGE"}`)
+            throw new Error(`El archivo json de la subscripcion es invalido, se esperaba un objeto 
+                {
+                    "subscripcion": "subscription id for speech to text services", 
+                    "region": "speech to text services resource region", 
+                    "language": "speech to text default language",
+                    "cosmosDbConnectionString": "a cosmos or mongodb connection string",
+                    "storageConnectionString": "an azure blob storage connection string"
+                }
+                `)
         }
     }
     function getSubscripcionJSONFile() {

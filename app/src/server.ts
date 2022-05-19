@@ -199,7 +199,7 @@ server.listen(PORT, async () => {
     console.log("_____________________")
 
     require("./speech_recognition/azure")
-    require("./storage/audioMannager");
+    require("./storage/fileutils");
     await require("./db").init()
     const io = new Server(server);
     io.on("connection", (socket) => {
@@ -317,8 +317,10 @@ server.listen(PORT, async () => {
             if (!room) {
                 return socket.emit("Error", "la sala no fue encontrada")
             }
-            socket.on("list_sessions", () => {
-                socket.emit("list_sessions", room.sessions)
+            socket.on("list_sessions", async () => {
+                var __room = await CaptionDb.rooms.findOne({roomId})
+                if (!__room) return socket.emit("room not found")
+                socket.emit("list_sessions", __room.sessions)
             })
 
             console.log(`Nuevo escucha en la sala: ${roomId}`)   

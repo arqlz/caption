@@ -36,6 +36,7 @@ loadCredentials(credentials => {
 })
 
 
+
 export function crearSesionAlmacenamiento(uid: string)  {
    const containerClient = blobServiceClient.getContainerClient("audio");
    var stream = new Readable({read: () => null}); 

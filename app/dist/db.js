@@ -3,18 +3,21 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CaptionDb = exports.init = void 0;
 const mongodb_1 = require("mongodb");
+const loadCredentials_1 = require("./storage/loadCredentials");
 var client;
 async function init() {
     return new Promise((resolve, reject) => {
-        mongodb_1.MongoClient.connect("mongodb://caption:3O0XmeMkNG2OjUjVGbGcoEfyyoLmPvda8zN42YsaYUr2pznt4E3lTSBYl515kckTmGttEAMpP7DexFdLsOnw1Q==@caption.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@caption@", function (err, db) {
-            if (err) {
-                console.error(err);
-            }
-            else {
-                client = db;
-                resolve();
-                console.log("cosmos conected");
-            }
+        (0, loadCredentials_1.loadCredentials)((credenciales) => {
+            mongodb_1.MongoClient.connect(credenciales.cosmosDbConnectionString, function (err, db) {
+                if (err) {
+                    console.error(err);
+                }
+                else {
+                    client = db;
+                    resolve();
+                    console.log("cosmos conected");
+                }
+            });
         });
     });
 }
