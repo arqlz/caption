@@ -1,10 +1,10 @@
 # API
 Las applicaciones se comunican a travez de web sockets, usando socketio, por el momento;
 
-Cada sesion tiene un identificador unico, o ROOMID, que debe enviarse luego del evento **connection** a travez del canal **join**
-`
+Cada sesion tiene un identificador unico, o ROOMID, que debe enviarse luego del evento **connection** a travez del canal **join**.
+```
 socket.emit({roomID: "ROOMID"})
-`
+```
 
 En el momento de registrarse a un **room** se recibe la informacion general de la sala
 `
@@ -39,7 +39,7 @@ socket.on("list_sessions", function (session_list) {
 socket.emit("list_sessions")
 `
 
-Una vez la sesion ha terminado el servidor responde con el evento **end**
+Una vez la sesion ha terminado el servidor responde con el evento **end**.
 `
 socket.on("end", function () {
     // end event handling
