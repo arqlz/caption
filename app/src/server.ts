@@ -51,7 +51,7 @@ app.post("/api/reservar", async (req, res) => {
     room.palabrasClave = palabrasClave || "";
     room.eventDate = eventDate;
     room.ownerEmail = ownerEmail;
-    room.language = language;
+    room.language = language || "es-DO";
 
 
     try {

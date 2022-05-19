@@ -47,7 +47,7 @@ app.post("/api/reservar", async (req, res) => {
     room.palabrasClave = palabrasClave || "";
     room.eventDate = eventDate;
     room.ownerEmail = ownerEmail;
-    room.language = language;
+    room.language = language || "es-DO";
     try {
         console.log("insertando item en base de datos");
         await db_1.CaptionDb.rooms.insert(room);
